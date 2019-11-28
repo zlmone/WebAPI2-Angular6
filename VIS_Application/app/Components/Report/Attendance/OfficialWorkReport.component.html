@@ -1,0 +1,424 @@
+﻿<div style="vertical-align:top;float:left;"><h3> <b> Official Work Report</b> &nbsp;<input class="btnexportexcel" type="image" src="/Upload/Icon images/exporticon.png" *ngIf="OfficialWorkReportBindList && OfficialWorkReportBindList.length > 0"></h3><br /></div>
+<div class="container" id="maindiv">
+    <form #officialworkreport="ngForm" (ngSubmit)="onSubmit(officialworkreport.value)">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Employee : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control" id="ddlemployee" name="EmployeeId" [(ngModel)]="ParameterModel.EmployeeId"><option value="0">SelectAll</option><option *ngFor="let emp of Employee" value="{{emp.Id}}">{{emp.Employee_Name}}</option></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Search By : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="radio" id="rbtdate" name="b" (change)="ToogleDateOption()" />Date
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="radio" id="rbtmonth" name="b" (change)="ToogleDateOption()" checked />Month
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="searchbydate" style="display:none">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    From
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <!--<ng-datepicker [(ngModel)]="ParameterModel.FromDate" name="FromDate"></ng-datepicker>-->
+                                    <input type="date" class="form-control" id="FromDate" name="FromDate" [ngModel]="ParameterModel.FromDate" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    To
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <!--<ng-datepicker [(ngModel)]="ParameterModel.ToDate" name="ToDate"></ng-datepicker>-->
+                                    <input type="date" class="form-control" id="Todate" name="Todate" [ngModel]="ParameterModel.ToDate" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="searchbymonth">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <select class="form-control" name="frommonth" [(ngModel)]="frommonth">
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <select class="form-control" id="ddlyear" name="fromyear" [(ngModel)]="fromyear"><option *ngFor="let year of Year" value="{{year.CurrentYear}}">{{year.CurrentYear}}</option></select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Sort By : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="radio" id="rbtdatesort" name="c" checked />Date
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="radio" id="rbtname" name="c" />Name
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="radio" id="rbtall" name="d" checked />All
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="radio" id="rbtapproved" name="d" />Approved
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="radio" id="rbtunapproved" name="d" />Unapproved
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="radio" id="rbtpending" name="d" />Pending
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group Popup-group">
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" value="Search" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group Popup-group">
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-12">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <div *ngIf="InLoading==true" class="alert alert-info" role="alert"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</form>
+
+    <div *ngIf="OfficialWorkReportBindList && OfficialWorkReportBindList.length==0" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        No record found!
+    </div>
+
+    <div id="officialworkreport" class="col-md-6 col-sm-12 col-xs-12 pr-md-10 repotwidgetwidth" *ngIf="OfficialWorkReportBindList && OfficialWorkReportBindList.length > 0">
+        <div class="portlet box green paddingless">
+            <div class="portlet-title line accord">
+                <div class="caption"><i class="fa fa-user-o" aria-hidden="true"></i>Official Work Report</div>
+                <div class="tools">
+                    <a class="collapse" (click)="ToogleMyProfile()"></a>
+                    <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetProfile()"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body repotwidgetwidth" id="officialworkreportdata" style="height:auto">
+                <div class="tabbable tabbable-custom">
+                    <div style="height:auto;" data-always-visible="1" data-rail-visible1="1">
+                        <div class="portlet box marbott0">
+                            <div class="portlet-body padding0">
+                                <div class="table-scrollable">
+                                    <div class="full-wd Scrollbarcss" style="height:auto">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="reportwidgetheader">
+                                                <tr>
+                                                    <th class="pointer">
+                                                        Employee Name
+                                                    </th>
+                                                    <th class="headrecenter" id="headerdate">
+                                                        Date
+                                                    </th>
+                                                    <th class="headrecenter" id="headerouttype">
+                                                        Out Time
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        In Time
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        Total Out Time
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        Out Remarks
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        In Remarks
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        Line Manager
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        Approval Sent To
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        Status
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        Action By
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        Action Date/Time
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tr *ngFor="let officeworkreport of pagedItems" class="rowsbackcol">
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.Employee_Name}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.Date}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.OutTime}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.InTime}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.Total_Time}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.Out_Remark}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.In_Remark}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.Line_Manager}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.ApprovalSentTo}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.Status}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.ActionBy}}
+                                                </td>
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{officeworkreport.Action_DateTime | date : 'dd/MM/yyyy'}} <br />
+                                                    {{officeworkreport.Action_DateTime | slice : 11 : 20 }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center" *ngIf='OfficialWorkReportBindList && OfficialWorkReportBindList.length > 10'>
+                    <div class="col-md-8 text-left">
+                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(1)">First</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="JumpOnPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Records per Page</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="0">All</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Go to Page</option>
+                            <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf='OfficialWorkReportBindList && OfficialWorkReportBindList.length' class="reportpagingalign">
+                    <div>{{pager.pagerinformtion}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

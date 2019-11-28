@@ -1,0 +1,330 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="MySkillFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>My Skill</b></h3></div>
+
+
+
+
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+
+
+
+
+
+
+        <div class="col-md-12 col-xs-12 col-sm-12">
+            <div class="table-scrollable">
+                <table class='table table-striped table-bordered table-responsive'>
+                    <thead>
+                        <tr>
+                            <th style="display:none">Company Id</th>
+                            <th class="pointer text-left" (click)="MySkillSort('SkillName')">
+                                <label *ngIf="!ShowHideSearch">
+                                    Skill Name
+                                    <i class="fa" [ngClass]="{'fa-sort': column != 'SkillName', 'fa-sort-asc': (column == 'SkillName' && isDesc), 'fa-sort-desc': (column == 'Id' && !isDesc) }" aria-hidden="true"> </i>
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Search by MySkill Name" id="searchSkillName" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+
+                            </th>
+                            <th class="pointer text-left" (click)="MySkillSort('SkillGroup')">
+                                <label *ngIf="!ShowHideSearch">
+                                    Skill Group
+                                    <i class="fa" [ngClass]="{'fa-sort': column != 'SkillGroup', 'fa-sort-asc': (column == 'SkillGroup' && isDesc), 'fa-sort-desc': (column == 'SkillGroup' && !isDesc) }" aria-hidden="true"> </i>
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Search by MySkill Group" id="searchSkillGroupName" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+
+                            </th>
+
+                            <th class="pointer text-left" (click)="MySkillSort('Skilltext')">
+                                <label *ngIf="!ShowHideSearch">
+                                    Skilltext
+                                    <i class="fa" [ngClass]="{'fa-sort': column != 'Skilltext', 'fa-sort-asc': (column == 'Skilltext' && isDesc), 'fa-sort-desc': (column == 'Skilltext' && !isDesc) }" aria-hidden="true"> </i>
+                                </label>
+
+
+
+                            </th>
+
+                            <th class="pointer text-left" (click)="MySkillSort('status')">
+                                <label *ngIf="!ShowHideSearch">
+                                    Status
+                                    <i class="fa" [ngClass]="{'fa-sort': column != 'status', 'fa-sort-asc': (column == 'status' && isDesc), 'fa-sort-desc': (column == 'status' && !isDesc) }" aria-hidden="true"> </i>
+                                </label>
+
+
+
+                            </th>
+
+                            <th nowrap="nowrap" class="text-center">
+                                <button class="btn btn-vis" (click)="addMySkill()"><span class="glyphicon glyphicon-plus-sign" title="Add New"></span></button>
+                                <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                                <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf='MySkills && MySkills.length'>
+                        <tr *ngFor="let MySkill of pagedItems | MySkillFilter : MySkillFilter | orderBy: {property: column, direction: direction}">
+                            <td style="display:none">{{MySkill.CompanyId}}</td>
+                            <td>{{MySkill.SkillName}}</td>
+                            <td>{{MySkill.SkillGroup}}</td>
+                            <td>{{MySkill.Skilltext}}</td>
+                            <td>{{MySkill.status}}</td>
+
+                            <td style="text-align:center;">
+                                <div *ngIf="MySkill.IsApproved == 0" style="text-align:center">
+                                  
+                                    <button title="Delete" class="btn btn-vis" (click)="deleteNewSkill(MySkill.SkillID)"><span class="glyphicon glyphicon-trash"></span></button>
+                                  
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf='MySkills && MySkills.length'>
+                    <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+                    <div class="col-md-12 text-center">
+                        <div class="col-md-8 text-left">
+                            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="JumpOnPage(1)">First</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                                </li>
+                                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                    <a (click)="JumpOnPage(page)">{{page}}</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-md-2">
+
+                            <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                                <option value="=-1" disabled>Recordds per Page</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="0">All</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                                <option value="=-1" disabled>Go to Page</option>
+                                <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div *ngIf='MySkills && MySkills.length==0' class="alert alert-info" role="alert">No record found!</div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+
+</div>
+
+
+<div class="form-group">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+   <h3 style="text-decoration:underline;font-weight:200;color:red">Skill Level
+        </h3> 
+                   
+
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <h4 style="font-weight:300">All Standard rating(with exception when applicable) are out of 10</h4>
+                 
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>0</b> - You have no knowledge of it
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>1</b> - You have just heard about it.
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>2</b> - You have just very basic knowledge of it.
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>3</b> - You are having some knowledge but you required to sharpen your skill
+        for it.
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>4</b> - You are having good knowledge for it.
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>5</b> - You are having average knowledge and you need help from some experts.
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>6</b> - You are having above average knowledge you need minimum help from experts.
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>7</b> - You are having expert knowledge and you can work with minimum of supervision
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>8</b> - You are having expert knowledge and you can handle task with or without
+        any supervision
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>9</b> - You have expert knowledge and you can train other team members
+
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+
+        <b>10</b> - You have expert knowledge and you can expertly train other team members
+
+    </div>
+
+</div>
+
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(MySkillFrm)" [formGroup]="MySkillFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                <b>{{modalTitle}}</b>
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div style="display:none">
+                <span>Company*</span>
+                <span>{{CompanyId}}</span>
+            </div>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+
+                        <div class="form-group Popup-group">
+                            <div class="col-md-3 col-lg-3 col-xs-5 col-sm-3">Skill Group* :</div>
+                            <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+                                <select class="form-control"  (change)="LoadSkillName($event)" formControlName="lookupSkilId">
+                                    <option *ngFor="let Ch of Childdata" value={{Ch.lookupSkilId}}>
+                                        {{Ch.Name}}
+                                    </option>
+                                </select>
+                            </div>
+                   
+                           
+
+                        </div>
+
+                        <div class="form-group Popup-group">
+                            <div class="col-md-3 col-lg-3 col-xs-5 col-sm-3">Skill Name* :</div>
+                            <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+                                <select class="form-control"  formControlName="id">
+                                    <option *ngFor="let Sc of SecondData" value={{Sc.id}}>
+                                        {{Sc.SkillName}}
+                                    </option>
+                                </select>
+                            </div>
+
+
+
+                        </div>
+                        
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <!--<button type="submit" [disabled]="NewsFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>-->
+                <button type="submit" [disabled]="MySkillFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

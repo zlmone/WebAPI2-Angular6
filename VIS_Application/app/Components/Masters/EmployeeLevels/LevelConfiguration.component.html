@@ -1,0 +1,233 @@
+﻿
+<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="LevelConfigurationFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Level Configuration</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <!--<th style="display:none">Company Id</th>-->
+                    <th class="pointer" (click)="LevelConfigurationSort('PeriodName')">
+                        <label *ngIf="!ShowHideSearch">
+                            PeriodName
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'PeriodName', 'fa-sort-asc': (column == 'PeriodName' && isDesc), 'fa-sort-desc': (column == 'PeriodName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by PeriodName" id="searchPeriodName" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="LevelConfigurationSort('StartDate')">
+                        <!--<label *ngIf="!ShowHideSearch"></label>-->
+                        StartDate
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'StartDate', 'fa-sort-asc': (column == 'StartDate' && isDesc), 'fa-sort-desc': (column == 'StartDate' && !isDesc) }" aria-hidden="true"> </i>
+
+                        <!--<input type="text" class="form-control" placeholder="Search Designation" id="searchStartDate" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">-->
+                    </th>
+                    <!--<th style="display:none">
+                        StartDate
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'StartDate', 'fa-sort-asc': (column == 'StartDate' && isDesc), 'fa-sort-desc': (column == 'StartDate' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>-->
+                    <th class="pointer" (click)="LevelConfigurationSort('Active')">
+                        Active
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'Active', 'fa-sort-asc': (column == 'Active' && isDesc), 'fa-sort-desc': (column == 'Active' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <!--<th>test</th>-->
+
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+
+                    <th style="display:none">Company Id</th>
+                    <th nowrap="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="addLevelConfiguration()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='LevelConfigurations && LevelConfigurations.length'>
+                <tr *ngFor="let LevelConfiguration of pagedItems | LevelConfigurationFilter : LevelConfigurationFilter | orderBy: {property: column, direction: direction}">
+                    <td style="display:none">{{LevelConfiguration.Id}}</td>
+                    <td>{{LevelConfiguration.PeriodName}}</td>
+                    <td>{{LevelConfiguration.StartDate | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{LevelConfiguration.Active}}</td>
+                    
+                    <td style="display:none">{{LevelConfiguration.CreatedOn}}</td>
+                    <td style="display:none">{{LevelConfiguration.CreatedBy}}</td>
+                    <td style="display:none">{{LevelConfiguration.UpdatedBy}}</td>
+                    <td style="display:none">{{LevelConfiguration.UpdatedOn}}</td>
+                    <td style="display:none">{{LevelConfiguration.IsActive}}</td>
+                   
+
+                    <td style="text-align:center">
+                        <div *ngIf="LevelConfiguration.IsActive == 1" style="text-align:center">
+                            <button  *ngIf="LevelConfiguration.StartYear >= YearforEdit" title="Edit" class="btn btn-vis" (click)="editLevelConfiguration(LevelConfiguration.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="deleteLevelConfiguration(LevelConfiguration.Id, LevelConfiguration.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="LevelConfiguration.IsActive == 0" style="text-align:center">
+                           <button title="Undo Delete" class="btn btn-vis" (click)="deleteLevelConfiguration(LevelConfiguration.Id, LevelConfiguration.IsActive)">
+                               <span class="glyphicon glyphicon-repeat"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='LevelConfigurations && LevelConfigurations.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='LevelConfigurations && LevelConfigurations.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(LevelConfigurationFrm)" [formGroup]="LevelConfigurationFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+
+                        <div class="form-group Popup-group">
+                            <div class="col-md-2 col-lg-2 col-xs-12">Periodicity :</div>
+                            <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                <select class="form-control" placeholder="Period" formControlName="Period">
+                                    <option value="1" title="Monthly">Monthly</option>
+                                    <option value="3" title="Quarterly">Quarterly</option>
+                                    <option value="6" title="Bi-Annually">Bi-Annually</option>
+                                    <option value="12" title="Annually">Annually</option>
+                                    <option value="24" title="Once In 2 Year">Once In 2 Year</option>
+                                    <option></option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group Popup-group">
+                            <div class="col-md-2 col-lg-2 col-xs-12">Start :</div>
+                           
+                                <select class="col-md-5 col-lg-5 col-xs-12 form-control MR-10" placeholder="StartMonth" formControlName="StartMonth">
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                           
+                           
+
+                                <select class="col-md-5 col-lg-5 col-xs-12 form-control" formControlName="StartYear">
+                                    <option *ngFor="let StartYear of ArrayYear" value="{{StartYear}}">{{StartYear}}</option>
+                                </select>
+                            
+                        </div>
+                        <div class="form-group Popup-group">
+                            <div class="col-md-3 col-lg-3 col-xs-12">Current Active :</div>
+
+                            <div class="col-md-9 col-lg-9 col-xs-12">
+                                <input type="checkbox" class="checkbox" formControlName="Active">
+                            </div>
+                        </div>
+                      
+                        <div style="display:none">
+                            <span>Created On</span>
+                            <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+                        </div>
+                        <div style="display:none">
+                            <span>Created By</span>
+                            <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated On</span>
+                            <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated By</span>
+                            <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>Is Active</span>
+                            <input type="checkbox" class="form-control" formControlName="UpdatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>EntityMessage</span>
+                            <input type="text" class="form-control" formControlName="EntityMessage">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div class="row">
+                <div class="col-md-11">
+                    <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                    <button type="submit" [disabled]="LevelConfigurationFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+                </div>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

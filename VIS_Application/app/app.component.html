@@ -1,0 +1,644 @@
+﻿<html>
+<head>
+    <script src="../Content/Colorpicker/jscolor.js"></script>
+</head>
+<body>
+
+    <div *ngIf="ShowDashboard">
+        <nav class="navbar navbar-inverse navbar-global navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header" style="vertical-align:middle">
+
+                    
+                    <ul class="nav navbar-nav navbar-user navbar-right">
+                        <li><a class="vis-navbar-brand" href="#"><img src="../images/verve_logo.png" /></a></li>
+                        <li><a href="#" title="Konnect" style="margin-top:12px"><i class="glyphicon glyphicon-apple fa-2x"></i></a></li>
+                        <li><a href="#" title="Inbox" style="margin-top:12px"><i class="glyphicon glyphicon-inbox fa-2x"></i></a></li>
+                        <li><a href="#" title="Calender" style="margin-top:12px"><i class="glyphicon glyphicon-calendar fa-2x"></i></a></li>
+                        <li>
+                            <button type="button" id="MenuToggle" style="border-color: transparent; color: white; font-size: 30px; background-color: transparent;" (click)="buttonClick()">
+                                <span class="glyphicon glyphicon-align-justify"></span>
+                            </button>
+                        </li>
+                    </ul>
+                    
+                </div>
+
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-user navbar-right">
+                        <li data-toggle="collapse" data-target="#VISQuickLinks" class="collapsed active" style="text-align:center;vertical-align:middle">
+                            <button type="button" id="MenuQuickToggle" style="border-color: transparent; color: #32c5d2; font-size: 30px; background-color: transparent;">
+                                <span class="glyphicon glyphicon-align-justify"></span>
+                            </button>
+                        </li>
+                        <div class="nav-side-menu" style="width:30px;height:auto!important;margin-left:10px;" id="VISQuickLinksDiv">
+                            <div class="menu-list btn-vis" style="text-align:center;">
+                                <ul id="VISQuickLinks" class="collapse btn-vis" style="text-align:center;">
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnShowQuickInfoBar" id="imgbtnShowQuickInfoBar" title="Show Quick Status bar" src="../images/status_bar.png" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnSwitchUser" id="imgbtnSwitchUser" title="Switch User" src="../images/switch_user.png" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnUserRights" id="imgbtnUserRights" title="User Rights" src="../images/access_rights.png" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnEmployeeFeedback" id="imgbtnEmployeeFeedback" title="Employee Feedback" src="../images/feedback_icon.png" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnPoll" id="imgbtnPoll" title="poll" class="poll" src="../images/poll.png" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnLeave" id="imgbtnLeave" title="Leave" src="../images/icon-leave.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;imgbtnLeave&quot;, &quot;&quot;, false, &quot;&quot;, &quot;LeaveApplication.aspx&quot;, false, false))" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnWorksheet" id="imgbtnWorksheet" title="Worksheet" src="../images/icon-add-worksheet.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;imgbtnWorksheet&quot;, &quot;&quot;, false, &quot;&quot;, &quot;WorkSheet.aspx&quot;, false, false))" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnEvent" id="imgbtnEvent" title="Add Event" src="../images/icon-add-event.png" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnInvoice" id="imgbtnInvoice" title="Invoice" src="../images/icon-add-invoice.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;imgbtnInvoice&quot;, &quot;&quot;, false, &quot;&quot;, &quot;InvoiceAddEdit.aspx&quot;, false, false))" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnRFQ" id="imgbtnRFQ" title="rfq" src="../images/icon-suggestion.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;imgbtnRFQ&quot;, &quot;&quot;, false, &quot;&quot;, &quot;RFQInitial.aspx&quot;, false, false))" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnProject" id="imgbtnProject" title="Add Project(BD)" src="../images/icon-add-project.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;imgbtnProject&quot;, &quot;&quot;, false, &quot;&quot;, &quot;ManageProjectAddEdit.aspx&quot;, false, false))" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnSuggestions" id="imgbtnSuggestions" title="Ticket" src="../images/icon-add-ticket.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;btnSuggestions&quot;, &quot;&quot;, false, &quot;&quot;, &quot;HelpTicketAdd.aspx&quot;, false, false))" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none">
+                                        <img name="imgbtnContentList" id="imgbtnContentList" title="Content Requisition" src="../images/ContentRequisition.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;btnContentList&quot;, &quot;&quot;, false, &quot;&quot;, &quot;ContentList.aspx&quot;, false, false))" />
+                                    </li>
+                                    <li data-toggle="collapse" class="collapsed" style="border-left:none;border-bottom:none;">
+                                        <img name="imgbtnAppButton" id="imgbtnAppButton" title="Dashboard Download" src="../images/icon-app.png" />
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        
+                        <li><a href="#" style="margin-top:12px"><span class="glyphicon glyphicon-user fa-150percent"></span> {{Employee_Name}} </a></li>
+                        <li><a href="#" style="margin-top:12px"><span class="glyphicon glyphicon-time fa-2x" (click)="AttendanceEntry()"></span></a></li>
+                        <li><a href="#" style="margin-top:12px"><span class="glyphicon glyphicon-log-out fa-2x" (click)="Logout()"></span></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>            
+        </nav>
+       
+        <div class="nav-side-menu" style="width:50px" id="VISNavigationBar">
+
+            <div class="menu-list" style="margin-top:15px;">
+
+                <ul id="menu-content" class="menu-content collapse out">
+                    <li data-toggle="collapse" class="collapsed">
+                        <a [routerLink]="['/dashboard']">
+                            <i class="fa fa-home fa-150percent"></i> <span class="labeldisplaynone">Dashboard</span>
+                        </a>
+                    </li>
+                    <li data-toggle="collapse" data-target="#menuMainMaster" class="collapsed active">
+                        <a href="#"><i class="fa fa-folder fa-150percent"></i><span class="labeldisplaynone">Master</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuMainMaster">
+                        <li data-toggle="collapse" data-target="#menuCompanyRelatedMasters" class="collapsed active">
+                            <a href="#">Company Related<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuCompanyRelatedMasters">
+                            <li><a [routerLink]="['/CompanyMaster']">Company</a></li>
+                            <li><a [routerLink]="['/homepageimage']">Home Page Image</a></li>
+                            <li><a [routerLink]="['/LookupType']">Lookup Type</a></li>
+                            <li><a [routerLink]="['/Lookup']">Lookup</a></li>
+                            <li><a [routerLink]="['/BankMaster']">Bank</a></li>
+                            <li><a [routerLink]="['/FinancialYear']">Financial Year</a></li>
+                            <li><a href="#">House Championship</a></li>
+                            <li><a [routerLink]="['/ContactMaster']">Contacts</a></li>
+                            <li><a [routerLink]="['/LeaveType']">Leave Type</a></li>
+                            <li><a [routerLink]="['/GroupName']">Group Name</a></li>
+                            <li><a [routerLink]="['/UserRole']">User Role</a></li>
+                            <li><a [routerLink]="['/EducationType']">Education Type</a></li>
+                            <li><a [routerLink]="['/SalaryBreakupType']">Salary Breakup Type</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuVacancyRelatedMaster" class="collapsed active">
+                            <a href="#">Vacancy Related<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuVacancyRelatedMaster">
+                            <li><a [routerLink]="['/skillgroup']">Skill Group</a></li>
+                            <li><a [routerLink]="['/skill']">Skill</a></li>
+                            <li><a [routerLink]="['/position']">Position</a></li>
+                            <li><a [routerLink]="['/TechnologyMaster']">Technology</a></li>
+                            <li><a [routerLink]="['/RatingType']">Rating Type</a> </li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuCurrencyRelatedMasters" class="collapsed active">
+                            <a href="#">Currency Related<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuCurrencyRelatedMasters">
+                            <li><a [routerLink]="['/currency']">Currency</a></li>
+                            <li><a [routerLink]="['/CurrencyHistory']">Currency History</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuConfigurationMasters" class="collapsed active" >
+                            <a href="#">Configuration<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuConfigurationMasters">
+                            <li><a [routerLink]="['/configureticket']">Configure Ticket</a></li>
+                            <li><a [routerLink]="['/configureworksheet']">Worksheet Summary Report</a></li>
+                            <li><a [routerLink]="['/macid']">MAC Id</a></li>
+                            <li><a [routerLink]="['/securitykey']">Security Key</a></li>
+                            <li><a [routerLink]="['/eventcountdown']">Event Count Down</a></li>
+                            <li><a [routerLink]="['/commonconfiguration']">Common Configuration Settings</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuEmployeeLevelMasters" class="collapsed active">
+                            <a href="#">Employee Levels<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuEmployeeLevelMasters">
+                            <li><a [routerLink]="['/levels']">Levels</a></li>
+                            <li><a [routerLink]="['/LevelCriteriaSetup']">Criteria</a></li>
+                            <li><a [routerLink]="['/LevelConfiguration']">Employee Level Configuration</a></li>
+                            <li><a [routerLink]="['/ManualPointEntry']">Manual Point Entry</a></li>
+                            <li><a [routerLink]="['/Levels_Achievement']">Achievements</a></li>
+                        </ul>
+                    </ul>
+
+                    <li data-toggle="collapse" data-target="#menuHRModule" class="collapsed">
+                        <a href="#"><i class="fa fa-gift fa-150percent"></i><span class="labeldisplaynone">HR</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuHRModule">
+                        <li data-toggle="collapse" data-target="#menuProfileAndAttendance" class="collapsed active">
+                            <a href="#">Profile<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuProfileAndAttendance">
+                            <li><a [routerLink]="['/MyProFiles']">My ProFile</a></li>
+                            <li><a [routerLink]="['/ChangePassword']">Change Password</a></li>
+                            <li><a href="#">Payslip</a></li>
+                            <li data-toggle="collapse" data-target="#menuHRGrievance" class="collapsed active">
+                                <a href="#">Grievance<span class="arrownone"></span></a>
+                            </li>
+                            <ul class="sub-menu-child collapse" id="menuHRGrievance">
+                                <li><a [routerLink]="['/SalaryGrievance']">Salary Grievance</a></li>
+                                <li><a href="#">Salary Grievance PE Approval</a></li>
+                                <li><a href="#">Salary Grievance PH Approval</a></li>
+                            </ul>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuProfile" class="collapsed active">
+                            <a href="#">Attendance<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuProfile">
+                            <li><a [routerLink]="['/WorkSheet']">WorkSheet</a></li>
+                            <li><a  [routerLink]="['/MySkill']">My Skill</a></li>
+                            <li><a [routerLink]="['/MyTeam']">My Team</a></li>
+                            <li><a [routerLink]="['/EmployeeFeedBack']">Employee FeedBack</a></li>
+                       
+
+                        </ul>
+                        <!--<li data-toggle="collapse" data-target="Attendance" class="collapsed active">
+                            <a href="#">Attendance<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="Attendance">
+                       
+                         
+                            <li><a [routerLink]="['/WorkSheet']">WorkSheet</a></li>
+                            <li><a href="#">My Skill</a></li>
+                            <li><a href="#">My Team</a></li>
+                            <li><a href="#">Employee Feedback</a></li>
+                        </ul>-->
+                        <li data-toggle="collapse" data-target="#menuEmployeeManagement" class="collapsed active">
+                            <a href="#">Employee Management<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuEmployeeManagement">
+                            <li><a [routerLink] ="['/EmployeeList']">Employee</a></li>
+                            <li><a href="#">Organization</a></li>
+                            <li><a href="#">Role Master</a></li>
+                            <li><a href="#">Worksheet fill Allow</a></li>
+                            <li><a href="#">Attendance Entry from Home</a></li>
+                            <li><a href="#">Punch out Allow</a></li>
+                            <li><a href="#">Salary Breakup</a></li>
+                            <li><a href="#">Employee Time Change</a></li>
+
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuLeaveManagement" class="collapsed active">
+                            <a href="#">Leave Management<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuLeaveManagement">
+                            <li><a href="#">Application</a></li>
+                            <li><a href="#">My Official Work</a></li>
+                            <li><a href="#">Official Work</a></li>
+                            <li><a href="#">Sick Leave Initiation</a></li>
+                            <li><a href="#">Pending Approval</a></li>
+                            <li><a href="#">Holiday List</a></li>
+                            <li><a href="#">Non Working Day</a></li>
+                            <li><a href="#">Non Working Day - Reverse</a></li>
+
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuAppraisal" class="collapsed active">
+                            <a href="#">Appraisal Management<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuAppraisal">
+                            <li><a href="#">Upcoming Appraisal</a></li>
+                            <li><a href="#">Pending Initiation</a></li>
+                            <li><a href="#">Appraisal In-progress</a></li>
+                            <li><a href="#">Appraisal Finished</a></li>
+                            <li><a href="#">Appraisal Pending</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuRecruitment" class="collapsed active">
+                            <a href="#">Recruitment<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuRecruitment">
+                            <li><a href="#">Candidate List</a></li>
+                            <li><a href="#">Upload Documents</a></li>
+
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuHRTDS" class="collapsed active">
+                            <a href="#">TDS<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuHRTDS">
+                            <li><a href="#">Declaration</a></li>
+                            <li><a href="#">Entry</a></li>
+                            <li><a href="#">Report</a></li>
+                        </ul>
+                    </ul>
+
+
+                    <li data-toggle="collapse" data-target="#menuBDE" class="collapsed">
+                        <a href="#"><i class="fa fa-building fa-150percent"></i><span class="labeldisplaynone">Business Development</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuBDE">
+                        <li data-toggle="collapse" data-target="#menuContactManagement" class="collapsed active">
+                            <a href="#">Contact Management<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuContactManagement">
+                            <li><a href="#">Data Requisition</a></li>
+                            <li><a href="#">Content Requisition</a></li>
+                            <li><a href="#">Unassign Contacts</a></li>
+                            <li><a href="#">Campaign List</a></li>
+                            <li><a href="#">Trip Campaign List</a></li>
+                            <li><a href="#">My Campaign</a></li>
+                            <li><a href="#">My Action Item</a></li>
+                            <li><a href="#">My Favorites</a></li>
+                            <li><a href="#">All Contacts</a></li>
+                            <li><a href="#">Simple Search</a></li>
+                            <li><a href="#">Unsubscribe</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuCampainManagement" class="collapsed active">
+                            <a href="#">Campaign Management<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuCampainManagement">
+                            <li><a href="#">Mail Configuration</a></li>
+                            <li><a href="#">Signature List</a></li>
+                            <li><a href="#">Template List</a></li>
+                            <li><a href="#">Contact List</a></li>
+                            <li><a href="#">Send Mail</a></li>
+                        </ul>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Prospect</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Client</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Opportunity</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Project</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Invoice(Pending)</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Invoice</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Target</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Bulk Conversion</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Collection (Pending)</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Collection (Completed)</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Invoice Email Creation</a>
+                        </li>
+                    </ul>
+
+                    <li data-toggle="collapse" data-target="#menuProjects" class="collapsed">
+                        <a href="#"><i class="fa fa-folder-o fa-150percent"></i><span class="labeldisplaynone">Projects</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuProjects">
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Project List</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Project List (Other)</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Project List (Unplanned)</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Project Allocation (Tab)</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Project Allocation (Cal)</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Unallocated List</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Search Employee</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Task</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Module</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Project</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Pending Sign-off</a>
+                        </li>
+
+                    </ul>
+                    <li data-toggle="collapse" data-target="#menuRFQ" class="collapsed">
+                        <a href="#"><i class="fa fa-folder-open-o fa-150percent"></i><span class="labeldisplaynone">RFQ</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuRFQ">
+                        <li data-toggle="collapse" class="collapsed active">
+
+                            <a [routerLink]="['/MyRFQ']">My RFQ</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/AllRFQ']" >All RFQ</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/RFQResponceRequested']">Response Requested</a>
+                            <!--<a [routerLink]="['/RFQ']" [queryParams]="{ param: 3 }">Response Requested</a>-->
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/MyWatchList']">My Watch List</a>
+                            <!--<a [routerLink]="['/RFQ']" [queryParams]="{ param: 4 }">My Watch List</a>-->
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/MyAction']" >My Action Items</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/AddRFQResponsecomponent']">Add Response</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/ViewRFQResponsecomponent']">View Response</a>
+                        </li>
+                    </ul>
+
+                    <li data-toggle="collapse" data-target="#menuOpinion" class="collapsed">
+                        <a href="#"><i class="fa fa-lightbulb-o fa-150percent"></i><span class="labeldisplaynone">Opinion</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuOpinion">
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/Opinion_List']">Opinion List</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Opinion Template</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Pending Opinion</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Opinion Result</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Suggestion</a>
+                        </li>
+                    </ul>
+
+                    <li data-toggle="collapse" data-target="#menuNotification" class="collapsed">
+                        <a href="#"><i class="fa fa-bell-o fa-150percent"></i><span class="labeldisplaynone">Notification</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuNotification">
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/policy']">Policy</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a [routerLink]="['/News']">News</a>
+                        </li>
+                        <li data-toggle="collapse" data-target="#menuTicket" class="collapsed active">
+                            <a href="#">Ticket<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuTicket">
+                            <li><a [routerLink]="['/HelpTicketAdd']">HelpTicketAdd</a></li> 
+                         
+                            <li><a [routerLink]="['/MyTicket']">My Tickets</a></li>
+                            <li><a [routerLink]="['TicketListOpen/']">Open Tickets</a></li>
+                            <li><a [routerLink]="['TicketListClosed/']">Closed Tickets</a></li>
+                          
+                        </ul>
+                    </ul>
+                    <li data-toggle="collapse" data-target="#menuDocCentre" class="collapsed">
+                        <a href="#"><i class="fa fa-file-text-o fa-150percent"></i><span class="labeldisplaynone">Document Center</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuDocCentre">
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a  [routerLink]="['/DocumentTemplateComponent']">{{strDocmentTemplateHeader}}</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Document</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Document In Progress</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Document Completed</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Document Search</a>
+                        </li>
+
+                        <li data-toggle="collapse" data-target="#menuVISDMS" class="collapsed active">
+                            <a href="#">VIS DMS<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuVISDMS">
+                            <li><a href="#">Category Roles</a></li>
+                            <li><a href="#">Document Category</a></li>
+                            <li><a href="#">Document Upload</a></li>
+                            <li><a href="#">Document List</a></li>
+                        </ul>
+                    </ul>
+                    <li data-toggle="collapse" data-target="#menuMinutesOfMeetings" class="collapsed">
+                        <a href="#"><i class="fa fa-check-circle-o fa-150percent"></i><span class="labeldisplaynone">Minutes of Meetings</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuMinutesOfMeetings">
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Meeting</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">My Action Items</a>
+                        </li>
+                    </ul>
+                    <li data-toggle="collapse" data-target="#menuReports" class="collapsed">
+                        <a href="#"><i class="fa fa-file-excel-o fa-150percent"></i><span class="labeldisplaynone">Reports</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuReports">
+
+                        <li data-toggle="collapse" data-target="#menuAttendanceReport" class="collapsed active">
+                            <a href="#">Attendance<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuAttendanceReport">
+                            <li><a [routerLink]="['/AttendanceReport']">Attendance Report</a></li>
+                            <li><a [routerLink]="['/AttendanceReportNew']">Attendance Report New</a></li>
+                            <li><a  [routerLink]="['/DailyEntryReport']">Daily Entry</a></li>
+                            <li><a  [routerLink]="['/outreport']">Out Report</a></li>
+                            <li><a [routerLink]="['/ProductivityTracker']">Productivity Tracker</a></li>
+                            <li><a [routerLink]="['/OfficialWorkReport']">Official Work Report</a></li>
+                            <li><a [routerLink]="['/LateEarlyReport']">Late and Early Report</a></li>
+                            <li><a href="#">Punch Details</a></li>
+                            <li><a [routerLink]="['/AttendanceAccessCardComparisionReportComponent']">Compare Attendance and Access Card Details</a></li>
+                            <li><a [routerLink]="['/EmployeeScreenCaptureReportComponent']">Screen Capture Report</a></li>
+                            <li><a [routerLink]="['/EmployeeDashboardHeartBeatReportComponent']">Dashboard Heartbeat</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuLeaveReport" class="collapsed active">
+                            <a href="#">Leave<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuLeaveReport">
+                            <li><a href="#">Leave Report</a></li>
+                            <li><a href="#">Employee Leave Analysis</a></li>
+                            <li><a href="#">Employee Balance Sheet Report</a></li>
+                            <li><a href="#">Leave Balance</a></li>
+                        </ul>
+
+                        <li data-toggle="collapse" data-target="#menuPayrollReport" class="collapsed active">
+                            <a href="#">Payroll<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuPayrollReport">
+                            <li><a href="#">Salary Processing</a></li>
+                            <li><a href="#">Payroll Report</a></li>
+                            <li><a href="#">Employee Salary Statement</a></li>
+                            <li><a href="#">Payroll Process Salary Data</a></li>
+                            <li><a href="#">Salary Initiation</a></li>
+                            <li><a href="#">Salary on Hold</a></li>
+                        </ul>
+                        
+                        <li data-toggle="collapse" data-target="#menuProjectManagementReport" class="collapsed active">
+                            <a href="#">Project Management<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuProjectManagementReport">
+                            <li><a href="#">Project Report</a></li>
+                            <li><a href="#">Profitability Report</a></li>
+                            <li><a href="#">Project Status</a></li>
+                            <li><a href="#">Project Health</a></li>
+                            <li><a href="#">SBU Sheet</a></li>
+                            <li><a href="#">DH Report</a></li>
+                            <li><a href="#">Time-sheet Report</a></li>
+                            <li><a href="#">Worksheet Report</a></li>
+                            <li><a href="#">Worksheet Summary Statement</a></li>
+                            <li><a href="#">Employee Effieciency</a></li>
+                        </ul>
+
+                        <li data-toggle="collapse" data-target="#menuContactReport" class="collapsed active">
+                            <a href="#">Contact Management<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuContactReport">
+                            <li><a href="#">Transfer Log</a></li>
+                            <li><a href="#">Call Log Activity</a></li>
+                            <li><a href="#">Campaign Health</a></li>
+                            <li><a href="#">Campaign Analysis</a></li>
+
+                        </ul>
+
+                        <li data-toggle="collapse" data-target="#menuBusinessManagementReport" class="collapsed active">
+                            <a href="#">Business Management<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuBusinessManagementReport">
+                            <li><a href="#">Invoice Yet To Be Raised Report</a></li>
+                            <li><a href="#">Invoice Report</a></li>
+                            <li><a href="#">Collection Report</a></li>
+                            <li><a href="#">Collection Pending Report</a></li>
+                            <li><a href="#">Target vs Achieved Report</a></li>
+                            <li><a href="#">Campaign Statistics</a></li>
+                            <li><a href="#">Sales Sources Report</a></li>
+                            <li><a href="#">Responsibility wise RFQ Report</a></li>
+                            <li><a href="#">RFQ Closure Report</a></li>
+                            <li><a href="#">Business Generation Report</a></li>
+                            <li><a href="#">CA Invoice Report</a></li>
+                            <li><a href="#">Collection Sequence wise Report</a></li>
+                            <li><a href="#">Invoice Financial Year Wise Report</a></li>
+                            
+                        </ul>
+                        
+                        <li data-toggle="collapse" data-target="#menuFinanceReport" class="collapsed active">
+                            <a href="#">Finance<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuFinanceReport">
+                            <li><a href="#">Profit And Loss Report</a></li>
+                            <li><a href="#">Expenditure Report</a></li>
+                        </ul>
+
+                        <li data-toggle="collapse" data-target="#menuOpinionReport" class="collapsed active">
+                            <a href="#">Opinion<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuOpinionReport">
+                            <li><a href="#">BI Report</a></li>
+                            <li><a href="#">Opinion Question Report</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuEmployeeLevelsReport" class="collapsed active">
+                            <a href="#">Employee Levels<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuEmployeeLevelsReport">
+                            <li><a href="#">Employee Points Analysis Report</a></li>
+                            <li><a href="#">Leader Board Report</a></li>
+                            <li><a href="#">Comparing Employee Report</a></li>
+                            
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuHouseChampionshipReport" class="collapsed active">
+                            <a href="#">House Championship<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuHouseChampionshipReport">
+                            <li><a href="#">Player Category</a></li>
+                            <li><a href="#">House Mentor</a></li>
+                            <li><a href="#">Total Prices</a></li>
+                            <li><a href="#">Add House Player</a></li>
+                            <li><a href="#">Add Key Player</a></li>
+                            <li><a href="#">House Binding</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#menuOtherReport" class="collapsed active">
+                            <a href="#">Other<span class="arrownone"></span></a>
+                        </li>
+                        <ul class="sub-menu-child collapse" id="menuOtherReport">
+                            <li><a href="#">Dashboard Report</a></li>
+                            <li><a href="#">Summary Report</a></li>
+                            <li><a href="#">Employee Info Report</a></li>
+                            <li><a href="#">Services Health Report</a></li>
+                            
+                        </ul>
+
+                    </ul>
+
+                    <li data-toggle="collapse" data-target="#menuFinance" class="collapsed">
+                        <a href="#"><i class="fa fa-money fa-150percent"></i><span class="labeldisplaynone">Finance</span><span class="arrownone"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="menuFinance">
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Actual Expenditure</a>
+                        </li>
+                        <li data-toggle="collapse" class="collapsed active">
+                            <a href="#">Project Expenditure</a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <!--/*Load all the child page here.*/-->
+    <div  class="main-content" id="MainDivToLoadChild" style="margin-left:55px;">
+        <router-outlet>
+            
+        </router-outlet>
+    </div>
+
+</body>
+
+</html>

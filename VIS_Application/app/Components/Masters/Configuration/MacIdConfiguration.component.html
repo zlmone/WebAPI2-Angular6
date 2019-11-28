@@ -1,0 +1,301 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="MacIdConfigurationFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>MacId Configuration</b></h3></div>
+        <div style="vertical-align:top;float:right;">
+            
+            <table>
+                <tr>
+                    <td>
+                        <input id="rbtactive" type="radio" name="a"  (change)="GetActiveRecord()" /> <label>Active</label>
+
+                    </td>
+                    <td>
+                        <input id="rbtinactive" type="radio" name="a" (change)="GetActiveRecord()" /> <label>InActive</label>
+                    </td>
+                    <td>
+                        <input id="rbtall" type="radio" name="a" (change)="GetActiveRecord()" checked /> <label>All</label>
+                    </td>
+                </tr>
+            </table>
+                    
+            
+           
+        </div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="MackIdConfigurationSort('Employee_Name')">
+                        <label *ngIf="!ShowHideSearch">
+                            Employee Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Employee_Name', 'fa-sort-asc': (column == 'Employee_Name' && isDesc), 'fa-sort-desc': (column == 'Employee_Name' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Employee Name" id="searchEmployee_Name" *ngIf="ShowHideSearch" (keydown)="LoadMacIdConfiguration()">
+                    </th>
+                    <th class="pointer" (click)="MackIdConfigurationSort('MacID')" style="width:500px">
+                        <label *ngIf="!ShowHideSearch">
+                            MacID
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'MacID', 'fa-sort-asc': (column == 'Employee_Name' && isDesc), 'fa-sort-desc': (column == 'MacID' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="MacID" id="searchMacID" *ngIf="ShowHideSearch" (keydown)="LoadMacIdConfiguration()">
+                    </th>
+                    <th class="pointer" (click)="MackIdConfigurationSort('IPAddress')">
+                        <label *ngIf="!ShowHideSearch">
+                            IP Address
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'IPAddress', 'fa-sort-asc': (column == 'IPAddress' && isDesc), 'fa-sort-desc': (column == 'IPAddress' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="IP Address" id="searchIPAddress" *ngIf="ShowHideSearch" (keydown)="LoadMacIdConfiguration()">
+                    </th>
+                    <th class="pointer" (click)="MackIdConfigurationSort('RequestedDate')">
+                        <label>
+                            Requested Date
+                        </label>
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'RequestedDate', 'fa-sort-asc': (column == 'RequestedDate' && isDesc), 'fa-sort-desc': (column == 'RequestedDate' && !isDesc) }" aria-hidden="true"> </i></th>
+                    <th class="pointer" (click)="MackIdConfigurationSort('ApprovalDate')">
+                        <label>
+                            Approval Date
+                            </label>
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'ApprovalDate', 'fa-sort-asc': (column == 'ApprovalDate' && isDesc), 'fa-sort-desc': (column == 'ApprovalDate' && !isDesc) }" aria-hidden="true"> </i></th>
+                    <th class="pointer" (click)="MackIdConfigurationSort('ApprovedBy')">
+                        <label>
+                            Approvad By
+                            </label>
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'ApprovedBy', 'fa-sort-asc': (column == 'ApprovedBy' && isDesc), 'fa-sort-desc': (column == 'ApprovedBy' && !isDesc) }" aria-hidden="true"> </i></th>
+                    <th class="pointer" (click)="MackIdConfigurationSort('Version')">
+                        <label *ngIf="!ShowHideSearch">
+                            Version
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Version', 'fa-sort-asc': (column == 'Version' && isDesc), 'fa-sort-desc': (column == 'Version' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Version" id="searchVersion" *ngIf="ShowHideSearch" (keydown)="LoadMacIdConfiguration()">
+                    </th>
+
+                    <th class="pointer" (click)="MackIdConfigurationSort('Active')">
+                        <label>
+                            Active
+                        </label>
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'Active', 'fa-sort-asc': (column == 'Active' && isDesc), 'fa-sort-desc': (column == 'Active' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+
+                    <th class="text-center" nowrap="nowrap">
+                        <button class="btn btn-vis" (click)="AddMackId()"><span class="glyphicon glyphicon-plus-sign" title="Add New"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="LoadMacIdConfiguration()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody *ngIf='macidconfigurations && macidconfigurations.length'>
+                <tr *ngFor="let macid of pagedItems | macidconfigurationFilter : MacIdConfigurationFilter | orderBy: {property: column, direction: direction}">
+
+                    <td style="width:800px">{{macid.Employee_Name}}</td>
+                    <td style="width:1000px">{{macid.MacID}}</td>
+                    <td style="width:800px">{{macid.IPAddress}}</td>
+                    <td style="width:800px">{{macid.RequestedDate}}</td>
+                    <td style="width:800px">{{macid.ApprovalDate}}</td>
+                    <td style="width:800px">{{macid.ApprovedBy}}</td>
+                    <td style="width:800px">{{macid.Version}}</td>
+                    <td style="width:400px;text-align:center">
+                        <div *ngIf="macid.Active==1">
+                            <input class="btnstatus" type="image" src="/Upload/Icon images/success.png" (click)="ActivateDeactivateStatus(macid.Id)">
+                            
+                        </div>
+                        <div *ngIf="macid.Active==0">
+                            <input class="btnstatus" type="image" src="/Upload/Icon images/icon_restricted.png" (click)="ActivateDeactivateStatus(macid.Id)">
+                        </div>
+                    </td>
+                    <td style="display:none">{{macid.CreatedOn}}</td>
+                    <td style="display:none">{{macid.CreatedBy}}</td>
+                    <td style="display:none">{{macid.UpdatedBy}}</td>
+                    <td style="display:none">{{macid.UpdatedOn}}</td>
+                    <td style="display:none">{{macid.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="macid.IsActive == 1" style="text-align:center;width:250px">
+                            <button title="Delete" class="btn btn-vis" (click)="DeleteMacId(macid.Id, macid.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="macid.IsActive == 0" style="text-align:center;width:250px">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeleteMacId(macid.Id, macid.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='macidconfigurations && macidconfigurations.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='macidconfigurations && macidconfigurations.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+<modal #modal>
+    <form novalidate #MacIdfrm="ngForm" (ngSubmit)="onSubmit(MacIdfrm.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-12">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2 col-lg-2 col-xs-12">Employee Name* :</div>
+                                <div class="col-md-10 col-lg-10 col-lg-8 col-xs-12">
+                                    <select class="form-control" [(ngModel)]="macidconfiguration.EmployeeId" #EmployeeId="ngModel" name="EmployeeId">
+                                        <option selected value="0" disabled>Select</option>
+                                        <option *ngFor="let employee of employees" value={{employee.Id}}>
+                                            {{employee.Employee_Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-1 col-lg-2 col-xs-12">Mac Id* :</div>
+                                <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                    <input type="text" id="MacID1" class="form-control form-controlnew" [(ngModel)]="macidconfiguration.MacID1" #MacID1="ngModel" name="MacID1" required maxlength="2">
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                    <input type="text"  id="MacID2" class="form-control form-controlnew" [(ngModel)]="macidconfiguration.MacID2" #MacID2="ngModel" name="MacID2" required maxlength="2">
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                    <input type="text" id="MacID3"  class="form-control form-controlnew" [(ngModel)]="macidconfiguration.MacID3" #MacID3="ngModel" name="MacID3" required maxlength="2">
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                    <input type="text" id="MacID4"  class="form-control form-controlnew" [(ngModel)]="macidconfiguration.MacID4" #MacID4="ngModel" name="MacID4" required maxlength="2">
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                    <input type="text" id="MacID5"  class="form-control form-controlnew" [(ngModel)]="macidconfiguration.MacID5" #MacID5="ngModel" name="MacID5" required maxlength="2">
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                    <input type="text" id="MacID6" class="form-control form-controlnew" [(ngModel)]="macidconfiguration.MacID6" #MacID6="ngModel" name="MacID6" required maxlength="2">
+                                </div>
+                            </div>
+
+                            </div>
+
+                        
+                        <div class="form-group Popup-group">
+                            <div class="col-md-1 col-lg-2 col-xs-12">IP Address* :</div>
+                            <div class="col-md-2 col-lg-2 col-lg-2 col-xs-12">
+                                <input type="text" id="IP1"  class="form-control form-controlbig" [(ngModel)]="macidconfiguration.IP1" #IP1="ngModel" name="IP1" required maxlength="3">
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-lg-2 col-xs-12">
+                                <input type="text" id="IP2"  class="form-control form-controlbig" [(ngModel)]="macidconfiguration.IP2" #IP2="ngModel" name="IP2" required maxlength="3">
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-lg-2 col-xs-12">
+                                <input type="text" id="IP3"  class="form-control form-controlbig" [(ngModel)]="macidconfiguration.IP3" #IP3="ngModel" name="IP3" required maxlength="3">
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-lg-2 col-xs-12">
+                                <input type="text" id="IP4"  class="form-control form-controlbig" [(ngModel)]="macidconfiguration.IP4" #IP4="ngModel" name="IP4" required maxlength="3">
+                            </div>
+                        </div>
+
+                        <div class="form-group Popup-group">
+                            <div class="col-md-1 col-lg-2 col-xs-12">Version * :</div>
+                            <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                <input type="text" id="Version1"  class="form-control form-controlnew" [(ngModel)]="macidconfiguration.Version1" #Version1="ngModel" name="Version1" required maxlength="1">
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                <input type="text" id="Version2" class="form-control form-controlnew" [(ngModel)]="macidconfiguration.Version2" #Version2="ngModel" name="Version2" required maxlength="1">
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-lg-2 col-xs-12">
+                                <input type="text" id="Version3" class="form-control form-controlnew" [(ngModel)]="macidconfiguration.Version3" #Version3="ngModel" name="Version3" required maxlength="1">
+                            </div>
+                        </div>
+                        
+                            <div style="display:none">
+                                <span>Created On</span>
+                                <input type="text" class="form-control" placeholder="Created On">
+                            </div>
+                            <div style="display:none">
+                                <span>Created By</span>
+                                <input type="text" class="form-control" placeholder="Created By">
+                            </div>
+                            <div style="display:none">
+                                <span>Updated On</span>
+                                <input type="text" class="form-control" placeholder="Updated On">
+                            </div>
+                            <div style="display:none">
+                                <span>Updated By</span>
+                                <input type="text" class="form-control" placeholder="Updated By">
+                            </div>
+                            <div style="display:none">
+                                <span>Is Active</span>
+                                <input type="checkbox" class="form-control">
+                            </div>
+                            <div style="display:none">
+                                <span>EntityMessage</span>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+</modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="MacIdfrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+

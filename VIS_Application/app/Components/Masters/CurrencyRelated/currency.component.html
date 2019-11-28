@@ -1,0 +1,232 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="CurrencyFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Currency</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th style="display:none">Company Id</th>
+                    <th class="pointer" (click)="CurrencySort('Full_Name')">
+                        <label *ngIf="!ShowHideSearch">
+                            Full Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Full_Name', 'fa-sort-asc': (column == 'Full_Name' && isDesc), 'fa-sort-desc': (column == 'Full_Name' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+
+                        <input type="text" class="form-control" placeholder="Search by Full Name" id="searchFull_Name" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="CurrencySort('Short_Name')">
+                        <label *ngIf="!ShowHideSearch">
+                            Short Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Short_Name', 'fa-sort-asc': (column == 'Short_Name' && isDesc), 'fa-sort-desc': (column == 'Short_Name' && !isDesc) }" aria-hidden="true" *ngIf="!ShowHideSearch"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Short Name" id="searchShort_Name" *ngIf="ShowHideSearch"  (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="CurrencySort('Sub_Unit')">
+                        <label *ngIf="!ShowHideSearch">
+                            Sub Unit
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Sub_Unit', 'fa-sort-asc': (column == 'Sub_Unit' && isDesc), 'fa-sort-desc': (column == 'Sub_Unit' && !isDesc) }" aria-hidden="true" *ngIf="!ShowHideSearch"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Sub Unit" id="searchSub_Unit" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer">
+                        Symbol
+                    </th>
+                    <th>Default Exchange</th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+
+                    <th nowrap ="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="addCurrency()"><span class="glyphicon glyphicon-plus-sign" title="Add New"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='currencys && currencys.length'>
+                <tr *ngFor="let currency of pagedItems | currencyFilter : CurrencyFilter | orderBy: {property: column, direction: direction}">
+                    <td style="display:none">{{currency.CompanyId}}</td>
+                    <td>{{currency.Full_Name}}  <span class="glyphicon glyphicon-king" title="This is default currency!" *ngIf="currency.Is_Base_Currency"></span> </td>
+                    <td>{{currency.Short_Name}}</td>
+                    <td>{{currency.Sub_Unit}}</td>
+                    <td>{{currency.Symbol}}</td>
+
+                    <td>{{currency.Default_Exchange}}</td>
+                    <td style="display:none">{{currency.CreatedOn}}</td>
+                    <td style="display:none">{{currency.CreatedBy}}</td>
+                    <td style="display:none">{{currency.UpdatedBy}}</td>
+                    <td style="display:none">{{currency.UpdatedOn}}</td>
+                    <td style="display:none">{{currency.IsActive}}</td>
+                    <td style="text-align:center">
+                        <div *ngIf="currency.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="editCurrency(currency.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="deleteCurrency(currency.Id, currency.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="currency.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="deleteCurrency(currency.Id, currency.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='currencys && currencys.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='currencys && currencys.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+
+</div>
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(currencyFrm)" [formGroup]="currencyFrm">
+        <modal-header [show-close]="true" >
+            <h4 class="modal-title">
+                <b>{{modalTitle}}</b>
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div style="display:none">
+                <span>Company*</span>
+                <span>{{CompanyId}}</span>
+            </div>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Full Name* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Currency Full Name" formControlName="Full_Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Short Name* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Currency Short Name" formControlName="Short_Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Sub Unit* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Sub Unit" formControlName="Sub_Unit">
+                                </div>
+                            </div>
+                            </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-4 col-lg-4 col-xs-12">Currency Symbol* :</div>
+                                <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Currency Symbol" formControlName="Symbol">
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-4 col-lg-4 col-xs-12">Default Exchange* :</div>
+                                <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Default Exchange" formControlName="Default_Exchange">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-4 col-lg-4 col-xs-12">Is Base Currency* :</div>
+                                <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                    <input type="checkbox" formControlName="Is_Base_Currency">
+                                </div>
+                            </div>
+                            </div>
+
+                          
+                            <div style="display:none">
+                                <span>Created On</span>
+                                <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+                            </div>
+                            <div style="display:none">
+                                <span>Created By</span>
+                                <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+                            </div>
+                            <div style="display:none">
+                                <span>Updated On</span>
+                                <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+                            </div>
+                            <div style="display:none">
+                                <span>Updated By</span>
+                                <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+                            </div>
+                            <div style="display:none">
+                                <span>Is Active</span>
+                                <input type="checkbox" class="form-control" formControlName="UpdatedBy">
+                            </div>
+                            <div style="display:none">
+                                <span>EntityMessage</span>
+                                <input type="text" class="form-control" formControlName="EntityMessage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+</modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="currencyFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

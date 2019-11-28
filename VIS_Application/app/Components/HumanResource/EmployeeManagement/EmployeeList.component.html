@@ -1,0 +1,299 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="EmployeeListFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Employee Feedback</b></h3></div>
+
+
+
+
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+
+
+
+
+
+
+        <div class="row Popup-row">
+
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <div class="col-md-12 col-lg-12 col-xs-12">
+                            <div class="col-md-6 col-xs-12 col-sm-6" id="TeamMember">
+
+                                <label class="col-md-3 col-xs-12 col-sm-3">Employee Type:</label>
+
+                                <select class="form-control" (change)="LoadValue($event)">
+                                    <option Value="%">All</option>
+                                    <option Value="E%">Employee</option>
+                                    <option Value="P%">Part-Time</option>
+                                    <option Value="T%">Trainee</option>
+                                    <option Value="BA%">Partner</option>
+                                   
+                                </select>
+
+
+
+
+                            </div>
+                            <div class="col-md-6 col-xs-12 col-sm-6">
+                                <input type="radio" name="Status" value="ALL" (click)="FilterByStatus($event)" [(ngModel)]="Status"> All
+                                <input type="radio" name="Status" value="Active" (click)="FilterByStatus($event)" [(ngModel)]="Status"> Active
+                                <input type="radio" name="Status" value="InActive" (click)="FilterByStatus($event)" [(ngModel)]="Status"> In Active
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <!--<div class="col-md-12 col-lg-12 col-xs-12">
+                            <div class="col-md-8 col-xs-12 col-sm-6">
+                                <input type="radio" name="Status" value="MyFeedback" (click)="FilterByStatus($event)" [(ngModel)]="Status"> My Feedback
+                                <input type="radio" name="Status" value="MyTeam" (click)="FilterByStatus($event)" [(ngModel)]="Status"> My Team
+                                <input type="radio" name="Status" value="Pending" (click)="FilterByStatus($event)" [(ngModel)]="Status"> Pending
+                            </div>
+                            <div class="col-md-4 col-xs-12 col-sm-6" id="TeamMember">
+
+
+
+                                <select class="form-control" (change)="LoadEmployeeteamwisedata($event)">
+                                    <option Value="0">Select All</option>
+                                    <option *ngFor="let employee of employeelist" value="{{employee.EmployeeId}}">{{employee.Employee_Name}} </option>
+                                </select>
+
+
+
+
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-xs-12 col-sm-12" id="MyFeedback">
+                <div class="table-scrollable">
+                    <table class='table table-striped table-bordered table-responsive'>
+                        <thead>
+                            <tr>
+                                <th style="display:none">Company Id</th>
+
+
+                                <th class="pointer text-left" (click)="EmployeeListSort('ID')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        ID
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'ID', 'fa-sort-asc': (column == 'ID' && isDesc), 'fa-sort-desc': (column == 'ID' && !isDesc) }" aria-hidden="true"> </i>
+                                    </label>
+
+                                    <input type="text" class="form-control" placeholder="Search by  Employeecode" id="searchID" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+
+                                </th>
+                                <th class="pointer text-left" (click)="EmployeeListSort('CompanyName')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        Company
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'CompanyName', 'fa-sort-asc': (column == 'CompanyName' && isDesc), 'fa-sort-desc': (column == 'CompanyName' && !isDesc) }" aria-hidden="true"> </i>
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="Search by  CompanyName" id="searchCompanyName" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+
+
+                                </th>
+
+
+                                <th class="pointer text-left" (click)="EmployeeListSort('Employee_Name')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        Employee Name
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'Employee_Name', 'fa-sort-asc': (column == 'Employee_Name' && isDesc), 'fa-sort-desc': (column == 'Employee_Name' && !isDesc) }" aria-hidden="true"> </i>
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="Search by  Employee_Name" id="searchEmployeeName" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                                </th>
+                                <th class="pointer text-left" (click)="EmployeeListSort('Email')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        Email ID
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'Email', 'fa-sort-asc': (column == 'Email' && isDesc), 'fa-sort-desc': (column == 'Email' && !isDesc) }" aria-hidden="true"> </i>
+
+                                     </label>
+                                    <input type="text" class="form-control" placeholder="Search by  Email" id="searchEmail" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+
+
+                                </th>
+                                <th class="pointer text-left" (click)="EmployeeListSort('Department')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        Department
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'Department', 'fa-sort-asc': (column == 'Department' && isDesc), 'fa-sort-desc': (column == 'Department' && !isDesc) }" aria-hidden="true"> </i>
+                                     </label>
+                                    <input type="text" class="form-control" placeholder="Search by  Department" id="searchDepartment" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+
+
+
+                                </th>
+                                <th class="pointer text-left" (click)="EmployeeListSort('TotalExp')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        Experience
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'TotalExp', 'fa-sort-asc': (column == 'TotalExp' && isDesc), 'fa-sort-desc': (column == 'TotalExp' && !isDesc) }" aria-hidden="true"> </i>
+                 
+                                      </label>
+
+                                    <input type="text" class="form-control" placeholder="Search by  Experience" id="searchTotalExp" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+
+                                </th>
+                                <th class="pointer text-left" (click)="EmployeeListSort('JoiningDate')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        Joining Date
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'JoiningDate', 'fa-sort-asc': (column == 'JoiningDate' && isDesc), 'fa-sort-desc': (column == 'JoiningDate' && !isDesc) }" aria-hidden="true"> </i>
+                                      
+                                    </label>
+
+
+
+                                </th>
+                                <th class="pointer text-left" (click)="EmployeeListSort('RelevingDate')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        Relieving Date
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'RelevingDate', 'fa-sort-asc': (column == 'RelevingDate' && isDesc), 'fa-sort-desc': (column == 'RelevingDate' && !isDesc) }" aria-hidden="true"> </i>
+                                     
+                                    </label>
+
+
+
+                                </th>
+                                <th class="pointer text-left" (click)="EmployeeListSort('Grace')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        Grace
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'Grace', 'fa-sort-asc': (column == 'Grace' && isDesc), 'fa-sort-desc': (column == 'Grace' && !isDesc) }" aria-hidden="true"> </i>
+                                       
+                                    </label>
+                                 
+
+
+                                </th>
+                                <th class="pointer text-left" (click)="EmployeeListSort('SL_CL')">
+                                    <label *ngIf="!ShowHideSearch">
+                                        SL/CL
+                                        <i class="fa" [ngClass]="{'fa-sort': column != 'SL_CL', 'fa-sort-asc': (column == 'SL_CL' && isDesc), 'fa-sort-desc': (column == 'SL_CL' && !isDesc) }" aria-hidden="true"> </i>
+                                       
+                                    </label>
+
+                                  
+
+                                </th>
+                                <th class="pointer text-left" >
+                                    <label >
+                                        Convert
+                           
+                                    </label>
+                                </th>                                
+                                <th nowrap="nowrap" class="text-center">
+                                    <button class="btn btn-vis" (click)="addEmployeeList()"><span class="glyphicon glyphicon-plus-sign" title="Add Employee"></span></button>
+                                    <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                                    <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf='EmployeeLists && EmployeeLists.length'>
+                            <tr *ngFor="let EmployeeList of pagedItems | EmployeeListFilter : EmployeeListFilter | orderBy: {property: column, direction: direction}">
+                                <td style="display:none">{{EmployeeList.Id}}</td>
+
+                                <td>{{EmployeeList.EmployeeCode}} </td>
+                                <td>{{EmployeeList.CompanyName}} </td>
+                                <td>{{EmployeeList.Employee_Name}} </td>
+                                <td>{{EmployeeList.Email}} </td>
+                                <td>{{EmployeeList.Department}} </td>
+                                <td>{{EmployeeList.TotalExp}} </td>
+                                <td>{{EmployeeList.JoiningDate | date : "dd-MM-yyyy"}} </td>
+                                <td *ngIf="EmployeeList.RelevingDate =='0001-01-01T00:00:00' ">
+                               
+                                </td>
+                                <td  *ngIf="EmployeeList.RelevingDate != '0001-01-01T00:00:00' ">
+                                {{EmployeeList.RelevingDate | date : "dd-MM-yyyy" }} </td>
+                                <td>{{EmployeeList.Grace}} </td>
+                                <td>{{EmployeeList.SL_CL}} </td>
+                                <td *ngIf="EmployeeList.EmployeeCode.indexOf('T') == 0">
+                                    <button class="btn btn-vis" ><span class="glyphicon glyphicon-transfer" title="Convert"></span></button>    
+                                </td>
+                                <td *ngIf="EmployeeList.EmployeeCode.indexOf('T') != 0">
+                                   
+                                </td>
+                                <td>
+                                    <div style="text-align:center">
+                                        <button title="Edit" class="btn btn-vis" (click)="editEmployeeList(EmployeeList.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button title="Delete" class="btn btn-vis" (click)="deleteEmployee(EmployeeList.Id)"><span class="glyphicon glyphicon-trash"></span></button>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf='EmployeeLists && EmployeeLists.length'>
+                        <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+                        <div class="col-md-12 text-center">
+                            <div class="col-md-8 text-left">
+                                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                        <a (click)="JumpOnPage(1)">First</a>
+                                    </li>
+                                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                        <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                                    </li>
+                                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                        <a (click)="JumpOnPage(page)">{{page}}</a>
+                                    </li>
+                                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                        <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                                    </li>
+                                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                        <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="col-md-2">
+
+                                <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                                    <option value="=-1" disabled>Recordds per Page</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="0">All</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                                    <option value="=-1" disabled>Go to Page</option>
+                                    <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div *ngIf='EmployeeLists && EmployeeLists.length==0' class="alert alert-info" role="alert">No record found!</div>
+
+                </div>
+            </div>
+
+
+
+           
+            
+        </div>
+        <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{msg}}
+        </div>
+
+    </div>
+      
+</div>

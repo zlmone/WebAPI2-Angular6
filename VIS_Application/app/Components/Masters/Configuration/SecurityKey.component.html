@@ -1,0 +1,239 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="MacIdConfigurationFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Security Key List</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="SecurityKeySort('Key1')">
+                        <label *ngIf="!ShowHideSearch">
+                            Key 1
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Key1', 'fa-sort-asc': (column == 'Key1' && isDesc), 'fa-sort-desc': (column == 'Key1' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Key 1" id="searchKey1" *ngIf="ShowHideSearch" (keydown)="LoadSecurityKey()">
+                    </th>
+                    <th class="pointer" (click)="SecurityKeySort('Key2')">
+                        <label *ngIf="!ShowHideSearch">
+                            Key 2
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Key2', 'fa-sort-asc': (column == 'Key2' && isDesc), 'fa-sort-desc': (column == 'Key2' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Key 2" id="searchKey2" *ngIf="ShowHideSearch" (keydown)="LoadSecurityKey()">
+                    </th>
+                    <th class="pointer" (click)="SecurityKeySort('Key3')">
+                        <label *ngIf="!ShowHideSearch">
+                            Key 3
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Key3', 'fa-sort-asc': (column == 'Key3' && isDesc), 'fa-sort-desc': (column == 'Key3' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Key 3" id="searchKey3" *ngIf="ShowHideSearch" (keydown)="LoadSecurityKey()">
+                    </th>
+                    <th class="pointer" (click)="SecurityKeySort('Key4')">
+                        <label *ngIf="!ShowHideSearch">
+                            Key 4
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Key4', 'fa-sort-asc': (column == 'Key4' && isDesc), 'fa-sort-desc': (column == 'Key4' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Key 4" id="searchKey4" *ngIf="ShowHideSearch" (keydown)="LoadSecurityKey()">
+                    </th>
+                    <th class="pointer" (click)="SecurityKeySort('Key5')">
+                        <label *ngIf="!ShowHideSearch">
+                            Key 5
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Key5', 'fa-sort-asc': (column == 'Key5' && isDesc), 'fa-sort-desc': (column == 'Key5' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Key 5" id="searchKey5" *ngIf="ShowHideSearch" (keydown)="LoadSecurityKey()">
+                    </th>
+                    <th class="pointer" (click)="SecurityKeySort('Active')">
+                        Active
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'Active', 'fa-sort-asc': (column == 'Active' && isDesc), 'fa-sort-desc': (column == 'Active' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+
+                    <th class="text-center" nowrap="nowrap">
+                        <button class="btn btn-vis" (click)="AddSecurityKey()"><span class="glyphicon glyphicon-plus-sign" title="Add New"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="LoadSecurityKey()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody *ngIf='securitykeys && securitykeys.length'>
+                <tr *ngFor="let securitykey of pagedItems | securitykeyFilter : SecurityKeyFilter | orderBy: {property: column, direction: direction}">
+                    <td style="width:800px">{{securitykey.Key1}}</td>
+                    <td style="width:800px">{{securitykey.Key2}}</td>
+                    <td style="width:800px">{{securitykey.Key3}}</td>
+                    <td style="width:800px">{{securitykey.Key4}}</td>
+                    <td style="width:800px">{{securitykey.Key5}}</td>
+                    <td style="width:800px">
+                        <div *ngIf="securitykey.Active==1">
+                            <input type="checkbox" class="ActiveCheckbox" disabled checked />
+                        </div>
+                        <div *ngIf="securitykey.Active==0">
+                            <input type="checkbox" class="ActiveCheckbox" disabled />
+                        </div>
+                    </td>
+                    <td style="display:none">{{securitykey.CreatedOn}}</td>
+                    <td style="display:none">{{securitykey.CreatedBy}}</td>
+                    <td style="display:none">{{securitykey.UpdatedBy}}</td>
+                    <td style="display:none">{{securitykey.UpdatedOn}}</td>
+                    <td style="display:none">{{securitykey.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="securitykey.IsActive == 1" style="text-align:center;width:250px">
+                            <button title="Edit" class="btn btn-vis" (click)="EditSecurityKey(securitykey.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="DeleteSecurityKey(securitykey.Id, securitykey.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="securitykey.IsActive == 0" style="text-align:center;width:250px">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeleteSecurityKey(securitykey.Id, securitykey.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='securitykeys && securitykeys.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='securitykeys && securitykeys.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+<modal #modal>
+    <form #securitykeyform="ngForm" (ngSubmit)="onSubmit(securitykeyform.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body id="modalbody">
+            <div>
+                <br />
+                <table class="table" cellpadding="3">
+                    <tr>
+                        <td>
+                            <span>Key</span>
+                        </td>
+                        <td class="KeyCol" align="center">
+                            <input type="text" class="form-control KeyInput" [(ngModel)]="securitykey.Key1" #Key1="ngModel" name="Key1" required  maxlength="4" id="Key1"> 
+                        </td>
+                        <td class="KeyCol" align="center">
+                            <input type="text" class="form-control KeyInput" [(ngModel)]="securitykey.Key2" #Key2="ngModel" name="Key2" required maxlength="4" id="Key2"> 
+                        </td>
+                        <td class="KeyCol" align="center">
+                            <input type="text" class="form-control KeyInput" [(ngModel)]="securitykey.Key3" #Key3="ngModel" name="Key3" required maxlength="4" id="Key3"> 
+                        </td>
+                        <td class="KeyCol" align="center">
+                            <input type="text" class="form-control KeyInput" [(ngModel)]="securitykey.Key4" #Key4="ngModel" name="Key4" required maxlength="4" id="Key4"> 
+                        </td>
+                        <td class="KeyCol" align="center">
+                            <input type="text" class="form-control KeyInput" [(ngModel)]="securitykey.Key5" #Key5="ngModel" name="Key5" required maxlength="4" id="Key5"> 
+                        </td>
+                        <td class="KeyCol" align="center">
+                            <input type="button" id="btnkeygenrate" value="Genrate" class="btn btn-info"  (click)="GenrateUniqueKey(securitykeyform.value)">
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+            <br />
+            <div>
+                <input type="checkbox"  class="ActiveCheckbox" [(ngModel)]="securitykey.Active" #Active="ngModel" name="Active"  id="Active"> <span>Active</span> 
+            </div>
+            <br />
+            <div>
+                <span class="lbldisplaykey">{{securitykey.UniqueKey}} </span>
+            </div>
+            <div style="display:none">
+                <span>Unique Key</span>
+                <input type="text" class="form-control KeyInput" [(ngModel)]="securitykey.UniqueKey" #UniqueKey="ngModel" name="UniqueKey" id="UniqueKey"> 
+            </div>
+            <div style="display:none">
+                <span>Id</span>
+                <input type="text" class="form-control KeyInput" [(ngModel)]="securitykey.Id" #Id="ngModel" name="Id" id="Id">
+            </div>
+            <div style="display:none">
+                <span>Created On</span>
+                <input type="text" class="form-control" placeholder="Created On" >
+            </div>
+            <div style="display:none">
+                <span>Created By</span>
+                <input type="text" class="form-control" placeholder="Created By">
+            </div>
+            <div style="display:none">
+                <span>Updated On</span>
+                <input type="text" class="form-control" placeholder="Updated On" >
+            </div>
+            <div style="display:none">
+                <span>Updated By</span>
+                <input type="text" class="form-control" placeholder="Updated By" >
+            </div>
+            <div style="display:none">
+                <span>Is Active</span>
+                <input type="checkbox" class="form-control" >
+            </div>
+            <div style="display:none">
+                <span>EntityMessage</span>
+                <input type="text" class="form-control" >
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="CancelModel()">Cancel</a>
+                <button type="submit" class="btn btn-success" [disabled]="securitykeyform.invalid">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+

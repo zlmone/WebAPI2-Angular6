@@ -1,0 +1,1503 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+                <div class="col-md-1">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-10 col-lg-1 col-xs-12" id="tdAddButtons1">
+                            <div class="col-md-1">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input type="image" class="btnexportexcel" id="btnAddlevel" name="AddNewServey" src="/Upload//Icon images/icon_add.png" title="Add New Servey" (click)="AddNewSurvey()" />
+                                        </td>
+                                        <td>
+                                            <input type="image" class="btnexportexcel" id="imgbtnDownLoadSample" name="Download" src="/Upload/Icon images/icon_download.png" title="Download Import File Sample" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="radio" id="rdbApproved" name="Approved" value="Approved" />Approved
+                                    </td>
+                                    <td>
+                                        <label id="lblApproved">(0)</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                            <select class="form-control" (change)="GetApprovetype($event)" id="ApprovedTypedata">
+                                <option value="All">All</option>
+                                <option value="Not Initiated">Not Initiated</option>
+                                <option value="In Process" selected="selected">In Process</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="radio" id="rdbSuggested" name="suggested" value="Suggested" />Suggested
+                                    </td>
+                                    <td>
+                                        <label id="lblSuggestedCount">(0)</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                            <select class="form-control">
+                                <option value="Select" selected="selected">Select</option>
+                                <option value="Name">Name</option>
+                                <option value="Expires On">Expires On</option>
+                                <option value="Type">Type</option>
+                                <option value="Time">Time</option>
+                                <option value="TotalPoints">TotalPoints</option>
+                                <option value="Suggested By">Suggested By</option>
+                                <option value="Status">Status</option>
+                                <option value="ReSend">ReSend</option>
+                                <option value="BI Reports">BI Reports</option>
+                                <option value="Export">Export</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" id="txtFilter" name="Filter" />
+                                    </td>
+                                    <td>
+                                        <input type="image" id="imgfilter" class="btnexportexcel" src="/Upload/Icon images/search.png" />
+                                    </td>
+                                    <td>
+                                        <input type="image" id="imgclear" class="btnexportexcel" src="/Upload/Icon images/icon_clear.png" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="pagedItems && pagedItems.length==0" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        No record found!
+    </div>
+    <div id="CofigureSurveyData" class="col-md-6 col-sm-12 col-xs-12 pr-md-10 repotwidgetwidth" *ngIf="pagedItems && pagedItems.length!=0">
+        <div class="portlet box green paddingless">
+            <div class="portlet-title line accord">
+                <div class="caption"><i class="fa fa-user-o" aria-hidden="true"></i>Opinion List</div>
+                <div class="tools">
+                    <a class="collapse" (click)="ToogleMyProfile()"></a>
+                    <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetProfile()"></a>
+                </div>
+            </div>
+            <div class="portlet-body repotwidgetwidth" id="ConfigureSurvey">
+                <div class="tabbable tabbable-custom">
+                    <div style="height:auto;" data-always-visible="1" data-rail-visible1="1">
+                        <div class="portlet box marbott0">
+                            <div class="portlet-body padding0">
+                                <div class="table-scrollable">
+                                    <div class="full-wd Scrollbarcss" style="height:auto">
+                                        <table class="table table-striped table-bordered table-hover" id="tblSurvey">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Delete
+                                                    </th>
+                                                    <th>
+                                                        Name
+                                                    </th>
+                                                    <th>
+                                                        Expires On
+                                                    </th>
+                                                    <th>
+                                                        Type
+                                                    </th>
+                                                    <th>
+                                                        Time
+                                                    </th>
+                                                    <th>
+                                                        Total Points
+                                                    </th>
+                                                    <th>
+                                                        Action
+                                                    </th>
+                                                    <th>
+                                                        Copy
+                                                    </th>
+                                                    <th>
+                                                        Status
+                                                    </th>
+                                                    <th>
+                                                        Resend
+                                                    </th>
+                                                    <th>
+                                                        BI Reports
+                                                    </th>
+                                                    <th>
+                                                        Export
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let Survey of pagedItems">
+                                                    <td><input type="checkbox" id="chkdelete" name="chkdelete"></td>
+                                                    <td>{{Survey.SurveyName}}</td>
+                                                    <td>{{Survey.ExpiryDate}}</td>
+                                                    <td>{{Survey.SurveyType}}</td>
+                                                    <td>{{Survey.SurveyTime}}</td>
+                                                    <td>{{Survey.TotalPoints}}</td>
+                                                    <td><input type="image" src="/Upload/Icon images/icon_edit.png" (click)="EditSurvey(Survey.SurveyId)" /></td>
+                                                    <td><input type="image" src="/Upload/Icon images/copy_survey.png" /></td>
+                                                    <td><input type="image" src="/Upload/Icon images/status.png" /></td>
+                                                    <td><input type="image" src="/Upload/Icon images/resend_invitation.png" /></td>
+                                                    <td><input type="image" src="/Upload/Icon images/bi_report.png" /></td>
+                                                    <td>
+                                                        <input type="image" class="btnexportexcel" src="/Upload/Icon images/icon_download.png" />
+                                                        <input type="image" src="/Upload/Icon images/icon_export.png" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center" *ngIf='SurveyDetails && SurveyDetails.length > 10'>
+                    <div class="col-md-8 text-left">
+                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(1)">First</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="JumpOnPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Records per Page</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="0">All</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Go to Page</option>
+                            <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngIf='SurveyDetails && SurveyDetails.length' class="reportpagingalign">
+                    <div>{{pager.pagerinformtion}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal #modal id="OpinionConfiguration">
+    <!--<form novalidate [formGroup]="ConfigureSurveyFrm" (ngSubmit)="onSubmit()">-->
+    <form #ConfigureSurveyFrm="ngForm" (ngSubmit)="onsubmit(ConfigureSurveyFrm.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title" style="color:white">Opinion Configuration</h4>
+        </modal-header>
+        <modal-body>
+            <div>
+                <input type="hidden" id="hdnSurveyId" value="0" name="hdnSurveyId" />
+                <input type="hidden" id="hdnMode" value="" name="Mode" />
+                <input type="hidden" id="hdnEdit" value="0" name="hdnEdit" />
+            </div>
+            <ng2-tab selected-index-class="selected"
+                     selected-contents-class="fadeIn animated" id="SurveyTabs">
+                <ul class="nav nav-tabs">
+                    <li id="s1">
+                        <a index="Step1">Step 1</a>
+                    </li>
+                    <li id="s2">
+                        <a index="Step2">Step 2</a>
+                    </li>
+                    <li id="s3">
+                        <a index="Step3">Step 3</a>
+                    </li>
+                    <li id="s4">
+                        <a index="Step4">Step 4</a>
+                    </li>
+                    <li id="s5">
+                        <a index="Step5">Step 5</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div contents="Step1" class="tabborder">
+                        <u><b>Opinion Configuration</b></u>
+
+                        <div class="tabborder"></div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Type </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <select class="form-control" id="ddlSurveyType" (change)="changeText($event)">
+                                                    <option value="0" selected="selected" data-placement="">Select</option>
+                                                    <option *ngFor="let Stype of SurveyType" value="{{Stype.Id}}">{{Stype.Name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ReportVisibility" id="ProjectRelated">
+                                        <div class="col-md-5">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <input type="checkbox" id="chkIsProject" class="ReportVisibility" />
+                                                    <span>Is Related To Project?</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 ReportVisibility" id="Project">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <select class="form-control" id="ddlProject">
+                                                        <option value="0" selected="selected">Select</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Name </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" class="form-control textarea" id="txtname" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Discription: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" id="txtDesc" class="form-horizontal width800" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Expires On: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" class="form-control" id="txtExpireson" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="rdbExire" />Never Expire
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Owner: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <select class="form-control textarea" style="width:1000px">
+                                                    <option value="0" selected="selected">Select</option>
+                                                    <option *ngFor="let Emp of UsersOwnerSelected" value="{{Emp.Id}}">{{Emp.EmployeeName}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="trSaveAsTemplate">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div id="chkSaveasTemplate">
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <label class="LabelCenter">Save As Template: </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <input type="checkbox" id="chkSaveasTemp" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="chkReview">
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <label class="LabelCenter">Allow For Review: </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <input type="checkbox" id="chkAllowReview" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="trTimeBased">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div id="chkTimeBased">
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <label class="LabelCenter">Time Based: </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <input type="checkbox" id="chkTimeBase" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ReportVisibility" id="Time">
+                                        <input type="text" id="txtTime" name="txtTime" class="form-control" />-HH:mm:ss
+                                    </div>
+                                    <div id="chkAllowFillAgain">
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <label class="LabelCenter">Allow To Fill Again: </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <input type="checkbox" id="chkAllowToFillAgain" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 ReportVisibility" id="AllowToFill">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <input type="text" id="txtAllowToFillAgain" maxlength="2" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Point Type: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" name="point" id="rdbQuestionBased" />Question Based
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" name="point" id="rdbAnswerBased" />Answer Based
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" name="point" id="rdbNoPoints" />No Points
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="trTotalPoints">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Total Points: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" name="txtTotalPoints" disabled="disabled" class="form-control" id="txttotalpoint" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Passing Percentage: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" name="passingpercentage" class="form-control" id="txtMinimumPoints" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Page Design: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="rdbCustomDesign" name="Page" />Custom Design
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="rdbNonRandom" name="Page" />Non-Random
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="rdbRandom" name="Page" />Random
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="PageSetting">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Page Setting: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Question Per Page : </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" id="txtQuePerPage" name="txtQuePerPage" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="divTotalQue">
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <label class="LabelCenter">Total Random Question :</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <input type="text" id="txtTotalQue" name="txtTotalQue" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ReportVisibility" id="trReportVisibility">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Poll Result : </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="rdbIsShowReport" name="pollReport" checked="checked" /><span>Show Report</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="rdbAutoPublish" name="pollReport" /><span>Auto Publish</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="rdbIsDontShow" name="pollReport" /><span>Don't Show Report</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ReportVisibility" id="trRevoting">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Revote: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="chkIsRevoting" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Mandatory: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="chkmandatory" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Active: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="chkactive" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="trCompletionText">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Completion Text: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <textarea id="txtcompletion" name="Completion" class="width800" [(ngModel)]="ComplitionText"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="trHeaderFooter">
+                            <div class="row" id="Header">
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        <div class="col-md-12">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <button type="button" class="btn btn-info width869" data-toggle="collapse" data-target="#demo">Header</button>
+                                                    <div class="collapse" id="demo">
+                                                        <ckeditor [config]="{uiColor: '#D3D3D3'}"
+                                                                  [readonly]="false"
+                                                                  debounce="500" id="ckedit123">
+                                                        </ckeditor>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="Footer">
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        <div class="col-md-12">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <button type="button" class="btn btn-info width869" data-toggle="collapse" data-target="#demo1">Footer</button>
+                                                    <div class="collapse" id="demo1">
+                                                        <ckeditor [config]="{uiColor: '#D3D3D3'}"
+                                                                  [readonly]="false"
+                                                                  debounce="500" id="ckeditfooter">
+                                                        </ckeditor>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="trImport">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Import Questions: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="file" id="fuImportQuestion" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="image" id="imgbtnDownLoadSample" src="/Upload/Icon images/downloadicon.png" class="btnexportexcel" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2 col-md-offset-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="submit" class="btn btn-info Width120" value="Submit" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="button" class="btn btn-info Width120" value="Cancel" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div contents="Step2">
+                        <u><b>Questions</b></u>
+
+                        <div class="tabborder"></div>
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-2">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="chkimage" (change)="HideImgChecked()" />Image
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="chkaudio" (change)="HideAudioChecked()" />Audio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="chkvideo" (change)="HideVideoChecked()" />Video
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" id="imgshow">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="file" id="imgupload" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1" id="imgshow1">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="image" id="imgaddupload" src="/Upload/Icon images/icon_add.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" id="video">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" class="form-control" id="txtvideo" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="trIsMasterQue">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Is Master Que: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="chkIsMasterQue" (change)="HideMstQueChecked()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="trParentQue">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Parent Question: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <select class="form-control" id="ddlParentQue">
+                                                    <option value="0" selected="selected">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Question (1): </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <textarea id="txtque1" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Discription: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <textarea id="txtque2" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Mendatory: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="checkbox" id="chkmandatory" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Points: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" id="txtpoints" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Page: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <select class="form-control">
+                                                    <option value="0" selected="selected">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="image" title="Add Page" id="addpage" src="/Upload/Icon images/" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="hideMasterquestion">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <label class="LabelCenter">Image Based ans: </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <input type="checkbox" id="imgbasedchk" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-horizontal">
+                                        <div class="col-md-2">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <label class="LabelCenter">Answer Type: </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="form-group Popup-group">
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                                    <select class="form-control">
+                                                        <option value="0" selected="selected">Select</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2 col-md-offset-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="submit" id="btnaddStep2" value="Save" class="btn btn-info Width120" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="button" id="btnnextStep2" value="Next" class="btn btn-info Width120" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="button" id="btnPreviewStep2" value="Preview" class="btn btn-info Width120" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="button" id="btnClearStep2" value="Clear" class="btn btn-info Width120" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div contents="Step3">
+                        <u><b>Skill Attachment</b></u>
+                        <div class="tabborder"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="button" id="btnAttach" class="btn btn-info Width120" value="Attach" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                Skill List
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="submit" id="btnsaveStep3" class="btn btn-info Width120" value="Save" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="button" id="btnnextStep3" class="btn btn-info Width120" value="Next" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div contents="Step4">
+                        <u><b>Add Participants</b></u>
+                        <div class="tabborder"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Filter Field: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <select class="form-control">
+                                                    <option value="0" selected="selected">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Filter On: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <select class="form-control">
+                                                    <option value="0" selected="selected">select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="image" id="img" src="/Upload/Icon images/Add.png" />
+                                                <input type="image" id="img" src="/Upload/Icon images/icon_clear.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Individual Employee:</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Roles: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">User Name:</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" id="txtUName" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Email: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" id="txtemail" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="button" id="btnaddUser" class="btn btn-info Width120" value="Add" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-2">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Recurrence: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="rdbNorecurrence" />No Recurrence
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="rdbRecurrence" />Recurrence
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-2">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Publish Date: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="text" id="txtpublishdate" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-2">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="submit" id="btnadd" value="Add" class="btn btn-info Width120" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div contents="Step5">
+                        <u><b>Scheduler</b></u>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <label class="LabelCenter">Start: </label>
+                                                <input type="text" id="txtstartdate" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="daily" /> Daily
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="Weekly" /> Weekly
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="Monthly" /> Monthly
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="Yearly" /> Yearly
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-6 col-md-offset-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="daily" /> Every
+                                                <input type="text" id="txtday" class="form-control" />days(s)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="EveryWeekday" /> Every Weekday
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="NoendDate" /> No End Date
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="Endafter" /> End After
+                                                <input type="text" id="txtoccurrence" class="form-control" />occurrences
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="Endafter" /> End By
+                                                <input type="text" id="enddate" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal">
+                                    <div class="col-md-3 col-md-offset-1">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="NextRecurrence" />Valid Till Next Recurrence
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="radio" id="CustConfig" /> Custom Configuration
+                                                <input type="text" id="txtcustconfig" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-2">
+                                <div class="form-horizontal">
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="submit" id="btnsavestep5" value="Save" class="btn btn-info Width120" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                                <input type="button" id="btncancelstep5" value="Cancel" class="btn btn-info Width120" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng2-tab>
+        </modal-body>
+    </form>
+</modal>

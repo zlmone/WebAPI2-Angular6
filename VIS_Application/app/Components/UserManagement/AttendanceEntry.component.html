@@ -1,0 +1,190 @@
+﻿<div class="container" ng-init="modalAttendanceEntry">
+    <modal #modalAttendanceEntry class="setwidth">
+        <form #AttendanceEntryFrm="ngForm" (ngSubmit)="onsubmit(AttendanceEntryFrm.value)">
+            <modal-header [show-close]="true">
+                <div *ngFor="let emp of AttendanceEmployee">
+                    <h4 class="modal-title" style="color:white">
+                        Employee Name : {{emp.Employee_Name}}
+                    </h4>
+                </div>
+                
+            </modal-header>
+
+            <modal-body>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbpunchin" value="1" [(ngModel)]="Entry_Type" />Punch In
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbpunchout" value="2" [(ngModel)]="Entry_Type" />Punch Out
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbLunchout" value="3" [(ngModel)]="Entry_Type" />Lunch Out
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbLunchin" value="4" [(ngModel)]="Entry_Type" />Lunch In
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbotherout" value="5" [(ngModel)]="Entry_Type" />Other Out
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbotherin" value="6" [(ngModel)]="Entry_Type" />Other In
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbmeetingout" value="7" [(ngModel)]="Entry_Type" />Meeting out
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbmeetingin" value="8" [(ngModel)]="Entry_Type" />Meeting In
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-3 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbOffworkout" value="9" [(ngModel)]="Entry_Type" />Official Work-out
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-md-offset-1">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <input type="radio" name="Entry_Type" id="rdbOffworkin" value="10" [(ngModel)]="Entry_Type" />Official Work-In
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12 col-md-offset-1">
+                                        <br />
+                                        <!--<input type="submit" [disabled]="AttendanceEntryFrm.invalid" class="btn btn-success" value="Submit" />-->Remarks
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <textarea id="txtremarks" name="Remarks" class="form-control" [(ngModel)]="Remarks"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12 col-md-offset-1">
+                                        <input type="submit" [disabled]="AttendanceEntryFrm.invalid" class="btn btn-success" value="Submit" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <h4><span id="Date">{{Datetime | date:['yMMMdjms']}}</span></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </modal-body>
+            <modal-footer>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <b>Punch In Hours</b><br />
+                                        <label id="lblPunchTime" class="centertext">{{PunchInHours}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <b>Working Hours</b><br />
+                                        <label id="lblWorkTime" class="centertext">{{WorkingTime}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-12 col-lg-12 col-xs-12">
+                                        <b>Break Hours</b><br />
+                                        <label id="lblBreakTime" class="centertext">{{BreakTime}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </modal-footer>
+        </form>
+    </modal>
+</div>

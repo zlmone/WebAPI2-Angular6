@@ -1,0 +1,21 @@
+{
+  "compileOnSave": true,
+   "buildOnSave": true,
+  "compilerOptions": {
+
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [ "es2015", "dom" ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es5",
+    "skipLibCheck": true,
+    "strictNullChecks": false
+  },
+  "exclude": [
+    "node_modules/*"
+  ]
+}

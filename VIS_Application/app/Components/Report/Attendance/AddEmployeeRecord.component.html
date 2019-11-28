@@ -1,0 +1,462 @@
+﻿<div style="vertical-align:top;float:left;"><h3><b>Add/Edit Record</b></h3><br /></div>
+<div class="container">
+        <form #AddEmployeeRecordFrm="ngForm" (ngSubmit)="onSubmit(AddEmployeeRecordFrm.value)">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-1 col-lg-1 col-xs-12">
+                                    <label class="LabelCenter">Employee </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                    <select class="form-control" id="Id" [(ngModel)]="EmpId" name="EmployeeId">
+                                        <option selected value="0">Select ALL</option>
+                                        <option *ngFor="let employee of Employees" value="{{employee.Id}}" [selected]="EmpId===employee.Id">{{employee.Employee_Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2col-lg-2 col-xs-12">
+                                    &nbsp;&nbsp;<label class="LabelCenter">Select Date </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                    <input type="text" class="form-control" id="txtDate" [(ngModel)]="Date" name="Date" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvasshap">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="col-md-2 col-md-offset-1">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-2col-lg-2 col-xs-12">
+                                        <label class="LabelCenter">HR Attendance Details</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-1">
+                        <div class="form-horizontal">
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-2col-lg-2 col-xs-12">
+                                        <label class="LabelCenter">In Time</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                        <label class="LabelCenter">{{InTime}}</label>
+                                        <input type="hidden" id="txtInTime" name="InTime" value="{{InTime}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-2col-lg-2 col-xs-12">
+                                        &nbsp;&nbsp;<label class="LabelCenter">Grace</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                        <label class="LabelCenter">{{Grace}}</label>
+                                        <input type="hidden" name="grace" id="grace" value="{{Grace}}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-1">
+                        <div class="form-horizontal">
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-2col-lg-2 col-xs-12">
+                                        <label class="LabelCenter">Out Time</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                        <label class="LabelCenter">{{OutTime}}</label>
+                                        <input type="hidden" id="txtOutTime" name="OutTime" value="{{OutTime}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-2col-lg-2 col-xs-12">
+                                        <label class="LabelCenter">Mode</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                        <label class="LabelCenter">{{Mode}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2col-lg-2 col-xs-12">
+                                    <label class="LabelCenter">Entry Type</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                    <select class="form-control" id="ddltype" [(ngModel)]="EntryType" name="EntryType">
+                                        <option selected value="0">Select Type</option>
+                                        <option value="1">Punch-In</option>
+                                        <option value="2">Punch-Out</option>
+                                        <option value="3">Lunch-Out</option>
+                                        <option value="4">Lunch-In</option>
+                                        <option value="5">Other-Out</option>
+                                        <option value="6">Other-In</option>
+                                        <option value="7">Meeting-Out</option>
+                                        <option value="8">Meeting-In</option>
+                                        <option value="9">Official Work-Out</option>
+                                        <option value="10">Official Work-In</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2col-lg-2 col-xs-12">
+                                    <label class="LabelCenter">Entry Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                    <input type="date" value="" class="form-control" name="EntryDate" id="txtEntryDate" [(ngModel)]="Date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2col-lg-2 col-xs-12">
+                                    <label class="LabelCenter">Entry Time</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                    <input type="text" class="form-control" value="{{HR}}" name="Hr" id="txtHr"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2col-lg-2 col-xs-12">
+                                    <label class="LabelCenter">Hr.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                    <input type="text" class="form-control" value="{{MIN}}" name="Minute" id="txtMinute"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2col-lg-2 col-xs-12">
+                                    <label class="LabelCenter">Minute.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control AMPMWidth" id="ddlIn" [(ngModel)]="AMPM_Data" name="AMPM">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2col-lg-2 col-xs-12">
+                                    <label class="LabelCenter">Remarks</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                    <input type="text" value="" class="form-control" name="Remarks" id="Remarks" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-10">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" value="Save" />&nbsp;
+                                    <input type="button" class="btn btn-info Width120" value="Cancel" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-12">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <div *ngIf="InLoading==true" class="alert alert-info" role="alert"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div *ngIf="EmployeeDailyEntrySheet && EmployeeDailyEntrySheet.length==0" role="alert" class="alert alert-info alert-dismissible">
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            No record found!
+        </div>
+        <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{msg}}
+        </div>
+        <div id="adminProfile" class="col-md-6 col-sm-12 col-xs-12 pr-md-10 repotwidgetwidth">
+            <div class="portlet box green paddingless">
+                <div class="portlet-title line accord">
+                    <div class="caption"><i class="fa fa-user-o" aria-hidden="true"></i>Daily Entry Sheet</div>
+                    <div class="tools">
+                        <a class="collapse" (click)="ToogleMyProfile()"></a>
+                        <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetProfile()"></a>
+                    </div>
+                </div>
+                <div class="portlet-body repotwidgetwidth" id="myprofiledata">
+                    <div class="tabbable tabbable-custom">
+                        <div style="height:auto;" data-always-visible="1" data-rail-visible1="1">
+                            <div class="portlet box marbott0">
+                                <div class="portlet-body padding0">
+                                    <div class="table-scrollable">
+                                        <div class="full-wd Scrollbarcss" style="height:auto">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead class="reportwidgetheader">
+                                                    <tr>
+                                                        <th class="headrecenter">
+                                                            Date
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Entry Time
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Entry Type
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Remarks
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Action
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let employeeDailyEntrySheet of pagedItems" class="rowsbackcol">
+                                                        <td class="headrecenter">
+                                                            {{employeeDailyEntrySheet.forWhichDate}}
+                                                        </td>
+                                                        <td class="headrecenter">
+                                                            {{employeeDailyEntrySheet.Entry_Time}}
+                                                        </td>
+                                                        <td class="headrecenter">
+                                                            {{employeeDailyEntrySheet.Entry_Type}}
+                                                        </td>
+                                                        <td class="headrecenter">
+                                                            {{employeeDailyEntrySheet.Remarks}}
+                                                        </td>
+                                                        <td class="headrecenter">
+                                                            <button (click)="EditReport(employeeDailyEntrySheet)" title="Edit" class="btn btn-vis"><span class="glyphicon glyphicon-pencil"></span></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center" *ngIf='EmployeeDailyEntrySheet && EmployeeDailyEntrySheet.length > 10'>
+                        <div class="col-md-8 text-left">
+                            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="JumpOnPage(1)">First</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                                </li>
+                                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                    <a (click)="JumpOnPage(page)">{{page}}</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                                <option value="=-1" disabled>Records per Page</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="0">All</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                                <option value="=-1" disabled>Go to Page</option>
+                                <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div *ngIf='employeeDailyEntrySheet && employeeDailyEntrySheet.length' class="reportpagingalign">
+                        <div>{{pager.pagerinformtion}}</div>
+                    </div>
+                    <br />
+                    <div class="tabbable tabbable-custom">
+                        <div class="scroller" style="height: auto;" data-always-visible="1" data-rail-visible1="1">
+                            <div class="portlet box marbott0">
+                                <div class="portlet-body padding0">
+                                    <div>
+                                        <div>
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead class="reportwidgetheader">
+                                                    <tr>
+                                                        <th class="headrecenter">
+                                                            Total Hours
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Working Hours
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Lunch Out Hours
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Other Out Hours
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Total Break Hours
+                                                        </th>
+                                                        <th class="headrecenter">
+                                                            Worksheet Hours
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tr *ngFor="let empAttendance of EmployeeAttendance">
+                                                    <td class="headrecenter">
+                                                        {{empAttendance.TotalOfficeTime}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{empAttendance.TotalWorkingTime}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{empAttendance.TotalLunchTime}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{empAttendance.TotalOtherTime}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{empAttendance.TotalBreakTime}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{empAttendance.TotalWorksheetHours}}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

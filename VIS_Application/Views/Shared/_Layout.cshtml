@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verve Systems Pvt. Ltd. All rights reserved.</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
+    <script src="/node_modules/core-js/client/shim.min.js"></script>
+    <script src="/node_modules/zone.js/dist/zone.js"></script>
+    <script src="/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="/systemjs.config.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    
+
+    <script type="text/javascript">
+
+
+
+        System.import('app').catch(function (err) {
+
+            console.error(err);
+            alert(err);
+        });
+    </script>
+
+</head>
+<body>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Verve Systems Pvt. Ltd.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/CommonScriptFunction.js"></script>
+    <script src="~/Scripts/ckeditor.js"></script>
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>
+

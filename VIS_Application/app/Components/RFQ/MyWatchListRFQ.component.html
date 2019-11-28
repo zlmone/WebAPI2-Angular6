@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <div>
+        <div>
+            <!--<search-list [title]='searchTitle' (change)="RFQFilterCriteriaChange($event)"></search-list>-->
+            <div style="vertical-align:top;float:left;"><h3><b>My watch</b></h3></div>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+           
+            <table class='table table-striped table-bordered table-responsive'>
+                <thead>
+                    <tr>
+                        <!--<th style="display:none">{{RFQ.RFQInitialId}}</th>
+                        <th style="display:none">{{RFQ.OpportunityId}}</th>-->
+                        <!--<th style="display:none">Company Id</th>-->
+                        <th class="pointer" (click)="RFQSort('Title')">
+                            <label *ngIf="!ShowHideSearch">
+                                Title
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'Title', 'fa-sort-asc': (column == 'Title' && isDesc), 'fa-sort-desc': (column == 'Title' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search by Title" id="searchTitle" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+                        <th class="pointer" (click)="RFQSort('InitiatedBy')">
+                            <label *ngIf="!ShowHideSearch">
+                                Business Manager
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'InitiatedBy', 'fa-sort-asc': (column == 'InitiatedBy' && isDesc), 'fa-sort-desc': (column == 'InitiatedBy' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search by Business Manager" id="searchInitiatedBy" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+                        <th class="pointer" (click)="RFQSort('DateOfInitiation')">
+                            <label *ngIf="!ShowHideSearch">
+                                Date Of Initiation
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'DateOfInitiation', 'fa-sort-asc': (column == 'DateOfInitiation' && isDesc), 'fa-sort-desc': (column == 'DateOfInitiation' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search by Date Of Initiation" id="searchDateOfInitiation" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+
+                        <th class="pointer" (click)="RFQSort('EstimateBy')">
+                            <label *ngIf="!ShowHideSearch">
+                                Resp. Req. From
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'EstimateBy', 'fa-sort-asc': (column == 'EstimateBy' && isDesc), 'fa-sort-desc': (column == 'EstimateBy' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search by Resp. Req. From" id="searchEstimateBy" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+                        <th class="pointer" (click)="RFQSort('SubmittedOn')">
+                            <label *ngIf="!ShowHideSearch">
+                                Resp. Req. By
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'SubmittedOn', 'fa-sort-asc': (column == 'SubmittedOn' && isDesc), 'fa-sort-desc': (column == 'SubmittedOn' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search Resp. Req. By" id="searchSubmittedOn" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+
+                        <th class="pointer" (click)="RFQSort('Status')">
+                            <label *ngIf="!ShowHideSearch">
+                                Opportunity Status
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'Status', 'fa-sort-asc': (column == 'Status' && isDesc), 'fa-sort-desc': (column == 'Status' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search Status" id="searchStatus" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+
+                        <th class="pointer" (click)="RFQSort('rfqStatus')">
+                            <label *ngIf="!ShowHideSearch">
+                                RFQ Status
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'rfqStatus', 'fa-sort-asc': (column == 'rfqStatus' && isDesc), 'fa-sort-desc': (column == 'rfqStatus' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search RFQ Status" id="searchrfqStatus" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+
+                        <th class="pointer" (click)="RFQSort('LastResponseBy')">
+                            <label *ngIf="!ShowHideSearch">
+                                Last Resp. from
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'LastResponseBy', 'fa-sort-asc': (column == 'LastResponseBy' && isDesc), 'fa-sort-desc': (column == 'LastResponseBy' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search Last Resp. from" id="searchLastResponseBy" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+                        <th class="pointer" (click)="RFQSort('LastResponseDate')">
+                            <label *ngIf="!ShowHideSearch">
+                                LastResponseDate
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'LastResponseDate', 'fa-sort-asc': (column == 'LastResponseDate' && isDesc), 'fa-sort-desc': (column == 'LastResponseDate' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search LastResponseDate" id="searchLastResponseDate" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+
+                        <th class="pointer" (click)="RFQSort('ActionRequestedBy')">
+                            <label *ngIf="!ShowHideSearch">
+                                Action Requested From
+                                <i class="fa" [ngClass]="{'fa-sort': column != 'ActionRequestedBy', 'fa-sort-asc': (column == 'ActionRequestedBy' && isDesc), 'fa-sort-desc': (column == 'ActionRequestedBy' && !isDesc) }" aria-hidden="true"> </i>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Search ActionRequestedBy" id="searchActionRequestedBy" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                        </th>
+
+
+                        <th nowrap="nowrap" class="text-center">
+                            <button class="btn btn-vis" (click)="addRFQ()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                            <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                            <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf='RFQs && RFQs.length'>
+                    <tr *ngFor="let RFQ of pagedItems | RFQFilter : RFQFilter | orderBy: {property: column, direction: direction}">
+                        <!--pagedItems | RFQFilter : RFQFilter | orderBy: {property: column, direction: direction}"-->
+                        <!--<td style="display:none">{{RFQ.RFQInitialId}}</td>
+                        <td style="display:none">{{RFQ.OpportunityId}}</td>-->
+                        <td>{{RFQ.Title}}</td>
+                        <td>{{RFQ.InitiatedBy}}</td>
+                        <td>{{RFQ.DateOfInitiation | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{RFQ.EstimateBy}}</td>
+                        <td>{{RFQ.SubmittedOn | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{RFQ.Status}}</td>
+                        <td>{{RFQ.rfqStatus}}</td>
+                        <td>{{RFQ.LastResponseBy}}</td>
+                        <td>{{RFQ.LastResponseDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{RFQ.ActionRequestedBy}}</td>
+
+
+
+                        <td style="text-align:center">
+                            <div *ngIf="RFQ.IsActive == 1" style="text-align:center">
+                                <button title="Edit" class="btn btn-vis" (click)="editRFQ(RFQ.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button title="Delete" class="btn btn-vis" (click)="deleteRFQ(RFQ.Id, RFQ.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
+                            <div *ngIf="RFQ.IsActive == 0" style="text-align:center">
+                                <button title="Undo Detete" class="btn btn-vis" (click)="deleteRFQ(RFQ.Id, RFQ.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf='RFQs && RFQs.length'>
+                <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+                <div class="col-md-12 text-center">
+                    <div class="col-md-8 text-left">
+                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(1)">First</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="JumpOnPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-2">
+
+                        <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Recordds per Page</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="0">All</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Go to Page</option>
+                            <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                        </select>
+
+                    </div>
+
+                </div>
+            </div>
+            <div *ngIf='RFQs && RFQs.length==0' class="alert alert-info" role="alert">No record found!</div>
+        </div>
+        <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{msg}}
+        </div>
+    </div>
+
+</body>
+</html>

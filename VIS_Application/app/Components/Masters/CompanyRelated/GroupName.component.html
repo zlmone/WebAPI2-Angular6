@@ -1,0 +1,162 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="GroupNameFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>   Group Name</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="GroupNameSort('GroupNames')">
+                        <label *ngIf="!ShowHideSearch">
+                           Group Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'TypeName', 'fa-sort-asc': (column == 'GroupNames' && isDesc), 'fa-sort-desc': (column == 'GroupNames' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Group Name" id="searchGroupNames" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+                    <th nowrap="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="AddGroupName()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='GroupNames && GroupNames.length'>
+                <tr *ngFor="let GroupName of pagedItems | GroupNameFilter : GroupNameFilter | orderBy: {property: column, direction: direction}">
+
+                    <td style="width:800px">{{GroupName.GroupNames}}</td>
+                    <td style="display:none">{{GroupName.CreatedOn}}</td>
+                    <td style="display:none">{{GroupName.CreatedBy}}</td>
+                    <td style="display:none">{{GroupName.UpdatedBy}}</td>
+                    <td style="display:none">{{GroupName.UpdatedOn}}</td>
+                    <td style="display:none">{{GroupName.IsActive}}</td>
+
+                    <td>
+                        <div *ngIf="GroupName.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="EditGroupName(GroupName.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="DeleteGroupName(GroupName.Id, GroupName.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="GroupName.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeleteGroupName(GroupName.Id, GroupName.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='GroupNames && GroupNames.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='GroupNames && GroupNames.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(GroupNameFrm)" [formGroup]="GroupNameFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-2 col-lg-2 col-xs-3">Group Name* :</div>
+                            <div class="col-md-6 col-lg-6 col-xs-8">
+                                <input type="text" class="form-control col-sm-8 col-xs-10" placeholder="GroupName Name " formControlName="GroupNames">
+                            </div>
+
+                            <div style="display:none">
+                                <span>Created On</span>
+                                <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+                            </div>
+                            <div style="display:none">
+                                <span>Created By</span>
+                                <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+                            </div>
+                            <div style="display:none">
+                                <span>Updated On</span>
+                                <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+                            </div>
+                            <div style="display:none">
+                                <span>Updated By</span>
+                                <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+                            </div>
+                            <div style="display:none">
+                                <span>Is Active</span>
+                                <input type="checkbox" class="form-control" formControlName="IsActive">
+                            </div>
+                            <div style="display:none">
+                                <span>EntityMessage</span>
+                                <input type="text" class="form-control" formControlName="EntityMessage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="GroupNameFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+

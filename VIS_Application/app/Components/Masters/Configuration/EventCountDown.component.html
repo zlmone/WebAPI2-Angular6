@@ -1,0 +1,332 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="MacIdConfigurationFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Event Count Down List</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="EventCountDownSort('EventName')">
+                        <label *ngIf="!ShowHideSearch">
+                            Event Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'EventName', 'fa-sort-asc': (column == 'EventName' && isDesc), 'fa-sort-desc': (column == 'EventName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search By Event Name" id="searchEventName" *ngIf="ShowHideSearch" (keydown)="LoadEventCountDown()">
+                    </th>
+
+                    <th class="pointer" (click)="EventCountDownSort('CountDownText')">
+                        <label *ngIf="!ShowHideSearch">
+                            Event Count Down Text
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'CountDownText', 'fa-sort-asc': (column == 'CountDownText' && isDesc), 'fa-sort-desc': (column == 'CountDownText' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search By CountDown Text" id="searchCountDownText" *ngIf="ShowHideSearch" (keydown)="LoadEventCountDown()">
+                    </th>
+
+                    <th class="pointer">
+                        <label *ngIf="!ShowHideSearch">
+                            Event Date
+                        </label>
+                    </th>
+
+                    <th class="pointer">
+                        <label *ngIf="!ShowHideSearch">
+                            Event Time
+                        </label>
+                    </th>
+
+                    <th class="pointer">
+                        <label *ngIf="!ShowHideSearch">
+                            No of Days
+                        </label>
+                    </th>
+
+
+                    <th class="pointer">
+                        <label *ngIf="!ShowHideSearch">
+                            Active
+                        </label>
+                    </th>
+
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+
+                    <th class="text-center" nowrap="nowrap">
+                        <button class="btn btn-vis" (click)="AddEventCountDown()"><span class="glyphicon glyphicon-plus-sign" title="Add New"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="LoadEventCountDown()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody *ngIf='eventcountdowns && eventcountdowns.length'>
+                <tr *ngFor="let event of pagedItems | eventcountdownFilter : EventCountDownFilter | orderBy: {property: column, direction: direction}">
+                    <td style="width:800px">{{event.EventName}}</td>
+                    <td style="width:1300px">{{event.CountDownText}}</td>
+                    <td style="width:800px">{{event.CountDownDateTime | date :'dd/MM/yyyy' }}</td>
+                    <td style="width:800px">{{event.CountDownDateTime | slice : 11:20}}</td>
+                    <td style="width:800px">{{event.NoOfDay}}</td>
+                    <td style="width:800px">
+                        <div *ngIf="event.Active==1">
+                            <input type="checkbox" class="ActiveCheckbox" disabled checked />
+                        </div>
+                        <div *ngIf="event.Active==0">
+                            <input type="checkbox" class="ActiveCheckbox" disabled />
+                        </div>
+                    </td>
+                    <td style="display:none">{{event.CreatedOn}}</td>
+                    <td style="display:none">{{event.CreatedBy}}</td>
+                    <td style="display:none">{{event.UpdatedBy}}</td>
+                    <td style="display:none">{{event.UpdatedOn}}</td>
+                    <td style="display:none">{{event.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="event.IsActive == 1" style="text-align:center;width:250px">
+                            <button title="Edit" class="btn btn-vis" (click)="EditEventCountDown(event.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="DeleteEventCountDown(event.Id, event.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="event.IsActive == 0" style="text-align:center;width:250px">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeleteEventCountDown(event.Id, event.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='eventcountdowns && eventcountdowns.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='eventcountdowns && eventcountdowns.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(EventCountDownFrm)" [formGroup]="EventCountDownFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Event Name* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Event Name" formControlName="EventName">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Event Text* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Event Count Down Text" formControlName="CountDownText">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Event Date* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="date" class="form-control" placeholder="Event Date" formControlName="CountDownDate">
+                                    <!--<ng-datepicker  formControlName="CountDownDate"></ng-datepicker>-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Event Time* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <select class="form-control" formControlName="CountDownTime">
+                                        <option disabled value="0">Select</option>
+                                        <option>00:00:00</option>
+                                        <option>00:30:00</option>
+                                        <option>01:00:00</option>
+                                        <option>01:30:00</option>
+                                        <option>02:00:00</option>
+                                        <option>02:30:00</option>
+                                        <option>03:00:00</option>
+                                        <option>03:30:00</option>
+                                        <option>04:00:00</option>
+                                        <option>04:30:00</option>
+                                        <option>05:00:00</option>
+                                        <option>05:30:00</option>
+                                        <option>06:00:00</option>
+                                        <option>06:30:00</option>
+                                        <option>07:00:00</option>
+                                        <option>07:30:00</option>
+                                        <option>08:00:00</option>
+                                        <option>08:30:00</option>
+                                        <option>09:00:00</option>
+                                        <option>09:30:00</option>
+                                        <option>10:00:00</option>
+                                        <option>10:30:00</option>
+                                        <option>11:00:00</option>
+                                        <option>11:30:00</option>
+                                        <option>12:00:00</option>
+                                        <option>12:30:00</option>
+                                        <option>13:00:00</option>
+                                        <option>13:30:00</option>
+                                        <option>14:00:00</option>
+                                        <option>14:30:00</option>
+                                        <option>15:00:00</option>
+                                        <option>15:30:00</option>
+                                        <option>16:00:00</option>
+                                        <option>16:30:00</option>
+                                        <option>17:00:00</option>
+                                        <option>17:30:00</option>
+                                        <option>18:00:00</option>
+                                        <option>18:30:00</option>
+                                        <option>19:00:00</option>
+                                        <option>19:30:00</option>
+                                        <option>20:00:00</option>
+                                        <option>20:30:00</option>
+                                        <option>21:00:00</option>
+                                        <option>21:30:00</option>
+                                        <option>22:00:00</option>
+                                        <option>22:30:00</option>
+                                        <option>23:00:00</option>
+                                        <option>23:30:00</option>
+                                        <option>23:59:59</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">No of Days* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <select class="form-control" formControlName="NoOfDay">
+                                        <option disabled value="0">Select</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                        <option>13</option>
+                                        <option>14</option>
+                                        <option>15</option>
+                                        <option>16</option>
+                                        <option>17</option>
+                                        <option>18</option>
+                                        <option>19</option>
+                                        <option>20</option>
+                                        <option>21</option>
+                                        <option>22</option>
+                                        <option>23</option>
+                                        <option>24</option>
+                                        <option>25</option>
+                                        <option>26</option>
+                                        <option>27</option>
+                                        <option>28</option>
+                                        <option>29</option>
+                                        <option>30</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Active* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="checkbox" class="form-control ActiveCheckbox" placeholder="Active" formControlName="Active">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="display:none">
+                            <span>Created On</span>
+                            <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+                        </div>
+                        <div style="display:none">
+                            <span>Created By</span>
+                            <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated On</span>
+                            <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated By</span>
+                            <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>Is Active</span>
+                            <input type="checkbox" class="form-control" formControlName="IsActive">
+                        </div>
+                        <!--<div style="display:none">
+                            <span>EntityMessage</span>
+                            <input type="text" class="form-control" formControlName="EntityMessage">
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="EventCountDownFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+

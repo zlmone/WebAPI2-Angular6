@@ -1,0 +1,419 @@
+﻿<div>
+    <div>
+        <search-list [title]='searchTitle' (change)="CompanyMasterFilterCriteriaChange($event)"></search-list>
+        <div style="vertical-align:top;float:left;"><h3><b>Company</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <div *ngIf='CompanyMasters && CompanyMasters.length==0' class="alert alert-info" role="alert">No record found!</div>
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <!--<th style="display:none">Company Id</th>-->
+                    <th class="pointer" (click)="CompanyMasterSort('CompanyName')">
+                        <label *ngIf="!ShowHideSearch">
+                            CompanyName
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'CompanyName', 'fa-sort-asc': (column == 'CompanyName' && isDesc), 'fa-sort-desc': (column == 'CompanyName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Company Name" id="searchCompanyName" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                      </th>
+                    <th class="pointer" (click)="CompanyMasterSort('City')">
+                        <label *ngIf="!ShowHideSearch">
+                            City
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'City', 'fa-sort-asc': (column == 'City' && isDesc), 'fa-sort-desc': (column == 'City' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by City" id="searchCity" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="CompanyMasterSort('State')">
+                        <label *ngIf="!ShowHideSearch">
+                            State
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'State', 'fa-sort-asc': (column == 'State' && isDesc), 'fa-sort-desc': (column == 'State' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by State" id="searchState" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+
+                    <th class="pointer" (click)="CompanyMasterSort('Country')">
+                        <label *ngIf="!ShowHideSearch">
+                            Country
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Country', 'fa-sort-asc': (column == 'Country' && isDesc), 'fa-sort-desc': (column == 'Country' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Country" id="searchCountry" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="CompanyMasterSort('ContactNo')">
+                        ContactNo
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'ContactNo', 'fa-sort-asc': (column == 'ContactNo' && isDesc), 'fa-sort-desc': (column == 'ContactNo' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="CompanyMasterSort('E_mail')">
+                        <label *ngIf="!ShowHideSearch">
+                            E-mail
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'E_mail', 'fa-sort-asc': (column == 'E_mail' && isDesc), 'fa-sort-desc': (column == 'E_mail' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by E-mail" id="searchE-mail" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                     </th>
+                    <th class="pointer" (click)="CompanyMasterSort('CompanyURL')">
+                        <label *ngIf="!ShowHideSearch">
+                            CompanyURL
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'CompanyURL', 'fa-sort-asc': (column == 'CompanyURL' && isDesc), 'fa-sort-desc': (column == 'CompanyURL' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by CompanyURL" id="searchCompanyURL" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <!--<th>logo</th>-->
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+                    <th style="display:none">Company Id</th>
+                    <th nowrap="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="addCompanyMaster()"><span title="Add Company" class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='CompanyMasters && CompanyMasters.length'>
+                <tr *ngFor="let CompanyMaster of pagedItems | CompanyMasterFilter : CompanyMasterFilter | orderBy: {property: column, direction: direction}">
+                    <td style="display:none">{{CompanyMaster.Id}}</td>
+                    <td>{{CompanyMaster.CompanyName}}</td>
+                    <td>{{CompanyMaster.City}}</td>
+                    <td>{{CompanyMaster.State}}</td>
+                    <td>{{CompanyMaster.CountryName}}</td>
+                    <td>{{CompanyMaster.ContactNo}}</td>
+                    <td>{{CompanyMaster.E_mail}}</td>
+                    <td>{{CompanyMaster.CompanyURL}}</td>
+                    <!--<td>{{CompanyMaster.CompanyLogo}}</td>-->
+
+                    <td style="display:none">{{CompanyMaster.CreatedOn}}</td>
+                    <td style="display:none">{{CompanyMaster.CreatedBy}}</td>
+                    <td style="display:none">{{CompanyMaster.UpdatedBy}}</td>
+                    <td style="display:none">{{CompanyMaster.UpdatedOn}}</td>
+                    <td style="display:none">{{CompanyMaster.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="CompanyMaster.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="editCompanyMaster(CompanyMaster.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="deleteCompanyMaster(CompanyMaster.Id, CompanyMaster.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="CompanyMaster.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="deleteCompanyMaster(CompanyMaster.Id, CompanyMaster.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+        <div class="col-md-12 text-center">
+            <div class="col-md-8 text-left">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="JumpOnPage(1)">First</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="JumpOnPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-md-2">
+
+                <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                    <option value="=-1" disabled>Recordds per Page</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="0">All</option>
+                </select>
+
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                    <option value="=-1" disabled>Go to Page</option>
+                    <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                </select>
+
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(CompanyMasterFrm)" [formGroup]="CompanyMasterFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+            <div class="row Pop">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Company Name* :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Company Name" formControlName="CompanyName">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Company Short Name* :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Company Short Code" formControlName="CompanyShortCode">
+
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Start Series :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Numbers only" formControlName="StartSeries">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Financial Year* :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <select class="form-control" formControlName="FinancialYear">
+                                        <option value="=-1" disabled>Select Option</option>
+                                        <option *ngFor="let fy of FinancialYear" value="{{fy.Id}}">{{fy.FinancialYeardll}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Address1* :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Address" formControlName="Address">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Address2 :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Address2" formControlName="Address2">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    City :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="City" formControlName="City">
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Zip Code :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Numbers Only" formControlName="ZipCode">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    State :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="State" formControlName="State">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Country :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <select class="form-control" formControlName="Country">
+                                        <option value="=-1" disabled>Select Option</option>
+                                        <option *ngFor="let country of Countries" value="{{country.Id}}">{{country.Country}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Fax :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Numbers only" formControlName="Fax">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    E-mail :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="E-mail" formControlName="E_mail">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Company URL :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Company URL" formControlName="CompanyURL">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Contact No :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Contact No" formControlName="ContactNo">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Company Logo :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <input type="file" id="btnUpload1" value="Upload" (change)="fileChange1($event)" formControlName="CompanyLogo" />
+                                   <img *ngIf="imagePathCompanyLogo" src="{{ImgGlobalPath}}{{imagePathCompanyLogo}}" height="50" width="50" alt="Not Loaded"/>
+                                </div>
+
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label style="font-weight:bold;">Account Detail</label>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Account Head :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <select class="form-control" formControlName="AccountHead">
+                                        <option value="=-1" disabled>Select Option</option>
+                                        <option *ngFor="let ds of ForHeaddl" value="{{ds.Id}}">{{ds.Employee_Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Designation :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <select class="form-control" formControlName="Designation">
+                                        <option value="=-1" disabled>Select Option</option>
+                                        <option *ngFor="let ds of Designation" value="{{ds.Id}}">{{ds.Designation}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Signature :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <!--<input type="file" id="btnUpload" value="Upload" (change)="fileChange($event)" class="upload" />-->
+                                    <input type="file" id="btnUpload2" value="Upload" (change)="fileChange2($event)" formControlName="Signature" />
+                                    <img *ngIf="imagePathSignature" src="{{ImgGlobalPath}}{{imagePathSignature}}" height="50" width="50" alt="Not loaded" />
+                                    <!--<input type="file"  placeholder="Signature" formControlName="Signature">-->
+                                    <!--<input type="file" ng2FileSelect [uploader]="uploaderF2" class="form-control" formControlName="CompanyLogo" />-->
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12">
+                                    <label style="font-weight:bold;">Other Document</label>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Account Head Other :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <select class="form-control" formControlName="AccountHeadOther">
+                                        <option value="=-1" disabled>Select Option</option>
+                                        <option *ngFor="let ds of ForHeaddl" value="{{ds.Id}}">{{ds.Employee_Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Designation Other :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <select class="form-control" formControlName="DesignationOther">
+                                        <option value="=-1" disabled>Select Option</option>
+                                        <option *ngFor="let ds of Designation" value="{{ds.Id}}">{{ds.Designation}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    Signature Other :
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-xs-12">
+                                    <!--<input type="file" ng2FileSelect [uploader]="uploaderF3" formControlName="SignatureOther" />-->
+                                    <input  type="file" id="btnUpload3" value="Upload" (change)="fileChange3($event)" formControlName="SignatureOther" />
+                                    <img *ngIf="imagePathSignatureOther" src="{{ImgGlobalPath}}{{imagePathSignatureOther}}" height="50" width="50" alt="Test" />
+                                </div>
+                            </div>
+
+                            <div style="display:none">
+                                <span>Created On</span>
+                                <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+                            </div>
+                            <div style="display:none">
+                                <span>Created By</span>
+                                <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+                            </div>
+                            <div style="display:none">
+                                <span>Updated On</span>
+                                <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+                            </div>
+                            <div style="display:none">
+                                <span>Updated By</span>
+                                <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+                            </div>
+                            <div style="display:none">
+                                <span>Is Active</span>
+                                <input type="checkbox" class="form-control" formControlName="UpdatedBy">
+                            </div>
+                            <div style="display:none">
+                                <span>EntityMessage</span>
+                                <input type="text" class="form-control" formControlName="EntityMessage">
+                            </div>
+
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="CompanyMasterFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

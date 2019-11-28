@@ -1,0 +1,2130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E78DB6F3-0CE1-4489-94BB-C4AA2276F7EA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VIS_App</RootNamespace>
+    <AssemblyName>VIS_App</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.4</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.4.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.4.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.4.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.4.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.4.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi.WebHost, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.WebHost.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Dashboard\DashboardAPIController.cs" />
+    <Compile Include="Controllers\DocCentre\DocumentTemplateAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\Attendance\EmployeeFeedbackAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\Attendance\MySkillAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\Attendance\MyTeamAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\Attendance\WorkSheetAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\EmployeeManagement\EmpInfoTabularAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\EmployeeManagement\EmployeeListAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\Grievance\SalaryGrievanceAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\Grievance\SalaryGrievancePEAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\ProfileAttendance\MyProfilesAPIController.cs" />
+    <Compile Include="Controllers\HumanResource\ProfileAttendance\ProfileAttendanceAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\BankMasterAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\CompanyMasterAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\ContactMasterAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\EducationTypeAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\FinancialYearAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\GroupNameAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\HomePageImageAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\LeaveTypeAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\LookupAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\LookupTypeAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\SalaryBreakupTypeAPIController.cs" />
+    <Compile Include="Controllers\Masters\CompanyRelated\UserRoleAPIController.cs" />
+    <Compile Include="Controllers\Masters\Configuration\CommonConfigurationController.cs" />
+    <Compile Include="Controllers\Masters\Configuration\ConfigureTicketAPIController.cs" />
+    <Compile Include="Controllers\Masters\Configuration\ConfigureWorksheetAPIController.cs" />
+    <Compile Include="Controllers\Masters\Configuration\EventCountDownController.cs" />
+    <Compile Include="Controllers\Masters\Configuration\MacIdConfigurationAPIController.cs" />
+    <Compile Include="Controllers\Masters\Configuration\SecurityKeyController.cs" />
+    <Compile Include="Controllers\Masters\CurrencyRelated\CurrencyAPIController.cs" />
+    <Compile Include="Controllers\Masters\CurrencyRelated\CurrencyHistoryAPIController.cs" />
+    <Compile Include="Controllers\Masters\EmployeeLevels\LevelConfigurationAPIController.cs" />
+    <Compile Include="Controllers\Masters\EmployeeLevels\LevelCriteriaSetupAPIController.cs" />
+    <Compile Include="Controllers\Masters\EmployeeLevels\LevelsAPIController.cs" />
+    <Compile Include="Controllers\Masters\EmployeeLevels\Levels_AchievementAPIController.cs" />
+    <Compile Include="Controllers\Masters\EmployeeLevels\ManualPointEntryAPIController.cs" />
+    <Compile Include="Controllers\Masters\VacancyRelated\PositionAPIController.cs" />
+    <Compile Include="Controllers\Masters\VacancyRelated\RatingTypeAPIController.cs" />
+    <Compile Include="Controllers\Masters\VacancyRelated\SkillAPIController.cs" />
+    <Compile Include="Controllers\Masters\VacancyRelated\SkillGroupAPIController.cs" />
+    <Compile Include="Controllers\Masters\VacancyRelated\TechnologyMasterAPIController.cs" />
+    <Compile Include="Controllers\BaseAPIController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Notification\MyTicketAPIController.cs" />
+    <Compile Include="Controllers\Notification\NewsAPIController.cs" />
+    <Compile Include="Controllers\Notification\PolicyAPIController.cs" />
+    <Compile Include="Controllers\Notification\TicketListClosedAPIController.cs" />
+    <Compile Include="Controllers\Notification\TicketListOpenAPIController.cs" />
+    <Compile Include="Controllers\Opinion\ConfigureSurveyAPIController.cs" />
+    <Compile Include="Controllers\Reports\Attendance\Reports_AttendanceController.cs" />
+    <Compile Include="Controllers\Report\Attendance\AddEmployeeRecordAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\AttendanceAccessCardComparisionReportAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\AttendanceReportAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\AttendanceReportNewAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\DailyEntrysheetAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\EmployeeDashboarHeartBeatAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\EmployeeScreenCaptureReportAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\LateEarlyReportAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\OfficialWorkReportAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\OutReportAPIController.cs" />
+    <Compile Include="Controllers\Report\Attendance\ProductivityTrackerReportAPIController.cs" />
+    <Compile Include="Controllers\RFQ\RFQAPIController.cs" />
+    <Compile Include="Controllers\RFQ\RFQResponseAPIController.cs" />
+    <Compile Include="Controllers\UserManagement\AttendanceEntryApiController.cs" />
+    <Compile Include="Controllers\UserManagement\VISUserAPIController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\MailInbox.cs" />
+    <Compile Include="Infrastructure\CommonApplicationEnums.cs" />
+    <Compile Include="Infrastructure\CommonCode.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\app.component.html" />
+    <Content Include="app\app.module.js" />
+    <Content Include="app\Components\Dashboard\dashboard.component.html" />
+    <Content Include="app\Components\DocCenter\DocumentTemplate.component.html" />
+    <Content Include="app\Components\home.component.html" />
+    <Content Include="app\Components\HumanResource\Attendance\EmployeeFeedback.component.html" />
+    <Content Include="app\Components\HumanResource\Attendance\MySkill.component.html" />
+    <Content Include="app\Components\HumanResource\Attendance\MyTeam.component.html" />
+    <Content Include="app\Components\HumanResource\Attendance\WorkSheet.component.html" />
+    <Content Include="app\Components\HumanResource\EmployeeManagement\EmpInfoTabular.component.html" />
+    <Content Include="app\Components\HumanResource\EmployeeManagement\EmployeeList.component.html" />
+    <Content Include="app\Components\HumanResource\Grievance\SalaryGrievance.component.html" />
+    <Content Include="app\Components\HumanResource\Grievance\SalaryGrievancePE.component.html" />
+    <Content Include="app\Components\HumanResource\ProfileAttendance\ChangePassword.component.html" />
+    <Content Include="app\Components\HumanResource\ProfileAttendance\MyProfiles.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\BankMaster.component.html">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="app\Components\Masters\CompanyRelated\CompanyMaster.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\ContactMaster.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\EducationType.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\EventCountDown.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\FinancialYear.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\GroupName.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\HomePageImage.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\HouseChampionship.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\LeaveType.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\Lookup.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\LookupType.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\SalaryBreakupType.component.html" />
+    <Content Include="app\Components\Masters\CompanyRelated\UserRole.component.html" />
+    <Content Include="app\Components\Masters\Configuration\CommonConfiguration.component.html" />
+    <Content Include="app\Components\Masters\Configuration\ConfigureTicket.component.html" />
+    <Content Include="app\Components\Masters\Configuration\ConfigureWorksheet.component.html" />
+    <Content Include="app\Components\Masters\Configuration\EventCountDown.component.html" />
+    <Content Include="app\Components\Masters\Configuration\MacIdConfiguration.component.html" />
+    <Content Include="app\Components\Masters\Configuration\SecurityKey.component.html" />
+    <Content Include="app\Components\Masters\CurrencyRelated\currency.component.html" />
+    <Content Include="app\Components\Masters\CurrencyRelated\CurrencyHistory.component.html" />
+    <Content Include="app\Components\Masters\EmployeeLevels\LevelConfiguration.component.html" />
+    <Content Include="app\Components\Masters\EmployeeLevels\LevelCriteriaSetup.component.html" />
+    <Content Include="app\Components\Masters\EmployeeLevels\levels.component.html" />
+    <Content Include="app\Components\Masters\EmployeeLevels\Levels_Achievement.component.html" />
+    <Content Include="app\Components\Masters\EmployeeLevels\ManualPointEntry.component.html" />
+    <Content Include="app\Components\Masters\VacancyRelated\Position.component.html" />
+    <Content Include="app\Components\Masters\VacancyRelated\RatingType.component.html" />
+    <Content Include="app\Components\Masters\VacancyRelated\Skill.component.html" />
+    <Content Include="app\Components\Masters\VacancyRelated\SkillGroup.component.html" />
+    <Content Include="app\Components\Masters\VacancyRelated\TechnologyMaster.component.html" />
+    <Content Include="app\Components\Notification\HelpTicketAdd.component.html" />
+    <Content Include="app\Components\Notification\MyTicket.component.html" />
+    <Content Include="app\Components\Notification\News.component.html" />
+    <Content Include="app\Components\Notification\policy.component.html" />
+    <Content Include="app\Components\Notification\TicketListOpen.component.html" />
+    <Content Include="app\Components\Opinion\ConfigureSurvey.component.html" />
+    <Content Include="app\Components\Report\Attendance\AddEmployeeRecord.component.html" />
+    <Content Include="app\Components\Report\Attendance\AttendanceAccessCardReportComparisionReport.component.html" />
+    <Content Include="app\Components\Report\Attendance\AttendanceReport.component.html" />
+    <Content Include="app\Components\Report\Attendance\AttendanceReportNew.component.html" />
+    <Content Include="app\Components\Report\Attendance\DailyEntrysheet.component.html" />
+    <Content Include="app\Components\Report\Attendance\EmployeeDashboardHeartBeatReport.component.html" />
+    <Content Include="app\Components\Report\Attendance\EmployeeScreenCapture.component.html" />
+    <Content Include="app\Components\Report\Attendance\LateEarlyReport.component.html" />
+    <Content Include="app\Components\Report\Attendance\OfficialWorkReport.component.html" />
+    <Content Include="app\Components\Report\Attendance\OutReport.component.html" />
+    <Content Include="app\Components\Report\Attendance\ProductivityTrackerReport.component.html" />
+    <Content Include="app\Components\RFQ\AddResponse.component.html" />
+    <Content Include="app\Components\RFQ\AddRFQ.component.html" />
+    <Content Include="app\Components\RFQ\MyActionRFQ.component.html" />
+    <Content Include="app\Components\RFQ\MyWatchListRFQ.component.html" />
+    <Content Include="app\Components\RFQ\ResponceRequestedRFQ.component.html" />
+    <Content Include="app\Components\RFQ\RFQEstimateAllRFQ.component.html" />
+    <Content Include="app\Components\RFQ\RFQEstimateListing.component.html" />
+    <Content Include="app\Components\RFQ\RFQResponse.component.html" />
+    <Content Include="app\Components\RFQ\ViewResponse.component.html" />
+    <Content Include="app\Components\UserManagement\AttendanceEntry.component.html" />
+    <Content Include="app\Components\UserManagement\login.component.html" />
+    <Content Include="app\Filter\HumanResource\Attendance\EmployeeFeedback.pipe.js" />
+    <Content Include="app\Filter\HumanResource\Attendance\MySkill.pipe.js" />
+    <Content Include="app\Filter\HumanResource\Attendance\MyTeam.pipe.js" />
+    <Content Include="app\Filter\HumanResource\Attendance\WorkSheet.pipe.js" />
+    <Content Include="app\Filter\HumanResource\EmployeeManagement\EmployeeList.pipe.js" />
+    <Content Include="app\Filter\HumanResource\ProfileAttendance\MyProfiles.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\BankMaster.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\CompanyMaster.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\ContactMaster.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\EducationType.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\EventCountDown.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\FinancialYear.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\GroupName.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\HomePageImage.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\HouseChampionship.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\LeaveType.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\Lookup.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\LookupType.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\SalaryBreakupType.pipe.js" />
+    <Content Include="app\Filter\Masters\CompanyRelated\UserRole.pipe.js" />
+    <Content Include="app\Filter\Masters\Configuration\CommonConfiguration.pipe.js" />
+    <Content Include="app\Filter\Masters\Configuration\ConfigureTicket.pipe.js" />
+    <Content Include="app\Filter\Masters\Configuration\ConfigureWorksheet.pipe.js" />
+    <Content Include="app\Filter\Masters\Configuration\EventCountDown.pipe.js" />
+    <Content Include="app\Filter\Masters\Configuration\MacIdConfiguration.pipe.js" />
+    <Content Include="app\Filter\Masters\Configuration\SecurityKey.pipe.js" />
+    <Content Include="app\Filter\Masters\CurrencyRelated\currency.pipe.js" />
+    <Content Include="app\Filter\Masters\EmployeeLevels\LevelConfiguration.pipe.js" />
+    <Content Include="app\Filter\Masters\EmployeeLevels\LevelCriteriaSetup.pipe.js" />
+    <Content Include="app\Filter\Masters\EmployeeLevels\levels.pipe.js" />
+    <Content Include="app\Filter\Masters\EmployeeLevels\Levels_Achievement.pipe.js" />
+    <Content Include="app\Filter\Masters\EmployeeLevels\ManualPointEntry.pipe.js" />
+    <Content Include="app\Filter\Masters\VacancyRelated\Position.pipe.js" />
+    <Content Include="app\Filter\Masters\VacancyRelated\RatingType.pipe.js" />
+    <Content Include="app\Filter\Masters\VacancyRelated\Skill.pipe.js" />
+    <Content Include="app\Filter\Masters\VacancyRelated\SkillGroup.pipe.js" />
+    <Content Include="app\Filter\Masters\VacancyRelated\TechnologyMaster.pipe.js" />
+    <Content Include="app\Filter\Notification\HelpTicketAdd.pipe.js" />
+    <Content Include="app\Filter\Notification\MyTicket.pipe.js" />
+    <Content Include="app\Filter\Notification\News.pipe.js" />
+    <Content Include="app\Filter\Notification\policy.pipe.js" />
+    <Content Include="app\Filter\Notification\TicketListClosed.pipe.js" />
+    <Content Include="app\Filter\Notification\TicketListOpen.pipe.js" />
+    <Content Include="app\Filter\Report\Attendance\Attendance_Report.js" />
+    <Content Include="app\Filter\Report\Attendance\DailyEntrysheet.pipe.js" />
+    <Content Include="app\Filter\Report\Attendance\LateEarlyReport.pipe.js" />
+    <Content Include="app\Filter\Report\Attendance\OfficialWorkReport.pipe.js" />
+    <Content Include="app\Filter\Report\Attendance\OutReport.pipe.js" />
+    <Content Include="app\Service\HumanResource\ProfileAttendance\ChangePassword.service.js" />
+    <Content Include="app\Upload\Chrysanthemum.jpg" />
+    <Content Include="app\Upload\HomePageImage\lgv10.jpeg" />
+    <Content Include="app\Upload\Hydrangeas.jpg" />
+    <Content Include="app\Upload\Jellyfish.jpg" />
+    <Content Include="app\Upload\Koala.jpg" />
+    <Content Include="app\Upload\Tulips.jpg" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Colorpicker\jscolor.js" />
+    <Content Include="Content\components.min.css" />
+    <Content Include="Content\custom.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\ionicons.svg" />
+    <Content Include="Content\layout.min.css" />
+    <Content Include="Content\SideNavBar.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="images\abc.png" />
+    <Content Include="images\accept.png" />
+    <Content Include="images\access_rights.png" />
+    <Content Include="images\accordion-plusminus.png" />
+    <Content Include="images\acrobat.png" />
+    <Content Include="images\acrobat_active.png" />
+    <Content Include="images\actiondisable.png" />
+    <Content Include="images\active.gif" />
+    <Content Include="images\active_arrow_drop.png" />
+    <Content Include="images\add.png" />
+    <Content Include="images\Addin_screen_1.jpg" />
+    <Content Include="images\Addin_screen_2.jpg" />
+    <Content Include="images\Addin_screen_3.jpg" />
+    <Content Include="images\addnew.png" />
+    <Content Include="images\Addresponse.png" />
+    <Content Include="images\add_line_break.png" />
+    <Content Include="images\add_milestone.png" />
+    <Content Include="images\add_page_break.png" />
+    <Content Include="images\add_pht.jpg" />
+    <Content Include="images\add_prospect_to_Campaign.png" />
+    <Content Include="images\agendadisable.png" />
+    <Content Include="images\air_icon.png" />
+    <Content Include="images\allow.png" />
+    <Content Include="images\application.png" />
+    <Content Include="images\approve_survey.png" />
+    <Content Include="images\arrow.gif" />
+    <Content Include="images\arrowhl.png" />
+    <Content Include="images\arrowhr.png" />
+    <Content Include="images\arrowvb.png" />
+    <Content Include="images\arrowvt.png" />
+    <Content Include="images\attendance.png" />
+    <Content Include="images\attendessdisable.png" />
+    <Content Include="images\back.png" />
+    <Content Include="images\back2.png" />
+    <Content Include="images\back_dms.png" />
+    <Content Include="images\back_hover_dms.png" />
+    <Content Include="images\back_icon.png" />
+    <Content Include="images\Bg.jpg" />
+    <Content Include="images\bi_report.png" />
+    <Content Include="images\bi_report1.png" />
+    <Content Include="images\blue-btn-bg.png" />
+    <Content Include="images\blue_btn.png" />
+    <Content Include="images\blue_btn_hover.png" />
+    <Content Include="images\bodybg.gif" />
+    <Content Include="images\bott-midd-bg.gif" />
+    <Content Include="images\box-head-middle.jpg" />
+    <Content Include="images\brand-logo.png" />
+    <Content Include="images\brd_dbl.jpg" />
+    <Content Include="images\brows-btn-bg.jpg" />
+    <Content Include="images\btn-login.gif" />
+    <Content Include="images\btn.png" />
+    <Content Include="images\Cal.png" />
+    <Content Include="images\Cal1.jpg" />
+    <Content Include="images\Cal2.jpg" />
+    <Content Include="images\Cal3.jpg" />
+    <Content Include="images\calander_icon.png" />
+    <Content Include="images\Calendar.gif" />
+    <Content Include="images\Calendar.png" />
+    <Content Include="images\Calendar1.gif" />
+    <Content Include="images\CalendarImage\acco-arrow-down.png" />
+    <Content Include="images\CalendarImage\acco-arrow-right.png" />
+    <Content Include="images\CalendarImage\accordian-menu-main-bg.jpg" />
+    <Content Include="images\CalendarImage\add-calender-btn-active.png" />
+    <Content Include="images\CalendarImage\add-calender-btn-normal.png" />
+    <Content Include="images\CalendarImage\add-event-btn-active.png" />
+    <Content Include="images\CalendarImage\add-event-btn-normal.png" />
+    <Content Include="images\CalendarImage\archive-calendar.png" />
+    <Content Include="images\CalendarImage\arrow_left.png" />
+    <Content Include="images\CalendarImage\arrow_right.png" />
+    <Content Include="images\CalendarImage\blue_btn.png" />
+    <Content Include="images\CalendarImage\blue_btn_hover.png" />
+    <Content Include="images\CalendarImage\brand-logo.png" />
+    <Content Include="images\CalendarImage\calendar.png" />
+    <Content Include="images\CalendarImage\calender.jpg" />
+    <Content Include="images\CalendarImage\curl.jpg" />
+    <Content Include="images\CalendarImage\day-btn-active.png" />
+    <Content Include="images\CalendarImage\day-btn-normal.png" />
+    <Content Include="images\CalendarImage\delete.png" />
+    <Content Include="images\CalendarImage\down_aero.png" />
+    <Content Include="images\CalendarImage\edit.png" />
+    <Content Include="images\CalendarImage\export-btn-active.png" />
+    <Content Include="images\CalendarImage\export-btn-normal.png" />
+    <Content Include="images\CalendarImage\filter-bg.jpg" />
+    <Content Include="images\CalendarImage\footer_bg.png" />
+    <Content Include="images\CalendarImage\gray_btn.png" />
+    <Content Include="images\CalendarImage\gray_btn_hover.png" />
+    <Content Include="images\CalendarImage\grey-heading-left.png" />
+    <Content Include="images\CalendarImage\grey-heading-middle.png" />
+    <Content Include="images\CalendarImage\grey-heading-right.png" />
+    <Content Include="images\CalendarImage\icon-app.png" />
+    <Content Include="images\CalendarImage\icon-suggestion.png" />
+    <Content Include="images\CalendarImage\icon_addb.png" />
+    <Content Include="images\CalendarImage\icon_calender.png" />
+    <Content Include="images\CalendarImage\icon_close.png" />
+    <Content Include="images\CalendarImage\icon_closes.png" />
+    <Content Include="images\CalendarImage\icon_edit.png" />
+    <Content Include="images\CalendarImage\icon_female.png" />
+    <Content Include="images\CalendarImage\icon_filter.png" />
+    <Content Include="images\CalendarImage\icon_hide.png" />
+    <Content Include="images\CalendarImage\icon_male.png" />
+    <Content Include="images\CalendarImage\icon_password.png" />
+    <Content Include="images\CalendarImage\icon_pending.png" />
+    <Content Include="images\CalendarImage\icon_photo.png" />
+    <Content Include="images\CalendarImage\icon_reload.png" />
+    <Content Include="images\CalendarImage\icon_reminder.png" />
+    <Content Include="images\CalendarImage\icon_report.png" />
+    <Content Include="images\CalendarImage\icon_right.png" />
+    <Content Include="images\CalendarImage\icon_search.png" />
+    <Content Include="images\CalendarImage\icon_search_new.png" />
+    <Content Include="images\CalendarImage\icon_setting.png" />
+    <Content Include="images\CalendarImage\icon_show.png" />
+    <Content Include="images\CalendarImage\icon_username.png" />
+    <Content Include="images\CalendarImage\img.png" />
+    <Content Include="images\CalendarImage\jump-date-btn-active.png" />
+    <Content Include="images\CalendarImage\jump-date-btn-normal.png" />
+    <Content Include="images\CalendarImage\left-arrow-side.png" />
+    <Content Include="images\CalendarImage\left-arrow.png" />
+    <Content Include="images\CalendarImage\left_aero.png" />
+    <Content Include="images\CalendarImage\loading.gif" />
+    <Content Include="images\CalendarImage\login-bg.png" />
+    <Content Include="images\CalendarImage\logo-login.png" />
+    <Content Include="images\CalendarImage\logo.png" />
+    <Content Include="images\CalendarImage\main_bg.png" />
+    <Content Include="images\CalendarImage\month-btn-active.png" />
+    <Content Include="images\CalendarImage\month-btn-normal.png" />
+    <Content Include="images\CalendarImage\nav-left-corner.png" />
+    <Content Include="images\CalendarImage\nav-middle-corner.png" />
+    <Content Include="images\CalendarImage\nav-right-corner.png" />
+    <Content Include="images\CalendarImage\page_white_delete.png" />
+    <Content Include="images\CalendarImage\page_white_edit.png" />
+    <Content Include="images\CalendarImage\process-bar.png" />
+    <Content Include="images\CalendarImage\red_btn.png" />
+    <Content Include="images\CalendarImage\red_btn_hover.png" />
+    <Content Include="images\CalendarImage\right-arrow-side.png" />
+    <Content Include="images\CalendarImage\right-arrow.png" />
+    <Content Include="images\CalendarImage\right_aero.png" />
+    <Content Include="images\CalendarImage\save-small-btn.png" />
+    <Content Include="images\CalendarImage\scroller-bg.jpg" />
+    <Content Include="images\CalendarImage\smiley1.png" />
+    <Content Include="images\CalendarImage\status-b-left.png" />
+    <Content Include="images\CalendarImage\status-b-middle.png" />
+    <Content Include="images\CalendarImage\status-b-right.png" />
+    <Content Include="images\CalendarImage\status-close.png" />
+    <Content Include="images\CalendarImage\status-value-bg-big.png" />
+    <Content Include="images\CalendarImage\status-value-bg.png" />
+    <Content Include="images\CalendarImage\sunday-bg.png" />
+    <Content Include="images\CalendarImage\table-cover-left.png" />
+    <Content Include="images\CalendarImage\table-cover-middle.png" />
+    <Content Include="images\CalendarImage\table-cover-right.png" />
+    <Content Include="images\CalendarImage\table-head-bg.png" />
+    <Content Include="images\CalendarImage\table-sep.png" />
+    <Content Include="images\CalendarImage\UnsubscribeExternal-bg.png" />
+    <Content Include="images\CalendarImage\up_aero.png" />
+    <Content Include="images\CalendarImage\week-btn-active.png" />
+    <Content Include="images\CalendarImage\week-btn-normal.png" />
+    <Content Include="images\CalendarImage\work_left.png" />
+    <Content Include="images\CalendarImage\work_right.png" />
+    <Content Include="images\calender_icon.png" />
+    <Content Include="images\callLog.png" />
+    <Content Include="images\callLog_big.png" />
+    <Content Include="images\call_icon.png" />
+    <Content Include="images\ChanagePassword1.png" />
+    <Content Include="images\ChangePassword.png" />
+    <Content Include="images\checkbox.png" />
+    <Content Include="images\clock.png" />
+    <Content Include="images\clock_icon.png" />
+    <Content Include="images\close.gif" />
+    <Content Include="images\Close1.bmp" />
+    <Content Include="images\closeQuickStatusBar.png" />
+    <Content Include="images\collapse.jpg" />
+    <Content Include="images\Collapse.png" />
+    <Content Include="images\CollapsedTree.png" />
+    <Content Include="images\collapse_new.png" />
+    <Content Include="images\ContentRequisition.png" />
+    <Content Include="images\Convert.png" />
+    <Content Include="images\CopyTask.png" />
+    <Content Include="images\copy_survey.png" />
+    <Content Include="images\cover_letter.png" />
+    <Content Include="images\cross.png" />
+    <Content Include="images\CRProject.png" />
+    <Content Include="images\ctn_view_button_view.png" />
+    <Content Include="images\curl.jpg" />
+    <Content Include="images\dashboard.ico" />
+    <Content Include="images\dashboard\128.png" />
+    <Content Include="images\dashboard\16.png" />
+    <Content Include="images\dashboard\32.png" />
+    <Content Include="images\dashboard\48.png" />
+    <Content Include="images\dashboard\64.png" />
+    <Content Include="images\dashboard\AlertAlert.png" />
+    <Content Include="images\dashboard\AlertDelete.png" />
+    <Content Include="images\dashboard\AlertSuccess.png" />
+    <Content Include="images\dashboard\calendar.png" />
+    <Content Include="images\dashboard\CalendarNext.png" />
+    <Content Include="images\dashboard\CalendarPrevious.png" />
+    <Content Include="images\dashboard\circle.png" />
+    <Content Include="images\dashboard\close.png" />
+    <Content Include="images\dashboard\date.png" />
+    <Content Include="images\dashboard\Down.png" />
+    <Content Include="images\dashboard\ico-ActiveDashboard.png" />
+    <Content Include="images\dashboard\ico-AddItem.png" />
+    <Content Include="images\dashboard\ico-AttendanceEntry.png" />
+    <Content Include="images\dashboard\ico-AttendanceReport.png" />
+    <Content Include="images\dashboard\ico-Back_16x16.png" />
+    <Content Include="images\dashboard\ico-Back_24x24.png" />
+    <Content Include="images\dashboard\ico-Back_32x32.png" />
+    <Content Include="images\dashboard\ico-CaptureDisable.png" />
+    <Content Include="images\dashboard\ico-Captureenable.png" />
+    <Content Include="images\dashboard\ico-ChageView.png" />
+    <Content Include="images\dashboard\ico-ChangeView16x16.png" />
+    <Content Include="images\dashboard\ico-ChangeView32x32.png" />
+    <Content Include="images\dashboard\ico-Chat.png" />
+    <Content Include="images\dashboard\ico-ClearScreen.jpg" />
+    <Content Include="images\dashboard\ico-Close.png" />
+    <Content Include="images\dashboard\ico-Dashboard.png" />
+    <Content Include="images\dashboard\ico-DownButton.png" />
+    <Content Include="images\dashboard\ico-EditRowData.png" />
+    <Content Include="images\dashboard\ico-Excel.png" />
+    <Content Include="images\dashboard\ico-Expand.png" />
+    <Content Include="images\dashboard\ico-Female.png" />
+    <Content Include="images\dashboard\ico-Female1.png" />
+    <Content Include="images\dashboard\ico-Frame.png" />
+    <Content Include="images\dashboard\ico-FullReport_22.png" />
+    <Content Include="images\dashboard\ico-FullReport_26.png" />
+    <Content Include="images\dashboard\ico-GotoWeb.png" />
+    <Content Include="images\dashboard\ico-InActiveDashboard.png" />
+    <Content Include="images\dashboard\ico-Java.png" />
+    <Content Include="images\dashboard\ico-Leave.png" />
+    <Content Include="images\dashboard\ico-LinktoWeb.png" />
+    <Content Include="images\dashboard\ico-Logout.png" />
+    <Content Include="images\dashboard\ico-Male.png" />
+    <Content Include="images\dashboard\ico-Male1.png" />
+    <Content Include="images\dashboard\ico-Maximize_18x18.png" />
+    <Content Include="images\dashboard\ico-Minimize_18x18.png" />
+    <Content Include="images\dashboard\ico-Next.png" />
+    <Content Include="images\dashboard\ico-Notification_Footer.png" />
+    <Content Include="images\dashboard\ico-notification_Top.png" />
+    <Content Include="images\dashboard\ico-OnlineDisable.png" />
+    <Content Include="images\dashboard\ico-OnlineEnable.png" />
+    <Content Include="images\dashboard\ico-Previous.png" />
+    <Content Include="images\dashboard\ico-Refresh.png" />
+    <Content Include="images\dashboard\ico-Refresh_20.png" />
+    <Content Include="images\dashboard\ico-SwitchUser.png" />
+    <Content Include="images\dashboard\ico-UpButton.png" />
+    <Content Include="images\dashboard\ico-User.png" />
+    <Content Include="images\dashboard\ico-UserView.png" />
+    <Content Include="images\dashboard\ico-verve48.png" />
+    <Content Include="images\dashboard\ico-WorksheetEntry.png" />
+    <Content Include="images\dashboard\ico-WorksheetReport.png" />
+    <Content Include="images\dashboard\icon-Verve_16.png" />
+    <Content Include="images\dashboard\icon-Verve_32.png" />
+    <Content Include="images\dashboard\Item_Delete.png" />
+    <Content Include="images\dashboard\left_arrow.png" />
+    <Content Include="images\dashboard\LoginStatus.gif" />
+    <Content Include="images\dashboard\nav_sep.png" />
+    <Content Include="images\dashboard\Reset.png" />
+    <Content Include="images\dashboard\right_arrow.png" />
+    <Content Include="images\dashboard\spacer.png" />
+    <Content Include="images\dashboard\untitled-1.gif" />
+    <Content Include="images\dashboard\Up.png" />
+    <Content Include="images\datatable-row-openclose.png" />
+    <Content Include="images\date-picker-bg.png" />
+    <Content Include="images\Delete.gif" />
+    <Content Include="images\Delete.png" />
+    <Content Include="images\department.png" />
+    <Content Include="images\desh_icone.png" />
+    <Content Include="images\detailpdf.png" />
+    <Content Include="images\disable.png" />
+    <Content Include="images\disallow.png" />
+    <Content Include="images\Doc.jpg" />
+    <Content Include="images\DocImages\11314_4_2016_16_4_16.JPG" />
+    <Content Include="images\DocImages\5622_1_2016_14_1_47.PNG" />
+    <Content Include="images\doc_center_icon.png" />
+    <Content Include="images\doc_type_icon.png" />
+    <Content Include="images\done.png" />
+    <Content Include="images\dot..png" />
+    <Content Include="images\DotAdd.png.png" />
+    <Content Include="images\DownArrow.png" />
+    <Content Include="images\download.png" />
+    <Content Include="images\download1.png" />
+    <Content Include="images\downloadfalse.jpg" />
+    <Content Include="images\downloadIcon.jpg" />
+    <Content Include="images\downloadIcon.png" />
+    <Content Include="images\download_btn.png" />
+    <Content Include="images\download_dms.png" />
+    <Content Include="images\download_hover_dms.png" />
+    <Content Include="images\down_button.gif" />
+    <Content Include="images\Dwaring_pin.png" />
+    <Content Include="images\ea.png" />
+    <Content Include="images\Edit.jpg" />
+    <Content Include="images\Edit.png" />
+    <Content Include="images\edit_invoice.png" />
+    <Content Include="images\edit_option.png" />
+    <Content Include="images\Employee.png" />
+    <Content Include="images\Excel.png" />
+    <Content Include="images\expand.jpg" />
+    <Content Include="images\Expand.png" />
+    <Content Include="images\ExpandTree.png" />
+    <Content Include="images\expand_new.png" />
+    <Content Include="images\export.jpg" />
+    <Content Include="images\Fail.png" />
+    <Content Include="images\favicon.ico" />
+    <Content Include="images\feedback_icon.png" />
+    <Content Include="images\female.png" />
+    <Content Include="images\filedownload.png" />
+    <Content Include="images\fileupload.png" />
+    <Content Include="images\file_download2.png" />
+    <Content Include="images\file_upload1.png" />
+    <Content Include="images\first.png" />
+    <Content Include="images\flags\de.png" />
+    <Content Include="images\flags\es.png" />
+    <Content Include="images\flags\fr.png" />
+    <Content Include="images\flags\ru.png" />
+    <Content Include="images\flags\us.png" />
+    <Content Include="images\flat.png" />
+    <Content Include="images\folder.png" />
+    <Content Include="images\footer_bg.png" />
+    <Content Include="images\forgot_active.png" />
+    <Content Include="images\forgot_normal.png" />
+    <Content Include="images\forward.png" />
+    <Content Include="images\generate_btn.png" />
+    <Content Include="images\generate_btn_old.png" />
+    <Content Include="images\goto.png" />
+    <Content Include="images\go_btn.png" />
+    <Content Include="images\gray_btn.png" />
+    <Content Include="images\gray_btn_hover.png" />
+    <Content Include="images\green_btn.png" />
+    <Content Include="images\grey-heading-left.png" />
+    <Content Include="images\grey-heading-middle.png" />
+    <Content Include="images\grey-heading-right.png" />
+    <Content Include="images\grey_arrow.png" />
+    <Content Include="images\grey_circle.png" />
+    <Content Include="images\historydisable.png" />
+    <Content Include="images\holidays.png" />
+    <Content Include="images\holiday_list.png" />
+    <Content Include="images\horizontal-line-one-5.gif" />
+    <Content Include="images\icon-add-event.png" />
+    <Content Include="images\icon-add-invoice.png" />
+    <Content Include="images\icon-add-project.png" />
+    <Content Include="images\icon-add-ticket.png" />
+    <Content Include="images\icon-add-worksheet.png" />
+    <Content Include="images\icon-app.png" />
+    <Content Include="images\icon-arrow-right.png" />
+    <Content Include="images\icon-back.png" />
+    <Content Include="images\icon-color-close.png" />
+    <Content Include="images\icon-color.png" />
+    <Content Include="images\icon-leave.png" />
+    <Content Include="images\icon-suggestion.png" />
+    <Content Include="images\iconAttendance.gif" />
+    <Content Include="images\Icon_Active.png" />
+    <Content Include="images\icon_addb.png" />
+    <Content Include="images\icon_addCamp.png" />
+    <Content Include="images\Icon_AddModule.png" />
+    <Content Include="images\Icon_AddModuleNew.png" />
+    <Content Include="images\Icon_AddTask.png" />
+    <Content Include="images\Icon_AddTaskNew.png" />
+    <Content Include="images\icon_add_to_Exist_Camp.png" />
+    <Content Include="images\icon_arrow.png" />
+    <Content Include="images\Icon_AssignToOther.png" />
+    <Content Include="images\icon_callHistory.png" />
+    <Content Include="images\icon_campaign.png" />
+    <Content Include="images\icon_clear.png" />
+    <Content Include="images\icon_clock.png" />
+    <Content Include="images\icon_close.png" />
+    <Content Include="images\icon_closes.png" />
+    <Content Include="images\icon_company.png" />
+    <Content Include="images\icon_convert.png" />
+    <Content Include="images\icon_convert_campaign.png" />
+    <Content Include="images\icon_copytask.png" />
+    <Content Include="images\icon_database.png" />
+    <Content Include="images\Icon_delete.png" />
+    <Content Include="images\Icon_DeleteNew.png" />
+    <Content Include="images\Icon_digital-time.png" />
+    <Content Include="images\icon_download.png" />
+    <Content Include="images\icon_downloadDisable.png" />
+    <Content Include="images\icon_edit.png" />
+    <Content Include="images\icon_editCompany.png" />
+    <Content Include="images\icon_editCompany1.png" />
+    <Content Include="images\icon_editCompany1Disable.png" />
+    <Content Include="images\Icon_EmailPlan.png" />
+    <Content Include="images\Icon_EmailPlanNew.png" />
+    <Content Include="images\icon_employee.png" />
+    <Content Include="images\icon_error.png" />
+    <Content Include="images\icon_excel.png" />
+    <Content Include="images\icon_export.png" />
+    <Content Include="images\Icon_ExportProjectInfo.png" />
+    <Content Include="images\icon_favourite.png" />
+    <Content Include="images\icon_female.png" />
+    <Content Include="images\icon_hide.png" />
+    <Content Include="images\icon_import.png" />
+    <Content Include="images\icon_import1.png" />
+    <Content Include="images\icon_import1Disable.png" />
+    <Content Include="images\Icon_InActive.png" />
+    <Content Include="images\icon_Inbox_Information.png" />
+    <Content Include="images\icon_Information.png" />
+    <Content Include="images\icon_list.png" />
+    <Content Include="images\icon_logout.png" />
+    <Content Include="images\icon_male.png" />
+    <Content Include="images\icon_map.png" />
+    <Content Include="images\Icon_Map_Bubble.png" />
+    <Content Include="images\icon_marker.png" />
+    <Content Include="images\icon_password.png" />
+    <Content Include="images\icon_pending.png" />
+    <Content Include="images\icon_photo.png" />
+    <Content Include="images\icon_remarks.png" />
+    <Content Include="images\icon_report.png" />
+    <Content Include="images\icon_reset.png" />
+    <Content Include="images\ICON_reset_inner.png" />
+    <Content Include="images\icon_restricted.png" />
+    <Content Include="images\icon_restricted_disable.png" />
+    <Content Include="images\icon_right.png" />
+    <Content Include="images\icon_search.png" />
+    <Content Include="images\icon_search1.png" />
+    <Content Include="images\icon_sendback.png" />
+    <Content Include="images\icon_sequence.png" />
+    <Content Include="images\icon_show.png" />
+    <Content Include="images\icon_ShowOnMap.png" />
+    <Content Include="images\ICON_star_fav.png" />
+    <Content Include="images\ICON_star_unFav.png" />
+    <Content Include="images\icon_username.png" />
+    <Content Include="images\imgLoading.gif" />
+    <Content Include="images\inactive.gif" />
+    <Content Include="images\Inbox\arrowz_1.png" />
+    <Content Include="images\Inbox\arrowz_2.png" />
+    <Content Include="images\Inbox\asc.gif" />
+    <Content Include="images\Inbox\asc.png" />
+    <Content Include="images\Inbox\attachment_logo.png" />
+    <Content Include="images\Inbox\deleteDisable_logo.png" />
+    <Content Include="images\Inbox\delete_logo.png" />
+    <Content Include="images\Inbox\desc.gif" />
+    <Content Include="images\Inbox\desc.png" />
+    <Content Include="images\Inbox\External.png" />
+    <Content Include="images\Inbox\find.png" />
+    <Content Include="images\Inbox\find1.png" />
+    <Content Include="images\Inbox\for.png" />
+    <Content Include="images\Inbox\headerAttachment_logo.png" />
+    <Content Include="images\Inbox\headerAttachment_logo2.png" />
+    <Content Include="images\Inbox\hover_External.png" />
+    <Content Include="images\Inbox\hover_logo01.png" />
+    <Content Include="images\Inbox\hover_logo02.png" />
+    <Content Include="images\Inbox\hover_logo03.png" />
+    <Content Include="images\Inbox\hover_logo04.png" />
+    <Content Include="images\Inbox\hover_logo05.png" />
+    <Content Include="images\Inbox\hover_logo06.png" />
+    <Content Include="images\Inbox\hover_logo07.png" />
+    <Content Include="images\Inbox\hover_logo08.png" />
+    <Content Include="images\Inbox\hover_logo09.png" />
+    <Content Include="images\Inbox\hover_logo10.png" />
+    <Content Include="images\Inbox\hover_logo11.png" />
+    <Content Include="images\Inbox\hover_logo12.png" />
+    <Content Include="images\Inbox\hover_logo13.png" />
+    <Content Include="images\Inbox\hover_logo14.png" />
+    <Content Include="images\Inbox\icon_img02.png" />
+    <Content Include="images\Inbox\logo_01.png" />
+    <Content Include="images\Inbox\logo_02.png" />
+    <Content Include="images\Inbox\logo_03.png" />
+    <Content Include="images\Inbox\logo_04.png" />
+    <Content Include="images\Inbox\logo_05.png" />
+    <Content Include="images\Inbox\logo_06.png" />
+    <Content Include="images\Inbox\logo_07.png" />
+    <Content Include="images\Inbox\logo_08.png" />
+    <Content Include="images\Inbox\logo_09.png" />
+    <Content Include="images\Inbox\logo_10.png" />
+    <Content Include="images\Inbox\logo_12.png" />
+    <Content Include="images\Inbox\logo_13.png" />
+    <Content Include="images\Inbox\logo_14.png" />
+    <Content Include="images\Inbox\logo_17.png" />
+    <Content Include="images\Inbox\logo_18.png" />
+    <Content Include="images\Inbox\logo_img002.png" />
+    <Content Include="images\Inbox\mail1.png" />
+    <Content Include="images\Inbox\mail2.png" />
+    <Content Include="images\Inbox\mail_forward.png" />
+    <Content Include="images\Inbox\notification-bg-clear.png" />
+    <Content Include="images\Inbox\paneh.gif" />
+    <Content Include="images\Inbox\panehc.gif" />
+    <Content Include="images\Inbox\panev.gif" />
+    <Content Include="images\Inbox\panevc.gif" />
+    <Content Include="images\Inbox\pre.png" />
+    <Content Include="images\Inbox\refresh.png" />
+    <Content Include="images\Inbox\seprator.png" />
+    <Content Include="images\Inbox\Sorting_logo.png" />
+    <Content Include="images\Inbox\survey.png" />
+    <Content Include="images\Inbox\transparent_Image.png" />
+    <Content Include="images\information.png" />
+    <Content Include="images\Item_Delete.png" />
+    <Content Include="images\Item_Delete_White.png" />
+    <Content Include="images\Jellyfish.jpg" />
+    <Content Include="images\last.png" />
+    <Content Include="images\leave_holiday.png" />
+    <Content Include="images\left.png" />
+    <Content Include="images\level_bg.png" />
+    <Content Include="images\like.jpg" />
+    <Content Include="images\like.png" />
+    <Content Include="images\LineWithStrip.png" />
+    <Content Include="images\link.png" />
+    <Content Include="images\list_arrow.png" />
+    <Content Include="images\loading-spinner-grey.gif" />
+    <Content Include="images\Loading.gif" />
+    <Content Include="images\Loading1.gif" />
+    <Content Include="images\Loading12.gif" />
+    <Content Include="images\Log.png" />
+    <Content Include="images\login-bg.png" />
+    <Content Include="images\login-headbg.gif" />
+    <Content Include="images\Login\10.jpg" />
+    <Content Include="images\Login\11.jpg" />
+    <Content Include="images\Login\12.jpg" />
+    <Content Include="images\Login\13.jpg" />
+    <Content Include="images\Login\2.jpg" />
+    <Content Include="images\Login\20110327114813059897188.jpg" />
+    <Content Include="images\Login\4.jpg" />
+    <Content Include="images\Login\6.jpg" />
+    <Content Include="images\Login\7.jpg" />
+    <Content Include="images\Login\9.jpg" />
+    <Content Include="images\Login\app-fest-logo3.gif" />
+    <Content Include="images\Login\background_one.jpg" />
+    <Content Include="images\Login\bg.JPG" />
+    <Content Include="images\Login\brand-logo_new.png" />
+    <Content Include="images\Login\Curves-Background-wallpaper-hd-wallpaper-1366x768-6-5070eada3a5a0-6821 %281%29.jpg" />
+    <Content Include="images\Login\forgotpassword.png" />
+    <Content Include="images\Login\IT-blockbuster-doodle.jpg" />
+    <Content Include="images\Login\little-purple-flowers-1366x768.jpg" />
+    <Content Include="images\Login\logo.png" />
+    <Content Include="images\Login\logo_New.png" />
+    <Content Include="images\Login\transbg.png" />
+    <Content Include="images\Login\tumblr_n8jys3xQhk1qgb4moo1_500.gif" />
+    <Content Include="images\Login\vpl_poster.jpg" />
+    <Content Include="images\login_active.png" />
+    <Content Include="images\login_normal.png" />
+    <Content Include="images\logo-login.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\logout.jpg" />
+    <Content Include="images\logout.png" />
+    <Content Include="images\logoutbg.gif" />
+    <Content Include="images\logout_icon.png" />
+    <Content Include="images\lookup.png" />
+    <Content Include="images\LookupList.png" />
+    <Content Include="images\mailsetting.png" />
+    <Content Include="images\main_bg.png" />
+    <Content Include="images\Make_Project.gif" />
+    <Content Include="images\male.png" />
+    <Content Include="images\map-icon.png" />
+    <Content Include="images\Map.png" />
+    <Content Include="images\Map_Bubble.png" />
+    <Content Include="images\mattersdisable.png" />
+    <Content Include="images\menu_grid_icon.png" />
+    <Content Include="images\message.png" />
+    <Content Include="images\MessageSucceed.png" />
+    <Content Include="images\minus.png" />
+    <Content Include="images\minus_btn.png" />
+    <Content Include="images\minutesdisable.png" />
+    <Content Include="images\mom.png" />
+    <Content Include="images\MOMAction.png" />
+    <Content Include="images\MOMAction1.png" />
+    <Content Include="images\MOMAgenda.png" />
+    <Content Include="images\MOMAgenda1.png" />
+    <Content Include="images\MOMAttendees.png" />
+    <Content Include="images\MOMAttendees1.png" />
+    <Content Include="images\MOMhistory.png" />
+    <Content Include="images\MOMhistory1.png" />
+    <Content Include="images\MOMMatters.png" />
+    <Content Include="images\MOMMatters1.png" />
+    <Content Include="images\MOMMinutes.png" />
+    <Content Include="images\MOMMinutes1.png" />
+    <Content Include="images\MOMReview.png" />
+    <Content Include="images\MOMReview1.png" />
+    <Content Include="images\nav-arrow.png" />
+    <Content Include="images\nav-left-corner.png" />
+    <Content Include="images\nav-middle-corner.png" />
+    <Content Include="images\nav-right-corner.png" />
+    <Content Include="images\nav_sep.png" />
+    <Content Include="images\new2.gif" />
+    <Content Include="images\NewIndicator.gif" />
+    <Content Include="images\newview.png" />
+    <Content Include="images\next.png" />
+    <Content Include="images\normal_arrow_drop.png" />
+    <Content Include="images\offline.png" />
+    <Content Include="images\online.png" />
+    <Content Include="images\orange_arrow.png" />
+    <Content Include="images\orange_circle.png" />
+    <Content Include="images\Organization.png" />
+    <Content Include="images\pa.png" />
+    <Content Include="images\pagi-middle.jpg" />
+    <Content Include="images\Pass.png" />
+    <Content Include="images\password.png" />
+    <Content Include="images\payroll.png" />
+    <Content Include="images\PayrollAutomation\Completed.png" />
+    <Content Include="images\PayrollAutomation\In Process.png" />
+    <Content Include="images\PayrollAutomation\InProcess.png" />
+    <Content Include="images\PayrollAutomation\Not Initiate.png" />
+    <Content Include="images\PayrollAutomation\NotInitiate.png" />
+    <Content Include="images\payslip.png" />
+    <Content Include="images\pbar-ani.gif" />
+    <Content Include="images\pdf.bmp" />
+    <Content Include="images\pending_signoff.png" />
+    <Content Include="images\pending_signoff_02.png" />
+    <Content Include="images\Penguins.jpg" />
+    <Content Include="images\pix.gif" />
+    <Content Include="images\plus.png.png" />
+    <Content Include="images\plus_btn.png" />
+    <Content Include="images\policy.png" />
+    <Content Include="images\poll.png" />
+    <Content Include="images\popup-close-btn.png" />
+    <Content Include="images\popupclose_button.png" />
+    <Content Include="images\portfolio\1200x900\01.jpg" />
+    <Content Include="images\portfolio\1200x900\02.jpg" />
+    <Content Include="images\portfolio\1200x900\03.jpg" />
+    <Content Include="images\portfolio\1200x900\04.jpg" />
+    <Content Include="images\portfolio\1200x900\05.jpg" />
+    <Content Include="images\portfolio\1200x900\06.jpg" />
+    <Content Include="images\portfolio\1200x900\07.jpg" />
+    <Content Include="images\portfolio\1200x900\1.jpg" />
+    <Content Include="images\portfolio\1200x900\10.jpg" />
+    <Content Include="images\portfolio\1200x900\12.jpg" />
+    <Content Include="images\portfolio\1200x900\13.jpg" />
+    <Content Include="images\portfolio\1200x900\2.jpg" />
+    <Content Include="images\portfolio\1200x900\3.jpg" />
+    <Content Include="images\portfolio\1200x900\4.jpg" />
+    <Content Include="images\portfolio\1200x900\40.jpg" />
+    <Content Include="images\portfolio\1200x900\41.jpg" />
+    <Content Include="images\portfolio\1200x900\5.jpg" />
+    <Content Include="images\portfolio\1200x900\50.jpg" />
+    <Content Include="images\portfolio\1200x900\57.jpg" />
+    <Content Include="images\portfolio\1200x900\6.jpg" />
+    <Content Include="images\portfolio\1200x900\60.jpg" />
+    <Content Include="images\portfolio\1200x900\7.jpg" />
+    <Content Include="images\portfolio\1200x900\72.jpg" />
+    <Content Include="images\portfolio\1200x900\84.jpg" />
+    <Content Include="images\portfolio\1200x900\92.jpg" />
+    <Content Include="images\portfolio\600x600\01.jpg" />
+    <Content Include="images\portfolio\600x600\013.jpg" />
+    <Content Include="images\portfolio\600x600\02.jpg" />
+    <Content Include="images\portfolio\600x600\03.jpg" />
+    <Content Include="images\portfolio\600x600\04.jpg" />
+    <Content Include="images\portfolio\600x600\05.jpg" />
+    <Content Include="images\portfolio\600x600\08.jpg" />
+    <Content Include="images\portfolio\600x600\1.jpg" />
+    <Content Include="images\portfolio\600x600\10.jpg" />
+    <Content Include="images\portfolio\600x600\102.jpg" />
+    <Content Include="images\portfolio\600x600\12.jpg" />
+    <Content Include="images\portfolio\600x600\16.jpg" />
+    <Content Include="images\portfolio\600x600\2.jpg" />
+    <Content Include="images\portfolio\600x600\21.jpg" />
+    <Content Include="images\portfolio\600x600\22.jpg" />
+    <Content Include="images\portfolio\600x600\23.jpg" />
+    <Content Include="images\portfolio\600x600\24.jpg" />
+    <Content Include="images\portfolio\600x600\25.jpg" />
+    <Content Include="images\portfolio\600x600\26.jpg" />
+    <Content Include="images\portfolio\600x600\27.jpg" />
+    <Content Include="images\portfolio\600x600\28.jpg" />
+    <Content Include="images\portfolio\600x600\29.jpg" />
+    <Content Include="images\portfolio\600x600\3.jpg" />
+    <Content Include="images\portfolio\600x600\30.jpg" />
+    <Content Include="images\portfolio\600x600\31.jpg" />
+    <Content Include="images\portfolio\600x600\32.jpg" />
+    <Content Include="images\portfolio\600x600\33.jpg" />
+    <Content Include="images\portfolio\600x600\38.jpg" />
+    <Content Include="images\portfolio\600x600\4.jpg" />
+    <Content Include="images\portfolio\600x600\45.jpg" />
+    <Content Include="images\portfolio\600x600\58.jpg" />
+    <Content Include="images\portfolio\600x600\6.jpg" />
+    <Content Include="images\portfolio\600x600\62.jpg" />
+    <Content Include="images\portfolio\600x600\65.jpg" />
+    <Content Include="images\portfolio\600x600\81.jpg" />
+    <Content Include="images\portfolio\600x600\87.jpg" />
+    <Content Include="images\portfolio\600x600\88.jpg" />
+    <Content Include="images\portfolio\600x600\94.jpg" />
+    <Content Include="images\portfolio\600x600\96.jpg" />
+    <Content Include="images\portlet-collapse-icon-white.png" />
+    <Content Include="images\portlet-collapse-icon.png" />
+    <Content Include="images\portlet-config-icon-white.png" />
+    <Content Include="images\portlet-config-icon.png" />
+    <Content Include="images\portlet-expand-icon-white.png" />
+    <Content Include="images\portlet-expand-icon.png" />
+    <Content Include="images\portlet-reload-icon-white.png" />
+    <Content Include="images\portlet-reload-icon.png" />
+    <Content Include="images\portlet-remove-icon-white.png" />
+    <Content Include="images\portlet-remove-icon.png" />
+    <Content Include="images\position.png" />
+    <Content Include="images\practice.png" />
+    <Content Include="images\prettyPhoto\dark_rounded\btnNext.png" />
+    <Content Include="images\prettyPhoto\dark_rounded\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\dark_rounded\contentPattern.png" />
+    <Content Include="images\prettyPhoto\dark_rounded\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\dark_rounded\loader.gif" />
+    <Content Include="images\prettyPhoto\dark_rounded\sprite.png" />
+    <Content Include="images\prettyPhoto\dark_square\btnNext.png" />
+    <Content Include="images\prettyPhoto\dark_square\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\dark_square\contentPattern.png" />
+    <Content Include="images\prettyPhoto\dark_square\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\dark_square\loader.gif" />
+    <Content Include="images\prettyPhoto\dark_square\sprite.png" />
+    <Content Include="images\prettyPhoto\facebook\btnNext.png" />
+    <Content Include="images\prettyPhoto\facebook\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\facebook\contentPatternBottom.png" />
+    <Content Include="images\prettyPhoto\facebook\contentPatternLeft.png" />
+    <Content Include="images\prettyPhoto\facebook\contentPatternRight.png" />
+    <Content Include="images\prettyPhoto\facebook\contentPatternTop.png" />
+    <Content Include="images\prettyPhoto\facebook\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\facebook\loader.gif" />
+    <Content Include="images\prettyPhoto\facebook\sprite.png" />
+    <Content Include="images\prettyPhoto\light_rounded\btnNext.png" />
+    <Content Include="images\prettyPhoto\light_rounded\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\light_rounded\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\light_rounded\loader.gif" />
+    <Content Include="images\prettyPhoto\light_rounded\sprite.png" />
+    <Content Include="images\prettyPhoto\light_square\btnNext.png" />
+    <Content Include="images\prettyPhoto\light_square\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\light_square\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\light_square\loader.gif" />
+    <Content Include="images\prettyPhoto\light_square\sprite.png" />
+    <Content Include="images\prev.png" />
+    <Content Include="images\print_dms.png" />
+    <Content Include="images\print_hover_dms.png" />
+    <Content Include="images\process-bar.png" />
+    <Content Include="images\project.png" />
+    <Content Include="images\ProjectAllocation.png" />
+    <Content Include="images\ProjectList.png" />
+    <Content Include="images\project_tab.png" />
+    <Content Include="images\QuickInfoButton.png" />
+    <Content Include="images\ratingStarEmpty.png" />
+    <Content Include="images\ratingStarFilled.png" />
+    <Content Include="images\red_btn.png" />
+    <Content Include="images\red_btn_hover.png" />
+    <Content Include="images\remove-icon-small.png" />
+    <Content Include="images\Remove.gif" />
+    <Content Include="images\remove.jpg" />
+    <Content Include="images\remove.png" />
+    <Content Include="images\repatedNames.png" />
+    <Content Include="images\resend_invitation.png" />
+    <Content Include="images\Response.png" />
+    <Content Include="images\ResponseFile.png" />
+    <Content Include="images\responsive_add.png" />
+    <Content Include="images\responsive_add1.png" />
+    <Content Include="images\Retrace.png" />
+    <Content Include="images\reviewdisable.png" />
+    <Content Include="images\rfq-icon.png" />
+    <Content Include="images\RFQEdit.png" />
+    <Content Include="images\right.png" />
+    <Content Include="images\sad.png" />
+    <Content Include="images\search-bg.png" />
+    <Content Include="images\search.jpg" />
+    <Content Include="images\search.png" />
+    <Content Include="images\search_icon.png" />
+    <Content Include="images\sidebar_inline_toggler_icon_darkblue.jpg" />
+    <Content Include="images\smiley1.png" />
+    <Content Include="images\social\aboutme.png" />
+    <Content Include="images\social\amazon.png" />
+    <Content Include="images\social\behance.png" />
+    <Content Include="images\social\blogger.png" />
+    <Content Include="images\social\deviantart.png" />
+    <Content Include="images\social\dribbble.png" />
+    <Content Include="images\social\dropbox.png" />
+    <Content Include="images\social\evernote.png" />
+    <Content Include="images\social\facebook.png" />
+    <Content Include="images\social\flickr.png" />
+    <Content Include="images\social\forrst.png" />
+    <Content Include="images\social\foursquare.png" />
+    <Content Include="images\social\github.png" />
+    <Content Include="images\social\googleplus.png" />
+    <Content Include="images\social\gravatar.png" />
+    <Content Include="images\social\instagram.png" />
+    <Content Include="images\social\jolicloud.png" />
+    <Content Include="images\social\klout.png" />
+    <Content Include="images\social\last-fm.png" />
+    <Content Include="images\social\linkedin.png" />
+    <Content Include="images\social\myspace.png" />
+    <Content Include="images\social\picasa.png" />
+    <Content Include="images\social\pintrest.png" />
+    <Content Include="images\social\quora.png" />
+    <Content Include="images\social\reddit.png" />
+    <Content Include="images\social\rss.png" />
+    <Content Include="images\social\skype.png" />
+    <Content Include="images\social\spotify.png" />
+    <Content Include="images\social\stumbleupon.png" />
+    <Content Include="images\social\tumblr.png" />
+    <Content Include="images\social\twitter.png" />
+    <Content Include="images\social\vimeo.png" />
+    <Content Include="images\social\vk.png" />
+    <Content Include="images\social\wordpress.png" />
+    <Content Include="images\social\xing.png" />
+    <Content Include="images\social\yahoo.png" />
+    <Content Include="images\social\youtube.png" />
+    <Content Include="images\sortAsc.gif" />
+    <Content Include="images\sortDesc.gif" />
+    <Content Include="images\StartOff.png" />
+    <Content Include="images\StartOn.png" />
+    <Content Include="images\star_icon.png" />
+    <Content Include="images\status-b-left.png" />
+    <Content Include="images\status-b-middle.png" />
+    <Content Include="images\status-b-right.png" />
+    <Content Include="images\status-close.png" />
+    <Content Include="images\status-value-bg-big.png" />
+    <Content Include="images\status-value-bg.png" />
+    <Content Include="images\status.png" />
+    <Content Include="images\status_bar.png" />
+    <Content Include="images\sticky.png" />
+    <Content Include="images\StopOff.png" />
+    <Content Include="images\StopOn.png" />
+    <Content Include="images\strip.png" />
+    <Content Include="images\stripWithLine.png" />
+    <Content Include="images\strip_vertical.png" />
+    <Content Include="images\success.png" />
+    <Content Include="images\success_disable.png" />
+    <Content Include="images\summary.png" />
+    <Content Include="images\sunnyrainyday.jpg" />
+    <Content Include="images\surge-logo.png.png" />
+    <Content Include="images\Surge-Systems.png" />
+    <Content Include="images\switch_user.png" />
+    <Content Include="images\syncfusion-icons-white.png" />
+    <Content Include="images\syncfusion-icons.png" />
+    <Content Include="images\system-time.png" />
+    <Content Include="images\table-cover-left.png" />
+    <Content Include="images\table-cover-middle.png" />
+    <Content Include="images\table-cover-right.png" />
+    <Content Include="images\table-head-bg.png" />
+    <Content Include="images\table-sep.png" />
+    <Content Include="images\tachnologi.png" />
+    <Content Include="images\thbg.gif" />
+    <Content Include="images\top-divider.gif" />
+    <Content Include="images\toptab-a.gif" />
+    <Content Include="images\Tulips.jpg" />
+    <Content Include="images\Unall.png" />
+    <Content Include="images\UnallocatedList.png" />
+    <Content Include="images\unlike.jpg" />
+    <Content Include="images\unlike.png" />
+    <Content Include="images\UpArrow.png" />
+    <Content Include="images\upload.png" />
+    <Content Include="images\up_button.gif" />
+    <Content Include="images\User.png" />
+    <Content Include="images\user_group_man_people_users_male-512.png" />
+    <Content Include="images\validation.png" />
+    <Content Include="images\verve-systems.png" />
+    <Content Include="images\vervepdf_logo.png" />
+    <Content Include="images\verve_logo.png" />
+    <Content Include="images\verve_logopdf.png" />
+    <Content Include="images\view.jpg" />
+    <Content Include="images\view.png" />
+    <Content Include="images\viewmail.png" />
+    <Content Include="images\Viewresponse.png" />
+    <Content Include="images\viewsImage.png" />
+    <Content Include="images\view_response.png" />
+    <Content Include="images\view_skill.png" />
+    <Content Include="images\VISDashboard_Screen.jpg" />
+    <Content Include="images\VISDashboard_Screen.png" />
+    <Content Include="images\VISDashboard_Screen1.jpg" />
+    <Content Include="images\waitingStar.png" />
+    <Content Include="images\wall\add_member.png" />
+    <Content Include="images\wall\add_photo.png" />
+    <Content Include="images\wall\aleart.png" />
+    <Content Include="images\wall\arrowz_1.png" />
+    <Content Include="images\wall\arrowz_2.png" />
+    <Content Include="images\wall\bg1.png" />
+    <Content Include="images\wall\bg2.png" />
+    <Content Include="images\wall\boder_img.png" />
+    <Content Include="images\wall\brand-logo.png" />
+    <Content Include="images\wall\comm_icon.png" />
+    <Content Include="images\wall\dropdown1.png" />
+    <Content Include="images\wall\dropdown2.png" />
+    <Content Include="images\wall\edit.png" />
+    <Content Include="images\wall\facebook_like.png" />
+    <Content Include="images\wall\footer_bg.png" />
+    <Content Include="images\wall\footer_bg02.png" />
+    <Content Include="images\wall\for.png" />
+    <Content Include="images\wall\graph.jpg" />
+    <Content Include="images\wall\header_bg03.png" />
+    <Content Include="images\wall\header_bottom_bg.png" />
+    <Content Include="images\wall\header_top_bg01.png" />
+    <Content Include="images\wall\home_icone.png" />
+    <Content Include="images\wall\hover_logo01.png" />
+    <Content Include="images\wall\hover_logo02.png" />
+    <Content Include="images\wall\hover_logo03.png" />
+    <Content Include="images\wall\hover_logo04.png" />
+    <Content Include="images\wall\hover_logo05.png" />
+    <Content Include="images\wall\hover_logo06.png" />
+    <Content Include="images\wall\hover_logo07.png" />
+    <Content Include="images\wall\hover_logo08.png" />
+    <Content Include="images\wall\hover_logo09.png" />
+    <Content Include="images\wall\hover_logo10.png" />
+    <Content Include="images\wall\hover_logo11.png" />
+    <Content Include="images\wall\hover_logo12.png" />
+    <Content Include="images\wall\hover_logo13.png" />
+    <Content Include="images\wall\hover_logo14.png" />
+    <Content Include="images\wall\icon-add-event.png" />
+    <Content Include="images\wall\icon-add-ticket.png" />
+    <Content Include="images\wall\icon-add-worksheet.png" />
+    <Content Include="images\wall\icon-app.png" />
+    <Content Include="images\wall\icon-leave.png" />
+    <Content Include="images\wall\icon_close.png" />
+    <Content Include="images\wall\icon_edit.png" />
+    <Content Include="images\wall\icon_greendown_dropdown.png" />
+    <Content Include="images\wall\icon_img02.png" />
+    <Content Include="images\wall\icon_logout.png" />
+    <Content Include="images\wall\img1.png" />
+    <Content Include="images\wall\img2.png" />
+    <Content Include="images\wall\img3.png" />
+    <Content Include="images\wall\logo.png" />
+    <Content Include="images\wall\logo_01.png" />
+    <Content Include="images\wall\logo_02.png" />
+    <Content Include="images\wall\logo_03.png" />
+    <Content Include="images\wall\logo_04.png" />
+    <Content Include="images\wall\logo_05.png" />
+    <Content Include="images\wall\logo_06.png" />
+    <Content Include="images\wall\logo_07.png" />
+    <Content Include="images\wall\logo_08.png" />
+    <Content Include="images\wall\logo_09.png" />
+    <Content Include="images\wall\logo_10.png" />
+    <Content Include="images\wall\logo_11.png" />
+    <Content Include="images\wall\logo_12.png" />
+    <Content Include="images\wall\logo_13.png" />
+    <Content Include="images\wall\logo_14.png" />
+    <Content Include="images\wall\logo_15.png" />
+    <Content Include="images\wall\logo_16.png" />
+    <Content Include="images\wall\logo_17.png" />
+    <Content Include="images\wall\logo_18.png" />
+    <Content Include="images\wall\logo_h1.png" />
+    <Content Include="images\wall\logo_img001.png" />
+    <Content Include="images\wall\logo_img002.png" />
+    <Content Include="images\wall\mailnotification.png" />
+    <Content Include="images\wall\main_bg.png" />
+    <Content Include="images\wall\Mayur.jpg" />
+    <Content Include="images\wall\message.png" />
+    <Content Include="images\wall\next_arrow.png" />
+    <Content Include="images\wall\next_mid_arrow.png" />
+    <Content Include="images\wall\notifiy-icon.png" />
+    <Content Include="images\wall\online_dot.png" />
+    <Content Include="images\wall\pre-mid_arrow.png" />
+    <Content Include="images\wall\pre.png" />
+    <Content Include="images\wall\progress-bar.png" />
+    <Content Include="images\wall\search.png" />
+    <Content Include="images\wall\user.png" />
+    <Content Include="images\WBScheckpoint.png" />
+    <Content Include="images\WBSmodule.png" />
+    <Content Include="images\WBSmoduleOld.png" />
+    <Content Include="images\WBSproject.png" />
+    <Content Include="images\WBStask.png" />
+    <Content Include="images\WBStaskOld.png" />
+    <Content Include="images\WBS_AddModule.png" />
+    <Content Include="images\WBS_AddTask.png" />
+    <Content Include="images\WBS_Completed_Signoff.png" />
+    <Content Include="images\WBS_DeliveryMapping.png" />
+    <Content Include="images\WBS_GenerateDelivery.png" />
+    <Content Include="images\WBS_Inbox_AddModule.png" />
+    <Content Include="images\WBS_MyModule.png" />
+    <Content Include="images\WBS_MyProject.png" />
+    <Content Include="images\WBS_MyTask.png" />
+    <Content Include="images\WBS_PendingSignOff.png" />
+    <Content Include="images\WBS_Pending_Signoff.png" />
+    <Content Include="images\WBS_ProjectGridView.png" />
+    <Content Include="images\WBS_Ready_Signoff.png" />
+    <Content Include="images\WBS_SwitchTreeView.png" />
+    <Content Include="images\WBS_View.png" />
+    <Content Include="images\word.bmp" />
+    <Content Include="images\word.png" />
+    <Content Include="images\word_active.png" />
+    <Content Include="images\word_active_2013.png" />
+    <Content Include="images\word_dms.png" />
+    <Content Include="images\word_normal_2013.png" />
+    <Content Include="images\WorkAnniversary.jpg" />
+    <Content Include="images\workseet.png" />
+    <Content Include="images\worksheet.png" />
+    <Content Include="images\yellow_btn.png" />
+    <Content Include="Scripts\ai.0.22.9-build00167.js" />
+    <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="package.json" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Content\fonts\ionicons.eot" />
+    <Content Include="Content\fonts\ionicons.ttf" />
+    <Content Include="Content\fonts\ionicons.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\utilities.less" />
+    <Content Include="Content\bootstrap\type.less" />
+    <Content Include="Content\bootstrap\tooltip.less" />
+    <Content Include="Content\bootstrap\thumbnails.less" />
+    <Content Include="Content\bootstrap\theme.less" />
+    <Content Include="Content\bootstrap\tables.less" />
+    <Content Include="Content\bootstrap\scaffolding.less" />
+    <Content Include="Content\bootstrap\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\responsive-embed.less" />
+    <Content Include="Content\bootstrap\progress-bars.less" />
+    <Content Include="Content\bootstrap\print.less" />
+    <Content Include="Content\bootstrap\popovers.less" />
+    <Content Include="Content\bootstrap\panels.less" />
+    <Content Include="Content\bootstrap\pagination.less" />
+    <Content Include="Content\bootstrap\pager.less" />
+    <Content Include="Content\bootstrap\normalize.less" />
+    <Content Include="Content\bootstrap\navs.less" />
+    <Content Include="Content\bootstrap\navbar.less" />
+    <Content Include="Content\bootstrap\modals.less" />
+    <Content Include="Content\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="Content\bootstrap\mixins\text-overflow.less" />
+    <Content Include="Content\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="Content\bootstrap\mixins\table-row.less" />
+    <Content Include="Content\bootstrap\mixins\tab-focus.less" />
+    <Content Include="Content\bootstrap\mixins\size.less" />
+    <Content Include="Content\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="Content\bootstrap\mixins\resize.less" />
+    <Content Include="Content\bootstrap\mixins\reset-text.less" />
+    <Content Include="Content\bootstrap\mixins\reset-filter.less" />
+    <Content Include="Content\bootstrap\mixins\progress-bar.less" />
+    <Content Include="Content\bootstrap\mixins\panels.less" />
+    <Content Include="Content\bootstrap\mixins\pagination.less" />
+    <Content Include="Content\bootstrap\mixins\opacity.less" />
+    <Content Include="Content\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="Content\bootstrap\mixins\nav-divider.less" />
+    <Content Include="Content\bootstrap\mixins\list-group.less" />
+    <Content Include="Content\bootstrap\mixins\labels.less" />
+    <Content Include="Content\bootstrap\mixins\image.less" />
+    <Content Include="Content\bootstrap\mixins\hide-text.less" />
+    <Content Include="Content\bootstrap\mixins\grid.less" />
+    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
+    <Content Include="Content\bootstrap\mixins\gradients.less" />
+    <Content Include="Content\bootstrap\mixins\forms.less" />
+    <Content Include="Content\bootstrap\mixins\clearfix.less" />
+    <Content Include="Content\bootstrap\mixins\center-block.less" />
+    <Content Include="Content\bootstrap\mixins\buttons.less" />
+    <Content Include="Content\bootstrap\mixins\border-radius.less" />
+    <Content Include="Content\bootstrap\mixins\background-variant.less" />
+    <Content Include="Content\bootstrap\mixins\alerts.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\bootstrap\media.less" />
+    <Content Include="Content\bootstrap\list-group.less" />
+    <Content Include="Content\bootstrap\labels.less" />
+    <Content Include="Content\bootstrap\jumbotron.less" />
+    <Content Include="Content\bootstrap\input-groups.less" />
+    <Content Include="Content\bootstrap\grid.less" />
+    <Content Include="Content\bootstrap\glyphicons.less" />
+    <Content Include="Content\bootstrap\forms.less" />
+    <Content Include="Content\bootstrap\dropdowns.less" />
+    <Content Include="Content\bootstrap\component-animations.less" />
+    <Content Include="Content\bootstrap\code.less" />
+    <Content Include="Content\bootstrap\close.less" />
+    <Content Include="Content\bootstrap\carousel.less" />
+    <Content Include="Content\bootstrap\buttons.less" />
+    <Content Include="Content\bootstrap\button-groups.less" />
+    <Content Include="Content\bootstrap\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\bootstrap.less" />
+    <Content Include="Content\bootstrap\badges.less" />
+    <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="app\Components\Notification\TicketListClosed.component.html" />
+    <None Include="Properties\PublishProfiles\visangular.pubxml" />
+    <None Include="Properties\PublishProfiles\VISNew.pubxml" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\ckeditor.js" />
+    <Content Include="Scripts\CommonScriptFunction.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="systemjs.config.js" />
+    <Content Include="Upload\CompanyMaster\Chrysanthemum1.jpg" />
+    <Content Include="Upload\CompanyMaster\Chrysanthemum12.jpg" />
+    <Content Include="Upload\CompanyMaster\Desert1.jpg" />
+    <Content Include="Upload\CompanyMaster\Desert12.jpg" />
+    <Content Include="Upload\CompanyMaster\Jellyfish1.jpg" />
+    <Content Include="Upload\CompanyMaster\Jellyfish12.jpg" />
+    <Content Include="Upload\CompanyMaster\Koala1.jpg" />
+    <Content Include="Upload\CompanyMaster\Lighthouse1.jpg" />
+    <Content Include="Upload\CompanyMaster\Penguins1.jpg" />
+    <Content Include="Upload\DocumentCenter\DocumentTemplateImages\128.png" />
+    <Content Include="Upload\DocumentCenter\DocumentTemplateImages\48.png" />
+    <Content Include="Upload\DocumentCenter\DocumentTemplateImages\CalendarNext.png" />
+    <Content Include="Upload\HomePageImage\captain_america_2-wallpaper-1366x768.jpg" />
+    <Content Include="Upload\HomePageImage\middle-earth-the-lord-of-the-rings-digital-art-hd-wallpaper-1920x1200-8396.jpg" />
+    <Content Include="Upload\HomePageImage\Nature-Full-HD-Wallpaper-national-geographic-7822261-1920-1080.jpg" />
+    <Content Include="Upload\HomePageImage\sunny-rainyday.jpg" />
+    <Content Include="Upload\HomePageImage\vpl_poster.jpg" />
+    <Content Include="Upload\Icon images\Add.png" />
+    <Content Include="Upload\Icon images\Attendance_Approval.png" />
+    <Content Include="Upload\Icon images\bi_report.png" />
+    <Content Include="Upload\Icon images\copy_survey.png" />
+    <Content Include="Upload\Icon images\downloadicon.png" />
+    <Content Include="Upload\Icon images\exporticon.png" />
+    <Content Include="Upload\Icon images\icon_add.png" />
+    <Content Include="Upload\Icon images\icon_clear.png" />
+    <Content Include="Upload\Icon images\icon_download.png" />
+    <Content Include="Upload\Icon images\icon_edit.png" />
+    <Content Include="Upload\Icon images\icon_export.png" />
+    <Content Include="Upload\Icon images\icon_restricted.png" />
+    <Content Include="Upload\Icon images\importicon.png" />
+    <Content Include="Upload\Icon images\resend_invitation.png" />
+    <Content Include="Upload\Icon images\search.png" />
+    <Content Include="Upload\Icon images\status.png" />
+    <Content Include="Upload\Icon images\success.png" />
+    <Content Include="Upload\Icon images\view.png" />
+    <Content Include="Upload\Photograph\^8057A2045763738228673F97711038A1F680CA276CC435FF8C^pimgpsh_fullsize_distr_04cfb176-b30a-49b6-a038-a575a0863dbf.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="tsconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\Components\Dashboard\dashboard.component.ts" />
+    <TypeScriptCompile Include="app\Components\DocCenter\DocumentTemplate.component.ts" />
+    <TypeScriptCompile Include="app\Components\home.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\Attendance\EmployeeFeedback.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\Attendance\MySkill.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\Attendance\MyTeam.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\Attendance\WorkSheet.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\EmployeeManagement\EmpInfoTabular.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\EmployeeManagement\EmployeeList.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\Grievance\SalaryGrievance.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\Grievance\SalaryGrievancePE.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\ProfileAttendance\ChangePassword.component.ts" />
+    <TypeScriptCompile Include="app\Components\HumanResource\ProfileAttendance\MyProfiles.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\BankMaster.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\CompanyMaster.Component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\ContactMaster.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\EducationType.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\EventCountDown.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\FinancialYear.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\GroupName.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\HomePageImage.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\HouseChampionship.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\LeaveType.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\Lookup.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\LookupType.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\LookupType.module.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\SalaryBreakupType.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CompanyRelated\UserRole.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\Configuration\CommonConfiguration.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\Configuration\ConfigureTicket.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\Configuration\ConfigureWorkSheet.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\Configuration\EventCountDown.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\Configuration\MacIdConfiguration.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\Configuration\SecurityKey.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CurrencyRelated\currency.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\CurrencyRelated\CurrencyHistory.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\EmployeeLevels\LevelConfiguration.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\EmployeeLevels\LevelCriteriaSetup.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\EmployeeLevels\levels.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\EmployeeLevels\Levels_Achievement.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\EmployeeLevels\ManualPointEntry.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\VacancyRelated\Position.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\VacancyRelated\RatingType.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\VacancyRelated\Skill.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\VacancyRelated\SkillGroup.component.ts" />
+    <TypeScriptCompile Include="app\Components\Masters\VacancyRelated\TechnologyMaster.component.ts" />
+    <TypeScriptCompile Include="app\Components\Notification\HelpTicketAdd.component.ts" />
+    <TypeScriptCompile Include="app\Components\Notification\MyTicket.component.ts" />
+    <TypeScriptCompile Include="app\Components\Notification\News.component.ts" />
+    <TypeScriptCompile Include="app\Components\Notification\policy.component.ts" />
+    <TypeScriptCompile Include="app\Components\Notification\TicketListClosed.component.ts" />
+    <TypeScriptCompile Include="app\Components\Notification\TicketListOpen.component.ts" />
+    <TypeScriptCompile Include="app\Components\Opinion\ConfigureSurvey.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\AddEmployeeRecord.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\AttendanceAccessCardComparisionReport.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\AttendanceReport.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\AttendanceReportNew.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\DailyEntrysheet.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\EmployeeDashboardHeartBeatReport.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\EmployeeScreenCapture.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\LateEarlyReport.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\OfficialWorkReport.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\OutReport.component.ts" />
+    <TypeScriptCompile Include="app\Components\Report\Attendance\ProductivityTrackerReport.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\AddResponse.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\AddRFQ.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\MyActionRFQ.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\MyWatchListRFQ.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\ResponceRequestedRFQ.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\RFQEstimateAllRFQ.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\RFQEstimateListing.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\RFQResponse.component.ts" />
+    <TypeScriptCompile Include="app\Components\RFQ\ViewResponse.component.ts" />
+    <TypeScriptCompile Include="app\Components\UserManagement\AttendanceEntry.component.ts" />
+    <TypeScriptCompile Include="app\Components\UserManagement\login.component.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\HumanResource\Attendance\EmployeeFeedback.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\HumanResource\Attendance\MySkill.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\HumanResource\Attendance\MyTeam.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\HumanResource\Attendance\WorkSheet.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\HumanResource\EmployeeManagement\EmployeeList.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\HumanResource\ProfileAttendance\MyProfiles.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\BankMaster.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\CompanyMaster.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\ContactMaster.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\EducationType.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\EventCountDown.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\GroupName.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\HomePageImage.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\HouseChampionship.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\LeaveType.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\Lookup.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\LookupType.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\SalaryBreakupType.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CompanyRelated\UserRole.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\Configuration\CommonConfiguration.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\Configuration\ConfigureTicket.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\Configuration\ConfigureWorksheet.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\Configuration\EventCountDown.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\Configuration\MacIdConfiguration.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\Configuration\SecurityKey.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\CurrencyRelated\currency.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\EmployeeLevels\LevelConfiguration.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\EmployeeLevels\LevelCriteriaSetup.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\EmployeeLevels\levels.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\EmployeeLevels\Levels_Achievement.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\EmployeeLevels\ManualPointEntry.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\EmployeeLevels\search-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\EmployeeLevels\types.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\VacancyRelated\Position.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\VacancyRelated\RatingType.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\VacancyRelated\Skill.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\VacancyRelated\SkillGroup.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Masters\VacancyRelated\TechnologyMaster.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Notification\HelpTicketAdd.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Notification\MyTicket.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Notification\News.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Notification\policy.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Notification\TicketListClosed.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Notification\TicketListOpen.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Report\Attendance\Attendance_Report.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Report\Attendance\DailyEntrysheet.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Report\Attendance\LateEarlyReport.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Report\Attendance\OfficialWorkReport.pipe.ts" />
+    <TypeScriptCompile Include="app\Components\Filter\Report\Attendance\OutReport.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\DocCentre\DocumentTemplate.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\HumanResource\Attendance\EmployeeFeedback.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\HumanResource\Attendance\MySkill.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\HumanResource\Attendance\MyTeam.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\HumanResource\Attendance\WorkSheet.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\HumanResource\EmployeeManagement\EmployeeList.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\HumanResource\ProfileAttendance\MyProfiles.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\BankMaster.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\CompanyMaster.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\ContactMaster.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\EducationType.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\EventCountDown.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\FinancialYear.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\GroupName.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\HomePageImage.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\HouseChampionship.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\LeaveType.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\Lookup.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\LookupType.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\SalaryBreakupType.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CompanyRelated\UserRole.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\Configuration\CommonConfiguration.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\Configuration\ConfigureTicket.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\Configuration\ConfigureWorksheet.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\Configuration\EventCountDown.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\Configuration\MacIdConfiguration.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\Configuration\SecurityKey.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\CurrencyRelated\currency.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\EmployeeLevels\LevelConfiguration.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\EmployeeLevels\LevelCriteriaSetup.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\EmployeeLevels\levels.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\EmployeeLevels\Levels_Achievement.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\EmployeeLevels\ManualPointEntry.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\VacancyRelated\Position.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\VacancyRelated\RatingType.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\VacancyRelated\Skill.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\VacancyRelated\SkillGroup.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Masters\VacancyRelated\TechnologyMaster.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Notification\HelpTicketAdd.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Notification\MyTicket.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Notification\News.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Notification\policy.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Notification\TicketListClosed.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Notification\TicketListOpen.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Report\Attendance\Attendance_Report.ts" />
+    <TypeScriptCompile Include="app\Filter\Report\Attendance\DailyEntrysheet.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Report\Attendance\LateEarlyReport.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Report\Attendance\OfficialWorkReport.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\Report\Attendance\OutReport.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\RFQ\RFQ.pipe.ts" />
+    <TypeScriptCompile Include="app\Filter\RFQ\RFQProspectClient.pipe.ts" />
+    <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\dashboard.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\Legend.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\Levels.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\myalerts.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\myallocation.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\MyAttendance.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\myprofile.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\myskills.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\myteam.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\myworksheet.ts" />
+    <TypeScriptCompile Include="app\Model\Dashboard\Points.ts" />
+    <TypeScriptCompile Include="app\Model\DocCenter\DocumentTemplate.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\Attendance\EmployeeFeedback.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\Attendance\MySkill.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\Attendance\MyTeam.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\Attendance\WorkSheet.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\EmployeeManagement\EmpInfoTabular.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\EmployeeManagement\EmployeeList.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\Grievance\SalaryGrievance.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\Grievance\SalaryGrievancePE.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\ProfileAttendance\ChangePassword.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\ProfileAttendance\HRMaster.ts" />
+    <TypeScriptCompile Include="app\Model\HumanResource\ProfileAttendance\MyProfiles.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\BankMaster.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\CompanyMaster.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\ContactMaster.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\EducationType.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\EventCountDown.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\FinancialYear.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\GroupName.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\HomePageImage.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\HouseChampionship.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\LeaveType.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\Lookup.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\LookupType.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\SalaryBreakupType.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CompanyRelated\UserRole.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\Configuration\CommonConfiguration.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\Configuration\ConfigureTicket.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\Configuration\ConfigureWorksheet.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\Configuration\EventCountDown.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\Configuration\MacIdConfiguration.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\Configuration\SecurityKey.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CurrencyRelated\currency.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\CurrencyRelated\CurrencyHistory.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\EmployeeLevels\LevelConfiguration.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\EmployeeLevels\LevelCriteriaSetup.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\EmployeeLevels\levels.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\EmployeeLevels\Levels_Achievement.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\EmployeeLevels\ManualPointEntry.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\VacancyRelated\Position.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\VacancyRelated\RatingType.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\VacancyRelated\Skill.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\VacancyRelated\SkillGroup.ts" />
+    <TypeScriptCompile Include="app\Model\Masters\VacancyRelated\TechnologyMaster.ts" />
+    <TypeScriptCompile Include="app\Model\Notification\HelpTicketAdd.ts" />
+    <TypeScriptCompile Include="app\Model\Notification\MyTicket.ts" />
+    <TypeScriptCompile Include="app\Model\Notification\News.ts" />
+    <TypeScriptCompile Include="app\Model\Notification\Organization.ts" />
+    <TypeScriptCompile Include="app\Model\Notification\policy.ts" />
+    <TypeScriptCompile Include="app\Model\Notification\TicketListClosed.ts" />
+    <TypeScriptCompile Include="app\Model\Notification\TicketListOpen.ts" />
+    <TypeScriptCompile Include="app\Model\Opinion\ConfigureSurvey.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\AddEmployeeRecord.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\AttendanceAccessCardComparisionReport.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\AttendanceReport.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\AttendanceReportNew.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\DailyEntrysheet.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\EmployeeDashboardHeartBeatReport.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\EmployeeScreenCaptureReport.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\LateEarlyReport.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\OfficialWorkReport.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\OutReport.ts" />
+    <TypeScriptCompile Include="app\Model\Report\Attendance\ProductivityTracker.ts" />
+    <TypeScriptCompile Include="app\Model\RFQ\GeneralRFQ.ts" />
+    <TypeScriptCompile Include="app\Model\RFQ\RFQEstimateListing.ts" />
+    <TypeScriptCompile Include="app\Model\RFQ\RFQResponse.ts" />
+    <TypeScriptCompile Include="app\Model\UserManagement\AttendanceEntry.ts" />
+    <TypeScriptCompile Include="app\Model\UserManagement\login.ts" />
+    <TypeScriptCompile Include="app\Service\Dashboard\dashboard.service.ts" />
+    <TypeScriptCompile Include="app\Service\DocCenter\DocumentTemplate.service.ts" />
+    <TypeScriptCompile Include="app\Service\entityService.ts" />
+    <TypeScriptCompile Include="app\Service\home.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\Attendance\EmployeeFeedback.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\Attendance\MySkill.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\Attendance\MyTeam.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\Attendance\WorkSheet.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\EmployeeManagement\EmpInfoTabular.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\EmployeeManagement\EmployeeList.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\Grievance\SalaryGrievance.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\Grievance\SalaryGrievancePE.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\ProfileAttendance\ChangePassword.service.ts" />
+    <TypeScriptCompile Include="app\Service\HumanResource\ProfileAttendance\MyProfiles.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\BankMaster.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\CompanyMaster.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\ContactMaster.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\EducationType.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\EventCountDown.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\FinancialYear.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\GroupName.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\HomePageImage.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\HouseChampionship.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\LeaveType.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\SalaryBreakupType.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\UserRole.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\Configuration\ConfigureTicket.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CurrencyRelated\CurrencyHistory.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\EmployeeLevels\LevelCriteriaSetup.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\Lookup.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CompanyRelated\LookupType.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\Configuration\CommonConfiguration.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\Configuration\EventCountDown.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\Configuration\ConfigureWorksheet.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\Configuration\MacIdConfiguration.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\Configuration\SecurityKey.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\CurrencyRelated\currency.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\EmployeeLevels\LevelConfiguration.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\EmployeeLevels\levels.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\EmployeeLevels\Levels_Achievement.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\EmployeeLevels\ManualPointEntry.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\VacancyRelated\Position.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\VacancyRelated\RatingType.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\VacancyRelated\Skill.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\VacancyRelated\SkillGroup.service.ts" />
+    <TypeScriptCompile Include="app\Service\Masters\VacancyRelated\TechnologyMaster.service.ts" />
+    <TypeScriptCompile Include="app\Service\Notification\HelpTicketAdd.service.ts" />
+    <TypeScriptCompile Include="app\Service\Notification\MyTicket.service.ts" />
+    <TypeScriptCompile Include="app\Service\Notification\News.service.ts" />
+    <TypeScriptCompile Include="app\Service\Notification\policy.service.ts" />
+    <TypeScriptCompile Include="app\Service\Notification\TicketListClosed.service.ts" />
+    <TypeScriptCompile Include="app\Service\Notification\TicketListOpen.service.ts" />
+    <TypeScriptCompile Include="app\Service\Opinion\ConfigureSurvey.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\AddEmployeeRecord.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\AttendanceAccessCardComparisionReport.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\AttendanceReport.Service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\AttendanceReportNew.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\DailyEntrysheet.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\EmployeeDashboardHeartBeat.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\EmployeeScreenCaptureReport.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\LateEarlyReport.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\OfficialWorkReport.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\OutReport.service.ts" />
+    <TypeScriptCompile Include="app\Service\Report\Attendance\ProductivityTrackerReport.service.ts" />
+    <TypeScriptCompile Include="app\Service\RFQ\RFQ.service.ts" />
+    <TypeScriptCompile Include="app\Service\RFQ\RFQResponse.service.ts" />
+    <TypeScriptCompile Include="app\Service\UserManagement\AttendanceEntry.Service.ts" />
+    <TypeScriptCompile Include="app\Service\UserManagement\login.Service.ts" />
+    <TypeScriptCompile Include="app\Shared\auth.gaurd.ts" />
+    <TypeScriptCompile Include="app\Shared\CommonHelper.service.ts" />
+    <TypeScriptCompile Include="app\Shared\entity.component.ts" />
+    <TypeScriptCompile Include="app\Shared\enum.ts" />
+    <TypeScriptCompile Include="app\Shared\errorhandler.ts" />
+    <TypeScriptCompile Include="app\Shared\exportexcel.service.ts" />
+    <TypeScriptCompile Include="app\Shared\global.ts" />
+    <TypeScriptCompile Include="app\Shared\orderby.pipe.ts" />
+    <TypeScriptCompile Include="app\Shared\pager.index.ts" />
+    <TypeScriptCompile Include="app\Shared\pager.service.ts" />
+    <TypeScriptCompile Include="app\Shared\search.component.ts" />
+    <TypeScriptCompile Include="app\Shared\sharedcontents.ts" />
+    <TypeScriptCompile Include="app\Shared\user.auth.gaurd.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\ng-file-upload\ng-file-upload.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VIS_Domain\VIS_Domain.csproj">
+      <Project>{fb683799-6160-4cad-a2fb-b1c5a61655e2}</Project>
+      <Name>VIS_Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VIS_Repository\VIS_Repository.csproj">
+      <Project>{14D9A346-24C6-49F2-B998-19446415D856}</Project>
+      <Name>VIS_Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\Components\BusinessDevelopment\" />
+    <Folder Include="app\Components\Calender\" />
+    <Folder Include="app\Components\Filter\BusinessDevelopment\" />
+    <Folder Include="app\Components\Filter\Calender\" />
+    <Folder Include="app\Components\Filter\DocCentre\" />
+    <Folder Include="app\Components\Filter\Finance\" />
+    <Folder Include="app\Components\Filter\Inbox\" />
+    <Folder Include="app\Components\Filter\Konnect\" />
+    <Folder Include="app\Components\Filter\MOM\" />
+    <Folder Include="app\Components\Filter\Opinion\" />
+    <Folder Include="app\Components\Filter\Projects\" />
+    <Folder Include="app\Components\Filter\RFQ\" />
+    <Folder Include="app\Components\Finance\" />
+    <Folder Include="app\Components\Inbox\" />
+    <Folder Include="app\Components\Konnect\" />
+    <Folder Include="app\Components\MOM\" />
+    <Folder Include="app\Components\Projects\" />
+    <Folder Include="app\Components\UserManagement\RFQ\" />
+    <Folder Include="app\Filter\BusinessDevelopment\" />
+    <Folder Include="app\Filter\Calender\" />
+    <Folder Include="app\Filter\Finance\" />
+    <Folder Include="app\Filter\Inbox\" />
+    <Folder Include="app\Filter\Konnect\" />
+    <Folder Include="app\Filter\MOM\" />
+    <Folder Include="app\Filter\Opinion\" />
+    <Folder Include="app\Filter\Projects\" />
+    <Folder Include="app\Model\BusinessDevelopment\" />
+    <Folder Include="app\Model\Calender\" />
+    <Folder Include="app\Model\Finance\" />
+    <Folder Include="app\Model\Inbox\" />
+    <Folder Include="app\Model\Konnect\" />
+    <Folder Include="app\Model\MOM\" />
+    <Folder Include="app\Model\Projects\" />
+    <Folder Include="app\Service\BusinessDevelopment\" />
+    <Folder Include="app\Service\Calender\" />
+    <Folder Include="app\Service\Finance\" />
+    <Folder Include="app\Service\Inbox\" />
+    <Folder Include="app\Service\Konnect\" />
+    <Folder Include="app\Service\MOM\" />
+    <Folder Include="app\Service\Projects\" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Controllers\BusinessDevelopment\" />
+    <Folder Include="Controllers\Calender\" />
+    <Folder Include="Controllers\Finance\" />
+    <Folder Include="Controllers\Inbox\" />
+    <Folder Include="Controllers\Konnect\" />
+    <Folder Include="Controllers\MOM\" />
+    <Folder Include="Controllers\Projects\" />
+    <Folder Include="node_modules\" />
+    <Folder Include="Upload\EmployeeLevels\" />
+    <Folder Include="Upload\JoiningDocuments\" />
+    <Folder Include="Upload\RFQ\Document\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53349</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53349/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <PropertyGroup>
+    <PreBuildEvent>npm install</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

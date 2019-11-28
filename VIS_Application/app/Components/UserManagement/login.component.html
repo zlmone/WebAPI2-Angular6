@@ -1,0 +1,101 @@
+﻿<div class="row">
+    <div class="bg" id="bdbody" [ngStyle]="DynamicHomePageStyle()">
+
+        </div>
+
+    <header class="cf">
+        <div class="logo">
+            <img src="images/Login/logo.png" />
+        </div>
+        <div class='container-fluid' style="float:right;vertical-align:middle;margin-top:1%">
+            <nav class='navbar navbar-inverse'>
+
+                <ul class='nav navbar-nav'>
+                    <!--<li><a [routerLink]="['home']">Login</a></li>-->
+                    <li class="dropdown btn-lg btn-primary pull-right">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Login
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" role="navigation" style="width:300px!important;padding:15%">
+                            <form [formGroup]="LoginForm" (ngSubmit)="Login()" novalidate>
+                                <div class="text-left" style="vertical-align:middle;">
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="name" class="form-control" type="text" name='VISUsername' placeholder="Enter Username" formControlName="VISUsername" [(ngModel)]="LoginObj.VISUsername" />
+                                    </div>
+                                    <small [hidden]="LoginForm.controls.VISUsername.valid ||(LoginForm.controls.VISUsername.pristine && !submitted)" class="text-danger"> Username is required.</small>
+                                    <!--<small [hidden]="LoginForm.controls.VISUsername.valid || (LoginForm.controls.VISUsername.pristine && !submitted)" class="text-danger">
+
+                                    </small>-->
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input class="form-control" type="Password" name='VISPassword' placeholder="Enter Password" formControlName="VISPassword" [(ngModel)]="LoginObj.VISPassword" />
+                                    </div>
+                                    <span [hidden]="LoginForm.controls.VISPassword.valid || (LoginForm.controls.VISPassword.pristine && !submitted)" class="text-danger">
+                                        Password is required.
+                                    </span>
+                                    <div class="form-group">
+                                        <div class="item form-group">
+                                            <div class="col-md-6" style="float:left;text-align:left;padding:0px;">
+                                                <button type="submit" class="btn btn-success" (click)="submitted = true">Login</button>
+                                            </div>
+                                            <div class="col-md-6 btn" style="text-align:left;">
+                                                <a href="#" (click)="ForgotPassword(name)"><b>Forgot Password</b></a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+    </header>
+    <div class="footer">
+        <div class="version">
+            <img src="images/brand-logo.png" width="33" height="31" alt="Verve Systems" />
+        </div>
+        <div class="Copyright">
+            Copyright - &copy; 2017 - Verve Systems Pvt. Ltd.
+        </div>
+    </div>
+</div>
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(LoginForm)" [formGroup]="LoginForm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                Forgot password
+            </h4>
+        </modal-header>
+
+        <modal-body>
+            <div class="row">
+
+                <div class="col-md-12 col-sm-12">
+                    <label class="control-label col-md-3"> Enter your Email</label>
+                    <input type="text" class="form-control col-md-9" formControlName="VISUsername" placeholder="Email" />
+                </div>
+            </div>
+            <div class="row">
+                <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{msg}}
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" class="btn btn-primary">Get Password</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

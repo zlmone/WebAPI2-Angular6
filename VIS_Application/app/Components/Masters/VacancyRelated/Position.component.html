@@ -1,0 +1,215 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="PositionFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Position List</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="PositionSort('PositionName')">
+                        <label *ngIf="!ShowHideSearch">
+                            Position Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'PositionName', 'fa-sort-asc': (column == 'PositionName' && isDesc), 'fa-sort-desc': (column == 'PositionName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Position Name" id="searchPositionName" *ngIf="ShowHideSearch" (keydown)="LoadPosition()">
+                    </th>
+                    <th class="pointer" (click)="PositionSort('Remarks')">
+                        <label *ngIf="!ShowHideSearch">
+                            Remarks
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Remarks', 'fa-sort-asc': (column == 'Remarks' && isDesc), 'fa-sort-desc': (column == 'Remarks' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Remarks" id="searchRemarks" *ngIf="ShowHideSearch" (keydown)="LoadPosition()">
+                    </th>
+                    <th class="pointer" (click)="PositionSort('Remarks')">
+                        <label *ngIf="!ShowHideSearch">
+                            Skill
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Remarks', 'fa-sort-asc': (column == 'Remarks' && isDesc), 'fa-sort-desc': (column == 'Remarks' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Skill" id="searchRemarks" *ngIf="ShowHideSearch" (keydown)="LoadPosition()">
+                    </th>
+                    <th class="pointer" (click)="PositionSort('Status')">
+                        <label *ngIf="!ShowHideSearch">
+                            Status
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Status', 'fa-sort-asc': (column == 'Status' && isDesc), 'fa-sort-desc': (column == 'Status' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                    </th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+                    <th nowrap="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="AddPosition()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="LoadPosition()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='positions && positions.length'>
+                <tr *ngFor="let position of pagedItems | positionFilter : PositionFilter | orderBy: {property: column, direction: direction}">
+
+                    <td style="width:500px">{{position.PositionName}}</td>
+                    <td style="width:500px">{{position.Remarks}}</td>
+                    <td style="width:500px">{{position.SkillName}}</td>
+                    <td style="width:100px">
+                    <label *ngIf="position.Status==1">Active</label>
+                    <label *ngIf="position.Status==0">InActive</label>
+                    </td>
+                    <td style="display:none">{{position.CreatedOn}}</td>
+                    <td style="display:none">{{position.CreatedBy}}</td>
+                    <td style="display:none">{{position.UpdatedBy}}</td>
+                    <td style="display:none">{{position.UpdatedOn}}</td>
+                    <td style="display:none">{{position.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="position.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="EditPosition(position.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="DeletePosition(position.Id, position.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="position.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeletePosition(position.Id, position.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf='positions && positions.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='positions && positions.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+<modal #modal>
+    <form #PositionFrm="ngForm" (ngSubmit)="onSubmit(PositionFrm.value)">
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">
+                    {{modalTitle}}
+                </h4>
+            </modal-header>
+
+            <modal-body>
+
+                <div class="row Popup-row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal" role="form">
+
+                            <div class="form-group Popup-group" style="display:none">
+                                <div class="col-md-2 col-lg-2 col-xs-12">Id * :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" [(ngModel)]="position.Id" #Id="ngModel" name="Id">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2 col-lg-2 col-xs-12">Position Name* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Position Name" [(ngModel)]="position.PositionName" #PositionName="ngModel" name="PositionName" required>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2 col-lg-2 col-xs-12">Remarks* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <textarea  class="form-control" placeholder="Remarks" [(ngModel)]="position.Remarks" #Remarks="ngModel" name="Remarks" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2 col-lg-2 col-xs-12">Skill :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <ss-multiselect-dropdown [options]="IMultiSelectOption" [(ngModel)]="position.SkillId" #SkillId="ngModel" name="SkillId"></ss-multiselect-dropdown>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2 col-lg-2 col-xs-12">Status :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="checkbox" [(ngModel)]="position.Status" #Status="ngModel" name="Status">
+                                </div>
+                            </div>
+                            <div style="display:none">
+                                <span>Created On</span>
+                                <input type="text" class="form-control" placeholder="Created On" >
+                            </div>
+                            <div style="display:none">
+                                <span>Created By</span>
+                                <input type="text" class="form-control" placeholder="Created By" >
+                            </div>
+                            <div style="display:none">
+                                <span>Updated On</span>
+                                <input type="text" class="form-control" placeholder="Updated On" >
+                            </div>
+                            <div style="display:none">
+                                <span>Updated By</span>
+                                <input type="text" class="form-control" placeholder="Updated By" >
+                            </div>
+                            <div style="display:none">
+                                <span>Is Active</span>
+                                <input type="checkbox" class="form-control" >
+                            </div>
+                            <div style="display:none">
+                                <span>EntityMessage</span>
+                                <input type="text" class="form-control" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </modal-body>
+            <modal-footer>
+                <div>
+                    <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                    <button type="submit" [disabled]="PositionFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+                </div>
+            </modal-footer>
+        </form>
+</modal>
+

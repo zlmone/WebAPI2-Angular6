@@ -1,0 +1,128 @@
+﻿
+
+<div class="row">
+    <div class="form-group Popup-group" style="float:right !important">
+
+        <div class="col-md-7 col-lg-7 col-xs-12">
+            <select class="form-control" (change)="LoadSelectValue($event)">
+                <option>Select</option>
+                <option selected *ngFor="let employee of employeeheadlist" value="{{employee.UserId}}">{{employee.Employee_Name}} </option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="col-md-12 col-xs-12 col-lg-12">
+        <ng2-tab selected="UserDetails"
+                 selected-index-class="selected"
+                 selected-contents-class="fadeIn animated">
+            <!--<div class="tabs">
+            <div index=""></div>
+            <div index=""></div>-->
+            <ul class="nav nav-tabs">
+                <li>
+                    <a index="UserDetails">User Details </a>
+                </li>
+                <li>
+                    <a index="PersonalDetails">Personal Details </a>
+                </li>
+                <li>
+                    <a index="EducationDetails">Education Details </a>
+                </li>
+
+
+            </ul>
+            <!--</div>-->
+            <div class="tab-contents tabborder">
+                <div contents="UserDetails" class="tabborder">
+
+                    <table *ngFor="let item of ViewHistory">
+                      
+
+
+                        <tr>
+                            <td class="trpaading">First Name</td>
+                            <td class="trpaading">:</td>
+                            <td class="trpaading">{{item.FirstName}}</td>
+
+                         
+
+                        </tr>
+                        <tr><td class="trpaading">Middle Name</td><td class="trpaading">:</td>  <td class="trpaading">{{item.MiddleName}}</td></tr>
+                        <tr><td class="trpaading">Last Name</td><td class="trpaading">:</td>  <td class="trpaading">{{item.LastName}}</td></tr>
+                        <tr><td class="trpaading">Gender</td> <td class="trpaading">:</td> <td class="trpaading">{{item.Gender}}</td></tr>
+                        <tr><td class="trpaading">Company Name</td><td class="trpaading">:</td>  <td class="trpaading">{{item.CompanyName}}</td></tr>
+                        <tr><td class="trpaading">Line Manager</td> <td class="trpaading">:</td> <td class="trpaading">{{item.LineManagerName}}</td></tr>
+                        <tr><td class="trpaading">Email ID</td> <td class="trpaading">:</td> <td class="trpaading">{{item.Email}}</td></tr>
+                        <tr><td class="trpaading">Designation</td> <td class="trpaading">:</td> <td class="trpaading">{{item.Designation}}</td></tr>
+
+                        <td colspan="15" style="float:right !important">
+
+                            <img src="{{ImgGlobalPath}}//upload/Photograph/{{item.PhotographFileName}}" alt="Profile" style="height: 150px; width: 150px; margin: 15px auto; border: 1px solid gray; float:right !important" />
+                        </td>
+                    </table>
+
+                </div>
+                <div contents="PersonalDetails" class="tabborder">
+                    <table *ngFor="let item of ViewHistory">
+                        <tr><td class="trpaading">Birth Date</td><td class="trpaading">:</td> <td class="trpaading">{{item.BirthDate}}</td></tr>
+                        <tr><td class="trpaading">Permanent Address</td><td class="trpaading">:</td>  <td class="trpaading">{{item.PermenantAddress}}</td></tr>
+                        <tr><td class="trpaading">Communication Address</td><td class="trpaading">:</td>  <td class="trpaading">{{item.CommunicationAddress}}</td></tr>
+                        <tr><td class="trpaading">LandLine Number</td> <td class="trpaading">:</td> <td class="trpaading">{{item.LandlineNumber}}</td></tr>
+                        <tr><td class="trpaading">Mobile Number</td><td class="trpaading">:</td>  <td class="trpaading">{{item.MobileNumber}}</td></tr>
+                        <tr><td class="trpaading">Blood Group</td> <td class="trpaading">:</td> <td class="trpaading">{{item.BloodGroup}}</td></tr>
+                        <tr><td class="trpaading">Father's Name</td> <td class="trpaading">:</td> <td class="trpaading">{{item.FatherName}}</td></tr>
+                        <tr><td class="trpaading">Mother's Name</td> <td class="trpaading">:</td> <td class="trpaading">{{item.MotherName}}</td></tr>
+                        <tr><td class="trpaading">Marital Status</td> <td class="trpaading">:</td> <td class="trpaading">{{item.MaritalStatus}}</td></tr>
+                    </table>
+                </div>
+                <div contents="EducationDetails" class="tabborder">
+                    <table class='table table-striped table-bordered table-responsive'>
+                        <thead>
+                            <tr>
+
+
+                                <th class="pointer text-left">Highest Education</th>
+                                <th class="pointer text-left">Class/Degree</th>
+                                <th class="pointer text-left">School/Institute</th>
+                                <th class="pointer text-left">Medium</th>
+                                <th class="pointer text-left">Passing Year</th>
+                                <th class="pointer text-left">Board/University</th>
+                                <th class="pointer text-left">Percentage</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of ViewEducation">
+
+                                <td *ngIf="item.HighestEducation==1">
+                                    <input type="checkbox" checked />
+                                </td>
+                                <td *ngIf="item.HighestEducation==0">
+                                    <input type="checkbox" />
+                                </td>
+
+
+                                <td>{{item.ClassDegree}}</td>
+                                <td>{{item.SchoolInstitute}}</td>
+                                <td>{{item.Medium}}</td>
+                                <td>{{item.PassingYear}}</td>
+                                <td>{{item.BoardUniversity}}</td>
+                                <td>{{item.Percentage}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+        </ng2-tab>
+    </div>
+    
+

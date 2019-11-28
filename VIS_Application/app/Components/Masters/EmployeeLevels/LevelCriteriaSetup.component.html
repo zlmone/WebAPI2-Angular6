@@ -1,0 +1,364 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="LevelCriteriaSetupFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Criteria Setup</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <!--<th style="display:none">Company Id</th>-->
+                    <th class="pointer" (click)="LevelCriteriaSetupSort('Name')">
+                        <label *ngIf="!ShowHideSearch">
+                            Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Name', 'fa-sort-asc': (column == 'Name' && isDesc), 'fa-sort-desc': (column == 'Name' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Name" id="searchName" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="LevelCriteriaSetupSort('Type')">
+                        <label *ngIf="!ShowHideSearch">
+                            Type
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Type', 'fa-sort-asc': (column == 'Type' && isDesc), 'fa-sort-desc': (column == 'Type' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Type" id="searchType" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                     <th class="pointer" (click)="LevelCriteriaSetupSort('CalculatedOn')">
+                        <label *ngIf="!ShowHideSearch">
+                            CalculatedOn
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'CalculatedOn', 'fa-sort-asc': (column == 'CalculatedOn' && isDesc), 'fa-sort-desc': (column == 'CalculatedOn' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by CalculatedOn" id="searchCalculatedOn" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="LevelCriteriaSetupSort('Points')">
+                        <label *ngIf="!ShowHideSearch">
+                            Points
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Points', 'fa-sort-asc': (column == 'Points' && isDesc), 'fa-sort-desc': (column == 'Points' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Points" id="searchPoints" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    
+
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+                    <th style="display:none">Company Id</th>
+                    <th nowrap="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="addLevelCriteriaSetup()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='LevelCriteriaSetups && LevelCriteriaSetups.length'>
+                <tr *ngFor="let LevelCriteriaSetup of pagedItems | LevelCriteriaSetupFilter : LevelCriteriaSetupFilterPipe | orderBy: {property: column, direction: direction}">
+                    <td style="display:none">{{LevelCriteriaSetup.Id}}</td>
+                    <td>{{LevelCriteriaSetup.Name}}</td>
+                    <td>{{LevelCriteriaSetup.CriteriaType}}</td>
+                    <td>{{LevelCriteriaSetup.CalculatedOn}}</td>
+                    <td>{{LevelCriteriaSetup.Point}}</td>
+                    
+                    <td style="display:none">{{LevelCriteriaSetup.CreatedOn}}</td>
+                    <td style="display:none">{{LevelCriteriaSetup.CreatedBy}}</td>
+                    <td style="display:none">{{LevelCriteriaSetup.UpdatedBy}}</td>
+                    <td style="display:none">{{LevelCriteriaSetup.UpdatedOn}}</td>
+                    <td style="display:none">{{LevelCriteriaSetup.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="LevelCriteriaSetup.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="editLevelCriteriaSetup(LevelCriteriaSetup.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="deleteLevelCriteriaSetup(LevelCriteriaSetup.Id, LevelCriteriaSetup.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="LevelCriteriaSetup.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="deleteLevelCriteriaSetup(LevelCriteriaSetup.Id, LevelCriteriaSetup.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='LevelCriteriaSetups && LevelCriteriaSetups.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='LevelCriteriaSetups && LevelCriteriaSetups.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+   
+</div>
+
+<modal #modal>
+    <!--<div class="form-group Popup-group">
+        <div class="col-md-3 col-lg-3 col-xs-12">Calculated On :</div>
+
+        <div class="col-md-9 col-lg-9 col-xs-12">
+            <select class="form-control" [(ngModel)]="LevelCriteriaSetup.CalculatedOn" #CalculatedOn="ngModel" name="CalculatedOn">
+                <option *ngFor="let CO of CalculatedOnDllData" value="{{CO.Id}}">{{CO.Name}}</option>
+
+            </select>
+        </div>
+    </div>-->
+    <form #LCSetup="ngForm" (ngSubmit)="onSubmit(LCSetup.value)">
+        <!--<form novalidate (ngSubmit)="onSubmit(LevelCriteriaSetupFrm)" [formGroup]="LevelCriteriaSetupFrm">-->
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">
+                    {{modalTitle}}
+                </h4>
+            </modal-header>
+
+            <modal-body>
+                
+                <div class="row Popup-row">
+                    <div class="col-md-12">
+                        
+                        <!--<form #f="ngForm" class="col-md-12">
+                            <input type="radio" value="orange" name="food" [(ngModel)]="myFood" > Orange
+                            <input type="radio" value="Mango" name="food" [(ngModel)]="myFood"> Mango
+                            <input type="radio" value="Banana" name="food" [(ngModel)]="myFood"> Banana
+                        </form>-->
+                        <div class="form-horizontal" role="form">
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Criteria Type:</div>
+
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="radio" [(ngModel)]="ArbCriteriaType" name="ArbCriteriaType" value="Automatic"> Automatic
+                                    <input type="radio" [(ngModel)]="ArbCriteriaType" name="ArbCriteriaType" value="Manual" > Manual
+                                    <!--<input type="radio" name="Enable1" value="Yes"> Repeated
+                                    <input type="radio" name="Enable1" value="No"> once-->
+                                </div>
+                            </div>
+                            <!--<div class="col-md-9 col-lg-9 col-xs-12">
+                                <select class="form-control" [(ngModel)]="LevelCriteriaSetup.CriteriaID" #CriteriaID="ngModel" name="CriteriaID">
+                                    <option *ngFor="let crt of LevelCriteriaSetupForDll" value="{{ctr.CriteriaID}}">{{crt.Name}}</option>
+                                </select>
+
+                            </div>-->
+
+                            <div *ngIf="ArbCriteriaType == 'Automatic'">
+
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Criteria* :</div>
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <select class="form-control" [(ngModel)]="LevelCriteriaSetup.CriteriaID" #CriteriaID="ngModel" name="CriteriaID" (change)="ChangeCriteria($event.target.value)">
+                                            <option *ngFor="let crt of LevelCriteriaSetupForDll" value="{{crt.CriteriaID}}">{{crt.Name}}</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Calculated On :</div>
+
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <select  class="form-control" [(ngModel)]="LevelCriteriaSetup.CalculatedOn" #CalculatedOn="ngModel" name="CalculatedOn" disabled>
+                                            <option  *ngFor="let CO of CalculatedOnDllData" value="{{CO.CalculatedOn}}">{{CO.CalculatedOn}}</option>
+                                        </select>
+                                    </div>
+                                   
+                                </div>
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Type:</div>
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <input type="radio" [(ngModel)]="ArbSubType" name="ArbSubType" value="Range"> Range
+                                        <input type="radio" [(ngModel)]="ArbSubType" name="ArbSubType" value="Repeated"> Repeated
+                                        <input type="radio" [(ngModel)]="ArbSubType" name="ArbSubType" value="once"> once
+                                    </div>
+                                </div>
+                                <div *ngIf="ArbSubType == 'Range'" class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">From :</div>
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <input type="text" class="form-control" [(ngModel)]="LevelCriteriaSetup.FromLimit" #CalculatedOn="ngModel" name="FromLimit">
+                                    </div>
+                                </div>
+                                <div *ngIf="ArbSubType == 'Range'" class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">To :</div>
+
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <input type="text" class="form-control" [(ngModel)]="LevelCriteriaSetup.ToLimit" #ToLimit="ngModel" name="ToLimit">
+                                    </div>
+                                </div>
+                                <div *ngIf="ArbSubType == 'Repeated'" class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Units :</div>
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <input type="text" class="form-control" [(ngModel)]="LevelCriteriaSetup.Units" #Units="ngModel" name="Units">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="ArbCriteriaType == 'Manual'">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Criteria* :</div>
+
+                                    <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                        <textarea class="form-control" [(ngModel)]="LevelCriteriaSetup.Name" #CriteriaName="ngModel" name="Name"></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Category* :</div>
+                                    <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                        <select class="form-control" [(ngModel)]="LevelCriteriaSetup.CategoryID" #Criteria="ngModel" name="CategoryID">
+                                            <option *ngFor="let cat of CategoryDllData" value="{{cat.Id}}">{{cat.Category}}</option>
+                                            <option value="2">Criteria</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Type:</div>
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <input type="radio" [(ngModel)]="ArbManualType"  name="ArbManualType" value="PerformanceBased"> Performance Based
+                                        <input type="radio" [(ngModel)]="ArbManualType"  name="ArbManualType" value="ManualType" > Manual
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Points :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" [(ngModel)]="LevelCriteriaSetup.Point" #Point="ngModel" name="Point">
+                                </div>
+                            </div>
+
+                            <div *ngIf="EditData">
+
+                              
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Enabled? :</div>
+
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <input type="radio" [(ngModel)]="ArbEnable" name="ArbEnable" value="Yes"> Yes
+                                        <input type="radio" [(ngModel)]="ArbEnable" name="ArbEnable" value="No"> No
+                                       
+                                    </div>
+                                </div>
+                                <div *ngIf="ArbEnable == 'Yes'">
+                                    <div class="form-group Popup-group">
+                                        <div class="col-md-3 col-lg-3 col-xs-12">Cascading Change :</div>
+
+                                        <div class="col-md-9 col-lg-9 col-xs-12">
+
+                                            <input type="radio" [(ngModel)]="ArbCascading" name="ArbCascading" value="Yes"> Yes
+                                            <input type="radio" [(ngModel)]="ArbCascading" name="ArbCascading" value="No"> No
+                                        </div>
+                                    </div>
+                                    <div *ngIf="ArbCascading == 'Yes'">
+
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-3 col-lg-3 col-xs-12">Date From (>=):</div>
+
+                                            <div class="col-md-9 col-lg-9 col-xs-12">
+                                                <input type="date" class="form-control" [(ngModel)]="LevelCriteriaSetup.dtFromDate" #dtFromDate="ngModel" name="dtFromDate">
+                                            </div>
+                                        </div>
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-3 col-lg-3 col-xs-12">Date To (>=)</div>
+
+                                            <div class="col-md-9 col-lg-9 col-xs-12">
+                                                <input type="date" class="form-control" [(ngModel)]="LevelCriteriaSetup.dtToDate" #dtToDate="ngModel" name="dtToDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-3 col-lg-3 col-xs-12">Progressive? :</div>
+                                    <div class="col-md-9 col-lg-9 col-xs-12">
+                                        <input type="radio" [(ngModel)]="ArbIsProgressive" name="ArbIsProgressive" value="Yes"> Yes
+                                        <input type="radio" [(ngModel)]="ArbIsProgressive" name="ArbIsProgressive" value="No"> No
+                                        
+                                    </div>
+                                </div>
+                                <div *ngIf="ArbIsProgressive == 'Yes'">
+
+                                    <div class="form-group Popup-group">
+                                        <div class="col-md-3 col-lg-3 col-xs-12">For Days :</div>
+                                        <div class="col-md-9 col-lg-9 col-xs-12">
+                                            <!--<input type="text" class="form-control" placeholder="">-->
+                                            <input type="text" class="form-control" [(ngModel)]="LevelCriteriaSetup.ProgressiveDays" #ProgressiveDays="ngModel" name="ProgressiveDays">
+                                        </div>
+                                    </div>
+                                    <div class="form-group Popup-group">
+                                        <div class="col-md-3 col-lg-3 col-xs-12">Progressive Point :</div>
+                                        <div class="col-md-9 col-lg-9 col-xs-12">
+                                           
+                                            <input type="text" class="form-control" [(ngModel)]="LevelCriteriaSetup.ProgressivePoints" #ProgressivePoints="ngModel" name="ProgressivePoints">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </modal-body>
+            <modal-footer>
+                <div class="row">
+                    <div class="col-md-11">
+                        <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                        <button type="submit" [disabled]="LCSetup.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+                    </div>
+                </div>
+            </modal-footer>
+        </form>
+</modal>
+<!--<modal #modal1>
+    <form>
+        <modal-header [show-close]="true">
+            
+        </modal-header>
+
+        <modal-body>
+            
+            
+        </modal-body>
+
+        <modal-footer>
+          
+        </modal-footer>
+    </form>
+</modal>-->

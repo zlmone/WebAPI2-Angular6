@@ -1,0 +1,209 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="LevelsSearchCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Levels</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th style="display:none">Company Id</th>
+                    <th class="pointer" (click)="LevelsSort('LevelNumber')">
+                        <label *ngIf="!ShowHideSearch">
+                            Level Number
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'LevelNumber', 'fa-sort-asc': (column == 'LevelNumber' && isDesc), 'fa-sort-desc': (column == 'LevelNumber' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Level Number" id="searchLevelNumber" *ngIf="ShowHideSearch" (keydown)="ngOnInit()" onkeypress="return AllowOnlyNumbers(event);">
+                    </th>
+                    <th class="pointer" (click)="LevelsSort('LevelName')">
+                        <label *ngIf="!ShowHideSearch">
+                            Level Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'LevelName', 'fa-sort-asc': (column == 'LevelName' && isDesc), 'fa-sort-desc': (column == 'LevelName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Level Name" id="searchLevelName" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="LevelsSort('LevelIcon')">
+                        Level Icon
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'LevelIcon', 'fa-sort-asc': (column == 'LevelIcon' && isDesc), 'fa-sort-desc': (column == 'LevelIcon' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="LevelsSort('StartPoint')">
+                        <label *ngIf="!ShowHideSearch">
+                            StartPoint
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'StartPoint', 'fa-sort-asc': (column == 'StartPoint' && isDesc), 'fa-sort-desc': (column == 'StartPoint' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Start Point " id="searchStartPoint" *ngIf="ShowHideSearch" (keydown)="ngOnInit()" onkeypress="return AllowOnlyNumbers(event);">
+                    </th>
+                    <th class="pointer" (click)="LevelsSort('EndPoint')">
+                        <label *ngIf="!ShowHideSearch">
+                            End Point
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'EndPoint', 'fa-sort-asc': (column == 'EndPoint' && isDesc), 'fa-sort-desc': (column == 'EndPoint' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by End Point" id="searchEndPoint" *ngIf="ShowHideSearch" (keydown)="ngOnInit()" onkeypress="return AllowOnlyNumbers(event);">
+                    </th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+                    <th style="text-align:center">
+                        <button class="btn btn-vis" (click)="addLevels()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='levelss && levelss.length'>
+                <tr *ngFor="let levels of pagedItems | levelsFilter : LevelsFilter | orderBy: {property: column, direction: direction}">
+                    <td style="display:none">{{levels.CompanyId}}</td>
+                    <td>{{levels.LevelNumber}}</td>
+                    <td>{{levels.LevelName}}</td>
+                    <td>{{levels.LevelIcon}}</td>
+                    <td>{{levels.StartPoint}}</td>
+                    <td>{{levels.EndPoint}}</td>
+                    <td style="display:none">{{levels.CreatedOn}}</td>
+                    <td style="display:none">{{levels.CreatedBy}}</td>
+                    <td style="display:none">{{levels.UpdatedBy}}</td>
+                    <td style="display:none">{{levels.UpdatedOn}}</td>
+                    <td style="display:none">{{levels.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="levels.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="editLevels(levels.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="deleteLevels(levels.Id, levels.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="levels.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="deleteLevels(levels.Id, levels.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='levelss && levelss.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='levelss && levelss.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+
+   
+   
+</div>
+
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(levelsFrm)" [formGroup]="levelsFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="form-group">
+                <div style="display:none">
+                    <span>Company*</span>
+                    <span>{{CompanyId}}</span>
+                </div>
+                <div>
+                    <span>Level Number*</span>
+                    <input type="text" class="form-control" placeholder="Level Number" formControlName="LevelNumber">
+                </div>
+                <div>
+                    <span>Level Name*</span>
+                    <input type="text" class="form-control" placeholder="Level Name" formControlName="LevelName">
+                </div>
+                <div>
+                    <span>Level Icon*</span>
+                    <input type="text" class="form-control" placeholder="Level Icon" formControlName="LevelIcon">
+                </div>
+                <div>
+                    <span>Start Point*</span>
+                    <input type="text" class="form-control" placeholder="Start Point" formControlName="StartPoint">
+                </div>
+                <div>
+                    <span>End Point*</span>
+                    <input type="text" class="form-control" placeholder="End Point" formControlName="EndPoint">
+                </div>
+                <div style="display:none">
+                    <span>Created On</span>
+                    <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+                </div>
+                <div style="display:none">
+                    <span>Created By</span>
+                    <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+                </div>
+                <div style="display:none">
+                    <span>Updated On</span>
+                    <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+                </div>
+                <div style="display:none">
+                    <span>Updated By</span>
+                    <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+                </div>
+                <div style="display:none">
+                    <span>Is Active</span>
+                    <input type="checkbox" class="form-control" formControlName="UpdatedBy">
+                </div>
+                <div style="display:none">
+                    <span>EntityMessage</span>
+                    <input type="text" class="form-control" formControlName="EntityMessage">
+                </div>
+
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="levelsFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

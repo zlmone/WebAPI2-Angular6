@@ -1,0 +1,498 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <div class="Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Documents</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="">
+                            <table class='table table-striped table-bordered table-responsive'>
+                                <thead>
+                                    <tr>
+
+                                        <th>File Name</th>
+                                        <th>Type</th>
+                                        <th>Author</th>
+                                        <th>Remark</th>
+                                        <th nowrap="nowrap" class="text-center">
+                                            delete
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf='RFQDocEntityList'>
+                                    <tr *ngFor="let RFQ of RFQDocEntityList">
+                                        <td>{{RFQ.FileName}}</td>
+                                        <td>{{RFQ.FileType}}</td>
+                                        <td>{{RFQ.Author}}</td>
+                                        <td>{{RFQ.RemarkDoc}}</td>
+                                        <td style="text-align:center">
+
+                                            <div style="text-align:center">
+                                                <!--<button title="Delete" class="btn btn-vis" (click)="deleteCompanyMaster(CompanyMaster.Id, CompanyMaster.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>-->
+                                                <button title="Delete" class="btn btn-vis" (click)="deleteRFQDoc(RFQ.FileName)"><span class="glyphicon glyphicon-trash"></span></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf='RFQDocList && RFQDocList.length == 0'>
+                                    <tr>
+                                        <td colspan="5" align="center">No Record found</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <form #Doc="ngForm" (ngSubmit)="onDocSubmit(Doc.value)">
+                            <div class="form-group MarginRL0">
+                                <div class="col-md-3">
+                                    <input type="file" id="btnUpload1" value="Upload" (change)="fileChangeDoc($event)" />
+                                </div>
+                                <div class="col-md-4" style="padding-right : 5px;">
+                                    <select class="form-control" [(ngModel)]="RFQDoc.FileType" #FileType="ngModel" name="FileType">
+                                        <option *ngFor="let ft of FileTypeDDL" value="{{ft.FileType}}">{{ft.FileType}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" [(ngModel)]="RFQDoc.Author" #Id="ngModel" name="Author">
+                                        <option *ngFor="let at of AuthorDDL" value="{{at.Author}}">{{at.Author}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group MarginRL0">
+
+                                <div class="col-md-5">
+                                    <input type="text" placeholder="Remark" class="form-control" [(ngModel)]="RFQDoc.RemarkDoc" #RemarkDoc="ngModel" name="RemarkDoc">
+                                </div>
+
+                                <div class="col-md-1">
+                                    <!--<input type="button" class="btn btn-sm btn-primary" value="Add" />-->
+                                    <button type="submit" [disabled]="false" class="btn btn-success">Add</button>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Link</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="">
+                            <table class='table table-striped table-bordered table-responsive'>
+                                <thead>
+                                    <tr>
+
+                                        <th>URL</th>
+                                        <th>UserId</th>
+                                        <th>Password</th>
+                                        <th>Remark</th>
+
+                                        <th nowrap="nowrap" class="text-center">
+                                            delete
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf='RFQLinkEntityList'>
+                                    <tr *ngFor="let RFQ of RFQLinkEntityList">
+                                        <td>{{RFQ.URL}}</td>
+                                        <td>{{RFQ.UserId}}</td>
+                                        <td>{{RFQ.Password}}</td>
+                                        <td>{{RFQ.RemarkLink}}</td>
+                                        <td style="text-align:center">
+
+                                            <div style="text-align:center">
+                                                <button title="Delete" class="btn btn-vis" (click)="deleteRFQLink(RFQ.UserId)"><span class="glyphicon glyphicon-trash"></span></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf='RFQLinkList && RFQLinkList.length == 0'>
+                                    <tr>
+                                        <td colspan="5" align="center">No Record found</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <form #Link="ngForm" (ngSubmit)="onLinkSubmit(Link.value)">
+                            <div class="form-group MarginRL0">
+                                <div class="col-md-4" style="padding-right:5px;">
+                                    <input type="text" placeholder="URL" class="form-control" [(ngModel)]="RFQLink.URL" #URL="ngModel" name="URL">
+                                </div>
+                                <div class="col-md-4" style="padding-right : 5px;">
+                                    <input type="text" placeholder="UserId" class="form-control" [(ngModel)]="RFQLink.UserId" #UserId="ngModel" name="UserId">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" placeholder="Password" class="form-control" [(ngModel)]="RFQLink.Password" #Password="ngModel" name="Password">
+                                </div>
+                            </div>
+
+                            <div class="form-group MarginRL0">
+
+                                <div class="col-md-5">
+                                    <input type="text" placeholder="RemarkLink" class="form-control" [(ngModel)]="RFQLink.RemarkLink" #RemarkLink="ngModel" name="RemarkLink">
+                                </div>
+
+                                <div class="col-md-1">
+                                    <!--<input type="button" class="btn btn-sm btn-primary" value="Add" />-->
+                                    <button type="submit" [disabled]="false" class="btn btn-success">Add</button>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+                <form #RFQInitial="ngForm" (ngSubmit)="onRFQInitialSubmit(RFQInitial.value)">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Business Head</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control" [(ngModel)]="RFQs.BusinessHeadId" #BusinessHeadId="ngModel" name="BusinessHeadId">
+                                <option *ngFor="let bh of BusinessHeadDDL" value="{{bh.BusinessHeadId}}">{{bh.Employee_Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Business Manager</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control" [(ngModel)]="RFQs.BusinessManagerId" #BusinessManagerId="ngModel" name="BusinessManagerId">
+                                <option *ngFor="let bm of BusinessManagerDDL" value="{{bm.BusinessManagerId}}">{{bm.Employee_Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Date of initiation</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="date" [(ngModel)]="RFQs.DateOfInitiation" #DateOfInitiation="ngModel" name="DateOfInitiation" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Title</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" [(ngModel)]="RFQs.Title" #Title="ngModel" name="Title" class="form-control" /> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Prospect/client</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-5">
+                                <input type="text" [(ngModel)]="RFQs.ProspectClient" #ProspectClient="ngModel" name="ProspectClient" class="form-control" />
+                            </div>
+                            <div class="col-md-1" style="width:30px;">
+                                <button class="btn btn-vis" title="Add Client" (click)="addClient()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                            </div>
+                           
+                            <div class="col-md-1">
+                                <button class="btn btn-vis" title="clear" (click)="ClearClient()">Clear</button>
+                            </div>
+                            <div class="col-md-5"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Source</label>
+                        </div>
+                        <div *ngIf="SourceVal==1" class="col-md-9">
+                            <input type="text" [(ngModel)]="RFQs.Source" #Source="ngModel" name="Source" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Business type</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-9">
+                                <select class="form-control" [(ngModel)]="RFQs.BusinessTypeId" #BusinessTypeId="ngModel" name="BusinessTypeId">
+                                    <option *ngFor="let bt of BusinessTypeDDL" value="{{bt.BusinessTypeId}}">{{bt.BusinessType}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Project Type </label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control" [(ngModel)]="RFQs.ProjectTypeId" #ProjectTypeId="ngModel" name="ProjectTypeId">
+                                <option *ngFor="let pt of ProjectTypeDDL" value="{{pt.ProjectTypeId}}">{{pt.ProjectType}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Industry</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control" [(ngModel)]="RFQs.IndustryId" #IndustryId="ngModel" name="IndustryId">
+                                <option *ngFor="let ind of IndustriesDDL" value="{{ind.IndustryId}}">{{ind.Industries}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Survice offering</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control" [(ngModel)]="RFQs.ServiceOfferingId" #ServiceOfferingId="ngModel" name="ServiceOfferingId">
+                                <option *ngFor="let so of ServiceOfferingDDL" value="{{so.ServiceOfferingId}}">{{so.ServiceOffering}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Solution</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control" [(ngModel)]="RFQs.SolutionId" #SolutionId="ngModel" name="SolutionId">
+                                <option *ngFor="let sln of SolutionDDL" value="{{sln.SolutionId}}">{{sln.Solution}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Technology</label>
+                        </div>
+                        <div class="col-md-9">
+                            <ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="RFQs.TechnologyIdList" #TechnologyIdList="ngModel" name="TechnologyIdList"></ss-multiselect-dropdown>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Remark</label>
+                        </div>
+                        <div class="col-md-9">
+                            <textarea [(ngModel)]="RFQs.Remarks" #Remark="ngModel" name="Remark" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Response required From</label>
+                        </div>
+                        <div class="col-md-9">
+                            <!--<textarea [(ngModel)]="RFQs.Remarks" #Remark="ngModel" name="Remark"></textarea>-->
+                            <input type="date" [(ngModel)]="RFQs.ResponseRequiredBy" #ResponseRequiredBy="ngModel" name="ResponseRequiredBy" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Response required by</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control" [(ngModel)]="RFQs.ResponseRequiredFrom" #ResponseRequiredFrom="ngModel" name="ResponseRequiredFrom">
+                                <option *ngFor="let bt of Employee" value="{{bt.UserId}}">{{bt.Employee_Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Watch/Supported By</label>
+                        </div>
+                        <div class="col-md-9">
+                            <!--<textarea [(ngModel)]="RFQs.SupportedBy" #SupportedBy="ngModel" name="SupportedBy" class="form-control"></textarea>-->
+                            <ss-multiselect-dropdown [options]="myOptionsEmp" [(ngModel)]="RFQs.UserIdList" #UserIdList="ngModel" name="UserIdList"></ss-multiselect-dropdown>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Confidance level</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select [(ngModel)]="RFQs.ConfidenceLevel" #ConfidenceLevel="ngModel" name="ConfidenceLevel" class="form-control">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                                <option value="70">70</option>
+                                <option value="80">80</option>
+                                <option value="90">90</option>
+                                <option value="100">100</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Opportunity Status</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select [(ngModel)]="RFQs.OpportunityStatus" #OpportunityStatus="ngModel" name="OpportunityStatus" class="form-control">
+                                <option value="Prospecting">Prospecting</option>
+                                <option value="Qualification">Qualification</option>
+                                <option value="Requirement Analysis">Requirement Analysis</option>
+                                <option value="Requirement Clarification">Requirement Clarification</option>
+                                <option value="Estimation">Estimation</option>
+                                <option value="Lead Decision Making">Lead Decision Making</option>
+                                <option value="Negotiation/Review">Negotiation/Review</option>
+                                <option value="Closed">Closed</option>
+                                <option value="Lost">Lost</option>
+                                <option value="On Hold/Project Shelved">On Hold/Project Shelved</option>
+                                <option value="Dropped">Dropped</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Status</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control"  [(ngModel)]="RFQs.StatusId" #StatusId="ngModel" name="StatusId">
+                                <option *ngFor="let st of RFQStatusDDL" value="{{st.StatusId}}">{{st.RFQStatus}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Expected Closure Date</label>
+                        </div>
+                        <div class="col-md-9">
+                            <!--<ng-datepicker [(ngModel)]="RFQs.ExpectedClosureDate" name="ExpectedClosureDate"></ng-datepicker>-->
+                           <input type="date" class="form-control" [(ngModel)]="RFQs.ExpectedClosureDate" #ExpectedClosureDate="ngModel" name="ExpectedClosureDate" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9">
+                            <button type="submit" [disabled]="false" value="save" class="btn btn-success">Save</button> 
+                        </div>
+                    </div>
+                </form>
+             
+            </div>
+        </div>
+        
+    </div>
+
+
+
+</body>
+</html>
+
+<modal #modal>
+    <!--<form #PC="ngForm" (ngSubmit)="onPCSubmit(PC.value)">-->
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                Prospect/Client List
+            </h4>
+        </modal-header>
+
+        <modal-body>
+            
+                <table class='table table-striped table-bordered table-responsive'>
+                    <thead>
+                        <tr>
+                            
+                            <th>Prospect/Client</th>
+                            <th>Country</th>
+                            <th style="display:none;">Id</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf='prospectClientList'>
+                        <tr *ngFor="let prospectClient of pagedItems | prospectclientFilter : ProspectClientFilter | orderBy: {property: column, direction: direction}">
+                           
+                            <td>{{prospectClient.CompanyName}}</td>
+                            <td>{{prospectClient.Country}}</td>
+                            <td style="display:none;">{{prospectClient.Id}}</td>
+                            <td>
+                                <button class="btn btn-vis" title="Add to Prospect/Client" (click)="addClientInForm(prospectClient.Id,prospectClient.CompanyName,prospectClient.Country)"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                                <!--<input type="text" class="form-control" placeholder="Name" formControlName="Name">-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <!--<a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                                <button type="submit" class="btn btn-success" >Save</button>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf='prospectClientList && prospectClientList.length == 0'>
+                        <tr>
+                            <td colspan="5" align="center">No Record found</td>
+                        </tr>
+                    </tbody>
+                </table> 
+            
+                <div *ngIf='prospectClientList && prospectClientList.length'>
+                    <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+                    <div class="col-md-12 text-center">
+                        <div class="col-md-8 text-left">
+                            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="JumpOnPage(1)">First</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                                </li>
+                                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                    <a (click)="JumpOnPage(page)">{{page}}</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                                <option value="=-1" disabled>Recordds per Page</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="0">All</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                                <option value="=-1" disabled>Go to Page</option>
+                                <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+</modal-body>
+        <modal-footer>
+            <div class="row">
+                <!--<div class="col-md-11">
+                    <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                    <button type="submit"  class="btn btn-success">Save</button>
+                </div>-->
+            </div>
+        </modal-footer>
+    <!--</form>-->
+</modal>

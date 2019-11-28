@@ -1,0 +1,446 @@
+﻿<div style="vertical-align:top;float:left;"><h3><b>Common Configuration</b></h3><br /></div>
+<form #configform="ngForm" (ngSubmit)="onSubmit(configform.value)">
+
+    <div style="display:none">
+        <input type="text" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.Id" #Id="ngModel" name="Id" />
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"> <label class="LabelCenter">Dashboard Service URL Local</label></div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+                            <textarea class="form-control" placeholder="Dashboard Service URL Local" [(ngModel)]="commonconfiguration.URLLocal" #URLLocal="ngModel" name="URLLocal" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"> <label class="LabelCenter">Dashboard Service URL Live</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+                            <textarea class="form-control" placeholder="Dashboard Service URL Live" [(ngModel)]="commonconfiguration.URLLive" #URLLive="ngModel" name="URLLive" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"> <label class="LabelCenter">Minimum Lunch Break</label></div>
+                        <div class="col-md-3 col-lg-3 col-xs-12">
+                            <input type="number" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.MinimumLunchBreak" #MinimumLunchBreak="ngModel" name="MinimumLunchBreak" required />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">(Minutes)</label></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"><label class="LabelCenter">Minimum Other Break</label> </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12">
+                            <input type="number" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.MinimumOtherBreak" #MinimumOtherBreak="ngModel" name="MinimumOtherBreak" required/>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">(Minutes)</label> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"> <label class="LabelCenter">Mouse Minutes</label></div>
+                        <div class="col-md-3 col-lg-3 col-xs-12">
+                            <input type="number" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.MouseMinutes" #MouseMinutes="ngModel" name="MouseMinutes"  required />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">(Minutes)</label></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"> <label class="LabelCenter">Plus Mouse Minutes</label></div>
+                        <div class="col-md-3 col-lg-3 col-xs-12">
+                            <input type="number" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.PlusMouseMinutes" #PlusMouseMinutes="ngModel" name="PlusMouseMinutes" required />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">(Minutes)</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"><label class="LabelCenter">Mouse Tracking</label> </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12">
+                            <input type="number" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.MouseTracking" #MouseTracking="ngModel" name="MouseTracking" required />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">(Minutes)</label></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"><label class="LabelCenter">Productivity Tracker</label></div>
+                        <div class="col-md-3 col-lg-3 col-xs-12">
+                            <input type="number" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.ProductivityTracker" #ProductivityTracker="ngModel" name="ProductivityTracker" required />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">(Seconds)</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"><label class="LabelCenter">Worksheet Prompt</label> </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12">
+                            <input type="number" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.WorksheetPrompt" #WorksheetPrompt="ngModel" name="WorksheetPrompt" required />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">(Minutes)</label></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"> <label class="LabelCenter">Minimum PunchoutInterval</label></div>
+                        <div class="col-md-3 col-lg-3 col-xs-12">
+                            <input type="number" class="form-control ConfigInput" [(ngModel)]="commonconfiguration.MinimumPunchoutInterval" #MinimumPunchoutInterval="ngModel" name="MinimumPunchoutInterval" required />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">(Minutes)</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="form-group Popup-group">
+                    <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">In Time (Monday - Friday)</label>  </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"> <label class="LabelCenter">HH :</label></div>
+                    <div class="col-md-2 col-lg-2 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.InTimeMondayToFridayHH" #InTimeMondayToFridayHH="ngModel" name="InTimeMondayToFridayHH">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option selected>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>00</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"><label class="LabelCenter">MM :</label></div>
+                    <div class="col-md-5 col-lg-5 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.InTimeMondayToFridayMM" #InTimeMondayToFridayMM="ngModel" name="InTimeMondayToFridayMM">
+                            <option>00</option>
+                            <option>15</option>
+                            <option selected>30</option>
+                            <option>45</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="form-group Popup-group">
+                    <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">Out Time (Monday - Friday)</label>  </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"> <label class="LabelCenter">HH :</label></div>
+                    <div class="col-md-2 col-lg-2 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.OutTimeMondayToFridayHH" #OutTimeMondayToFridayHH="ngModel" name="OutTimeMondayToFridayHH">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option selected>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>00</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"><label class="LabelCenter">MM :</label></div>
+                    <div class="col-md-5 col-lg-5 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.OutTimeMondayToFridayMM" #OutTimeMondayToFridayMM="ngModel" name="OutTimeMondayToFridayMM">
+                            <option>00</option>
+                            <option>15</option>
+                            <option>30</option>
+                            <option>45</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="form-group Popup-group">
+                    <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">In Time (Saturday)</label>  </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"> <label class="LabelCenter">HH :</label></div>
+                    <div class="col-md-2 col-lg-2 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.InTimeSaturdayHH" #InTimeSaturdayHH="ngModel" name="InTimeSaturdayHH">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option selected>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>00</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"><label class="LabelCenter">MM :</label></div>
+                    <div class="col-md-5 col-lg-5 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.InTimeSaturdayMM" #InTimeSaturdayMM="ngModel" name="InTimeSaturdayMM">
+                            <option>00</option>
+                            <option>15</option>
+                            <option selected>30</option>
+                            <option>45</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="form-group Popup-group">
+                    <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">Out Time (Saturday)</label>  </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"> <label class="LabelCenter">HH :</label></div>
+                    <div class="col-md-2 col-lg-2 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.OutTimeSaturdayHH" #OutTimeSaturdayHH="ngModel" name="OutTimeSaturdayHH">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option selected>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>00</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"><label class="LabelCenter">MM :</label></div>
+                    <div class="col-md-5 col-lg-5 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.OutTimeSaturdayMM" #OutTimeSaturdayMM="ngModel" name="OutTimeSaturdayMM">
+                            <option>00</option>
+                            <option>15</option>
+                            <option>30</option>
+                            <option>45</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="form-group Popup-group">
+                    <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">Shift Duration (Including Break)</label>  </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"> <label class="LabelCenter">HH :</label></div>
+                    <div class="col-md-2 col-lg-2 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.ShiftDurationHH" #ShiftDurationHH="ngModel" name="ShiftDurationHH">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option selected>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>00</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xs-12 width40"><label class="LabelCenter">MM :</label></div>
+                    <div class="col-md-5 col-lg-5 col-xs-12">
+                        <select class="form-control ConfigInput" [(ngModel)]="commonconfiguration.ShiftDurationMM" #ShiftDurationMM="ngModel" name="ShiftDurationMM">
+                            <option>00</option>
+                            <option>15</option>
+                            <option selected>30</option>
+                            <option>45</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="form-group Popup-group">
+                    <div class="col-md-3 col-lg-3 col-xs-12"><label class="LabelCenter">TDS menu hide for .local only</label>  </div>
+                    <div class="col-md-4 col-lg-4 col-xs-12">
+                        <select class="form-control" [(ngModel)]="commonconfiguration.TDSMenuHideOrShow" #TDSMenuHideOrShow="ngModel" name="TDSMenuHideOrShow">
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal" >
+                <div class="form-group Popup-group">
+                    <div class="col-md-3 col-lg-3 col-lg-3 col-xs-12">
+                        <input type="submit" value="Save" id="btnsubmit" class="btn btn-info Width120" [disabled]="!configform.valid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display:none">
+        <span>Created On</span>
+        <input type="text" class="form-control" placeholder="Created On">
+    </div>
+    <div style="display:none">
+        <span>Created By</span>
+        <input type="text" class="form-control" placeholder="Created By">
+    </div>
+    <div style="display:none">
+        <span>Updated On</span>
+        <input type="text" class="form-control" placeholder="Updated On">
+    </div>
+    <div style="display:none">
+        <span>Updated By</span>
+        <input type="text" class="form-control" placeholder="Updated By">
+    </div>
+    <div style="display:none">
+        <span>Is Active</span>
+        <input type="checkbox" class="form-control">
+    </div>
+    <div style="display:none">
+        <span>EntityMessage</span>
+        <input type="text" class="form-control">
+    </div>
+
+    </form>
+
+<div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    {{msg}}
+</div>

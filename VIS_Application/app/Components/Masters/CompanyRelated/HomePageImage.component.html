@@ -1,0 +1,276 @@
+﻿<div class="row Popup-row">
+    <div class="col-md-12">
+        <div class="form-horizontal">
+            <div class="col-md-10">
+                <div class="form-group Popup-group">
+                    <div class="col-md-12 col-lg-12 col-lg-12 col-xs-12">
+                        <div>
+                            <h3><b>Home Page Image</b></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group Popup-group">
+                    <div class="col-md-12 col-lg-12 col-lg-12 col-xs-12">
+                        <div *ngIf="activeimages">
+                            <label><b>Active : {{activeimages.length}}</b></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="MacIdConfigurationFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:middle;float:left;">
+      
+        </div>
+        
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="HomePageImageSort('ImagePath')" style="text-align:center">
+                        <label *ngIf="!ShowHideSearch">
+                            Image Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'ImagePath', 'fa-sort-asc': (column == 'ImagePath' && isDesc), 'fa-sort-desc': (column == 'ImagePath' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search By Image Name" id="searchImageName" *ngIf="ShowHideSearch" (keydown)="GetAllImage()">
+                    </th>
+
+                    <th class="pointer" (click)="HomePageImageSort('Active')" style="text-align:center">
+                        <label *ngIf="!ShowHideSearch">
+                            Active
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Active', 'fa-sort-asc': (column == 'Active' && isDesc), 'fa-sort-desc': (column == 'Active' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                    </th>
+
+                    <th class="pointer" style="text-align:center">
+                        <label *ngIf="!ShowHideSearch">
+                            View
+                        </label>
+                    </th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+
+                    <th class="text-center" nowrap="nowrap">
+                        <button class="btn btn-vis" (click)="AddHomePageImage()"><span class="glyphicon glyphicon-plus-sign" title="Add New"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="GetAllImage()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody *ngIf='homepageimages && homepageimages.length'>
+                <tr *ngFor="let home of pagedItems | homepageimageFilter : HomePageImageFilter | orderBy: {property: column, direction: direction}">
+                    <td style="width:1500px">{{home.ImagePath}}</td>
+                    <td style="width:250px" align="center">
+                        <div *ngIf="home.Active==1">
+                            <input type="checkbox" class="ActiveCheckbox" disabled checked />
+                        </div>
+                        <div *ngIf="home.Active==0">
+                            <input type="checkbox" class="ActiveCheckbox" disabled/>
+                        </div>
+                    </td>
+                    <td style="width:500px" align="center">
+                        <img src="../../../../Upload/HomePageImage/{{home.ImagePath}}"  class="img-rounded imgsize" alt="Image not found" (click)="ViewImage(home.Id)" />
+                    </td>
+                    <td style="display:none">{{home.CreatedOn}}</td>
+                    <td style="display:none">{{home.CreatedBy}}</td>
+                    <td style="display:none">{{home.UpdatedBy}}</td>
+                    <td style="display:none">{{home.UpdatedOn}}</td>
+                    <td style="display:none">{{home.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="home.IsActive == 1" style="text-align:center;width:250px">
+                            <button title="Edit" class="btn btn-vis" (click)="EditHomePageImage(home.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="DeleteHomePageImage(home.Id, home.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="home.IsActive == 0" style="text-align:center;width:250px">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeleteHomePageImage(home.Id, home.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='homepageimages && homepageimages.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='homepageimages && homepageimages.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+</div>
+
+<div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    {{msg}}
+</div>
+
+<modal #modal>
+    <form #homepageimg="ngForm" (ngSubmit)="onSubmit(homepageimg.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+                                    <div *ngIf="modalTitle == 'Add New Home Page Image'">
+                                        <input type="file" [(ngModel)]="homepageimage.ImagePath" #ImagePath="ngModel" name="ImagePath" (change)="fileChange($event)"  value="Upload">
+                                    </div>
+                                    <div *ngIf="modalTitle != 'Add New Home Page Image'">
+                                        <img src="../../../../Upload/HomePageImage/{{homepageimage.ImagePath}}" class="img-rounded imgsize" alt="Image not found"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <input type="checkbox" class="ActiveCheckbox" [(ngModel)]="homepageimage.Active" #Active="ngModel" name="Active" [disabled]="modalBtnTitle == 'Delete' || modalBtnTitle == 'Undo Delete'"/> &nbsp; 
+                                    <label>Active</label>
+                                    <input type="text" [(ngModel)]="homepageimage.Id" #Id="ngModel" name="Id" style="display:none" >
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-xs-12">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-4 col-lg-4 col-xs-12"></div>
+                            <div class="col-md-3 col-lg-3 col-lg-3 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div *ngIf="msg2=='Please Choose Image'" role="alert" class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                {{msg2}}
+            </div>
+                        <div style="display:none">
+                            <span>Created On</span>
+                            <input type="text" class="form-control" placeholder="Created On">
+                        </div>
+                        <div style="display:none">
+                            <span>Created By</span>
+                            <input type="text" class="form-control" placeholder="Created By">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated On</span>
+                            <input type="text" class="form-control" placeholder="Updated On">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated By</span>
+                            <input type="text" class="form-control" placeholder="Updated By">
+                        </div>
+                        <div style="display:none">
+                            <span>Is Active</span>
+                            <input type="checkbox" class="form-control">
+                        </div>
+
+        </modal-body>
+        <modal-footer>
+            <div>
+                    <button type="submit" class="btn btn-success">{{modalBtnTitle}}</button>
+                    <a class="btn btn-danger" (click)="CancelPopup()">Cancel</a>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+
+<modal #modal2 >
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+        <modal-body>
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-12">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-lg-12 col-xs-12">
+                                    <div>
+                                        <img src="../../../../Upload/HomePageImage/{{imgpathshow}}" class="img-circle imgsizebig"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal2.dismiss()">Cancel</a>
+            </div>
+        </modal-footer>
+</modal>
+
+

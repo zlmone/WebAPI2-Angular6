@@ -1,0 +1,1661 @@
+﻿<div style="vertical-align:top;float:left;"><h3><b>Attendance Report New</b></h3><br /></div>
+<div class="container">
+    <form #AttendanceReportNewFrm="ngForm" (ngSubmit)="onSubmit(AttendanceReportNewFrm.value)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter">Search By : </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtdepartment" name="Show" (click)="HideECLU()" />Department
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtemployee" name="Show" (click)="HideDCLU()" />Employee
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtcompany" name="Show" (click)="HideDELU()" />Company
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtlinemanager" name="Show" (click)="HideDECU()" />Line Manager
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtusertype" name="Show" (click)="HideDECL()" />User Type
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="depart">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <select class="form-control" name="Department" id="ddldept" (change)="ChangeId($event)" [(ngModel)]="ModeId">
+                                    <option *ngFor="let department of Department" value="{{department.Id}}">{{department.Department_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="emp">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <select class="form-control" name="Employee" id="ddlemp" (change)="ChangeId($event)" [(ngModel)]="ModeId">
+                                    <option value="0">SelectALL</option>
+                                    <option *ngFor="let employee of Employee" value="{{employee.Id}}">{{employee.Employee_Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5" id="empAll">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12" id="chkallemployeediv">
+                                <input type="checkbox" id="chkallemployee" name="chkInActive" value="ALL" (click)="FillAllEmployee(event)" /> ALL
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="company">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <select class="form-control" name="Company" id="ddlcompany" (change)="ChangeId($event)" [(ngModel)]="ModeId">
+                                    <option value="0">SelectALL</option>
+                                    <option *ngFor="let company of Company" value="{{company.Id}}">{{company.CompanyName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="LineManager">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <select class="form-control" name="LineManager" id="ddllm" (change)="ChangeId($event)" [(ngModel)]="ModeId">
+                                    <option value="0">SelectALL</option>
+                                    <option *ngFor="let LM of LineManager" value="{{LM.Id}}">{{LM.EmployeeName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="usertType">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <select class="form-control" name="UserType" id="ddlutype" (change)="ChangeId($event)" [(ngModel)]="ModeId">
+                                    <option *ngFor="let usertype of User" value="{{usertype.Id}}">{{usertype.UserType}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter">Search By : </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtDate" name="Date" (click)="HideMonth()" />Date
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtMonth" name="Date" checked (click)="HideDate()" />Month
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="date">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-1 col-md-offset-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter">From Date</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="date" class="form-control" id="txtfromdate" name="txtfromdate" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter">To Date</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="date" class="form-control" id="txttodate" name="txttodate" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="month">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <select class="form-control" id="ddlmonth"  name="Month" [(ngModel)]="Month">
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">Octomber</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <select class="form-control" id="ddlyear" name="year" [(ngModel)]="Yearval">
+                                    <option *ngFor="let year of Year" value="{{year.Id}}" [selected]="Yearval===year.Year">{{year.Year}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter">Sort By</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="Sort" value="Date" id="rbtsortdate" /> Date
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="Sort" value="Name" id="rbtsortname" /> Name
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter">Display As : </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtgrid" name="Display" />Grid
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtreport" name="Display" />Report
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtexcel" name="Display" />Excel
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2 col-md-offset-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-10 col-lg-10 col-xs-12">
+                                <input type="submit" name="btnSave" class="btn btn-info Width120" value="Submit" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div *ngIf="Attendance && Attendance.length==0" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        No record found!
+    </div>
+
+    <div id="AttendanceReportNew" class="col-md-6 col-sm-12 col-xs-12 pr-md-10 repotwidgetwidth" *ngIf="Attendance && Attendance.length!=0">
+        <div class="portlet box green paddingless">
+            <div class="portlet-title line accord">
+                <div class="caption"><i class="fa fa-user-o" aria-hidden="true"></i>Attendance Report New</div>
+                <div class="tools">
+                    <a class="collapse" (click)="ToogleMyProfile()"></a>
+                    <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetProfile()"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body repotwidgetwidth" id="AttendanceReportNew">
+                <div class="tabbable tabbable-custom">
+                    <div style="height:auto;" data-always-visible="1" data-rail-visible1="1">
+                        <div class="portlet box marbott0">
+                            <div class="portlet-body padding0">
+                                <div class="table-scrollable">
+                                    <div class="full-wd Scrollbarcss" style="height:auto">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="reportwidgetheader">
+                                                <tr>
+                                                    <th class="headrecenter">
+                                                        Employee Name
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Date
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Status
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Punch-In
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Punch-Out
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Lunch-Out
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Lunch-In
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Other Work
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Working Work
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        TotalWorksheet_Hr
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tr *ngFor="let ATRPNEW of pagedItems" class="rowsbackcol">
+                                                <td class="headrecenter">
+                                                    {{ATRPNEW.EmployeeName}}
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{ATRPNEW.Date}}
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{ATRPNEW.Status}}
+                                                </td>
+                                                <td class="columcenter">
+                                                    {{ATRPNEW.PunchIntime}}<input type="image" src="/Upload/Icon images/Attendance_Approval.png" (click)="btnAttendanceApprovePunchIn(ATRPNEW)" />
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{ATRPNEW.PunchOuttime}}<input type="image" src="/Upload/Icon images/Attendance_Approval.png" (click)="btnAttendanceApprovePunchOut(ATRPNEW)" />
+                                                </td>
+                                                <td class="columcenter">
+                                                    {{ATRPNEW.LunchOutTime}}<input type="image" src="/Upload/Icon images/Attendance_Approval.png" (click)="btnAttendanceApproveLunchOut(ATRPNEW)" />
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{ATRPNEW.LunchInTime}}<input type="image" src="/Upload/Icon images/Attendance_Approval.png" (click)="btnAttendanceApproveLunchIn(ATRPNEW)" />
+                                                </td>
+                                                <td class="columcenter">
+                                                    {{ATRPNEW.OtherWork}}<input type="image" src="/Upload/Icon images/Attendance_Approval.png" (click)="btnAttendanceApproveOtherwork(ATRPNEW)" />
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{ATRPNEW.WorkingHour}}
+                                                </td>
+                                                <td class="columcenter">
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{ATRPNEW.WorksheetHour}} <input type="hidden" value="{{ATRPNEW.WorksheetHour}}" (click)="RedirectToTimeSheet(ATRPNEW)" />
+                                                </td>
+                                                <td class="columcenter">
+                                                    <input type="image" src="/Upload//Icon images/Add.png" (click)="RedirectToAddEmpRecord(ATRPNEW)" />
+                                                    <input type="image" src="/Upload/Icon images/view.png" (click)="RedirectToRecordPerEmp(ATRPNEW)" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center" *ngIf='Attendance && Attendance.length > 10'>
+                    <div class="col-md-8 text-left">
+                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(1)">First</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="JumpOnPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Records per Page</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="0">All</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Go to Page</option>
+                            <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngIf='Attendance && Attendance.length' class="reportpagingalign">
+                    <div>{{pager.pagerinformtion}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal #modalAttendanceApprovalPunchIn id="PunchIn">
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title" style="color:white">
+                <u class="col-md-offset-5">Attendance Approval</u>
+            </h4>
+        </modal-header>
+        <modal-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Employee Name : {{EmployeeName}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter" id="lblEntryDate">Entry Date :{{Date}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Entry Type : Punch-In</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline"></div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea name="Remarks" id="txtRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Enrty Time : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtHr" name="EntryHr" class="form-control TimeWidth" [(ngModel)]="EntryHr" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Hr </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtMin" name="Minute" class="form-control TimeWidth" [(ngModel)]="EntryMin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Minute </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control AMPMWidth" id="ddlAMPM">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Actual Time : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtHrActual" name="Ahour" class="form-control TimeWidth" [(ngModel)]="ActualEHr" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Hr. </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtMinActual" name="AMinute" class="form-control TimeWidth" [(ngModel)]="ActualEMin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Minute. </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control AMPMWidth" id="ddlAMPMActual">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtRemarksAdmin" name="HODRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Grace : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtGrace" class="form-control Areawidth" name="Grace" [(ngModel)]="Grace" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-4">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnApprove" name="btnSaveDailyEntryPunchIn" value="Approve" (click)="ApproveAttendancePunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnReject" name="btnRejectDailyEntryPunchIn" value="Reject" (click)="AttendanceRejectPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <u>Quick Approval</u>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtQuickRemarksAdmin" name="QuickApprove" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" name="QuickApproval" class="btn btn-info Width120" id="btnQuickapprove" value="Approve" (click)="ApproveAttendanceOkPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-body>
+    </form>
+</modal>
+<modal #modalAttendanceApprovalPunchOut id="PunchOut">
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title" style="color:white">
+                <u class="col-md-offset-5">Attendance Approval</u>
+            </h4>
+        </modal-header>
+        <modal-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Employee Name : {{EmployeeName}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter" id="lblEntryDate">Entry Date : {{Date}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Entry Type : Punch-Out</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline"></div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea name="Remarks" id="txtRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Enrty Time : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtHr" name="EntryHr" class="form-control TimeWidth" [(ngModel)]="EntryHr" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Hr </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtMin" name="Minute" class="form-control TimeWidth" [(ngModel)]="EntryMin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Minute </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control AMPMWidth" id="ddlAMPM">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Actual Time : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtHrActual" name="Ahour" class="form-control TimeWidth" [(ngModel)]="ActualEHr" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Hr. </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtMinActual" name="AMinute" class="form-control TimeWidth" [(ngModel)]="ActualEMin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Minute. </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control AMPMWidth" id="ddlAMPMActual">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtRemarksAdmin" name="HODRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Grace : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtGrace" class="form-control Areawidth" name="Grace" [(ngModel)]="Grace" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-4">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnApprove" name="btnSaveDailyEntryPunchIn" value="Approve" (click)="ApproveAttendancePunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnReject" name="btnRejectDailyEntryPunchIn" value="Reject" (click)="AttendanceRejectPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <u>Quick Approval</u>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtQuickRemarksAdmin" name="QuickApprove" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" name="QuickApproval" class="btn btn-info Width120" id="btnQuickapprove" value="Approve" (click)="ApproveAttendanceOkPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-body>
+    </form>
+</modal>
+<modal #modalAttendanceApprovalLunchOut id="LunchOut">
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title" style="color:white">
+                <u class="col-md-offset-5">Attendance Approval</u>
+            </h4>
+        </modal-header>
+        <modal-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Employee Name : {{EmployeeName}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter" id="lblEntryDate">Entry Date : {{Date}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Entry Type : Lunch-Out</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline"></div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea name="Remarks" id="txtRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Enrty Time : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtHr" name="EntryHr" class="form-control TimeWidth" [(ngModel)]="EntryHr" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Hr </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtMin" name="Minute" class="form-control TimeWidth" [(ngModel)]="EntryMin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Minute </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control AMPMWidth" id="ddlAMPM">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtRemarksAdmin" name="HODRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Grace : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtGrace" class="form-control Areawidth" name="Grace" [(ngModel)]="Grace" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-4">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnApprove" name="btnSaveDailyEntryPunchIn" value="Approve" (click)="ApproveAttendancePunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnReject" name="btnRejectDailyEntryPunchIn" value="Reject" (click)="AttendanceRejectPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <u>Quick Approval</u>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtQuickRemarksAdmin" name="QuickApprove" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" name="QuickApproval" class="btn btn-info Width120" id="btnQuickapprove" value="Approve" (click)="ApproveAttendanceOkPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-body>
+    </form>
+</modal>
+<modal #modalAttendanceApprovalLunchIn id="LunchIn">
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title" style="color:white">
+                <u class="col-md-offset-5">Attendance Approval</u>
+            </h4>
+        </modal-header>
+        <modal-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Employee Name : {{EmployeeName}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter" id="lblEntryDate">Entry Date : {{Date}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Entry Type : Lunch-In</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline"></div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea name="Remarks" id="txtRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Enrty Time : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtHr" name="EntryHr" class="form-control TimeWidth" [(ngModel)]="EntryHr" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Hr </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtMin" name="Minute" class="form-control TimeWidth" [(ngModel)]="EntryMin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Minute </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control AMPMWidth" id="ddlAMPM">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtRemarksAdmin" name="HODRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Grace : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtGrace" class="form-control Areawidth" name="Grace" [(ngModel)]="Grace" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-4">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnApprove" name="btnSaveDailyEntryPunchIn" value="Approve" (click)="ApproveAttendancePunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnReject" name="btnRejectDailyEntryPunchIn" value="Reject" (click)="AttendanceRejectPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <u>Quick Approval</u>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtQuickRemarksAdmin" name="QuickApprove" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" name="QuickApproval" class="btn btn-info Width120" id="btnQuickapprove" value="Approve" (click)="ApproveAttendanceOkPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-body>
+    </form>
+</modal>
+<modal #modalAttendanceApprovalOtherWork id="OtherWork">
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title" style="color:white">
+                <u class="col-md-offset-5">Attendance Approval</u>
+            </h4>
+        </modal-header>
+        <modal-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Employee Name : {{EmployeeName}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter" id="lblEntryDate">Entry Date : {{Date}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Entry Type : Other-Out</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline"></div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea name="Remarks" id="txtRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Enrty Time : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtHr" name="EntryHr" class="form-control TimeWidth" [(ngModel)]="EntryHr" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Hr </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtMin" name="Minute" class="form-control TimeWidth" [(ngModel)]="EntryMin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Minute </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <select class="form-control AMPMWidth" id="ddlAMPM">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtRemarksAdmin" name="HODRemarks" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Grace : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="text" id="txtGrace" class="form-control Areawidth" name="Grace" [(ngModel)]="Grace" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-4">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnApprove" name="btnSaveDailyEntryPunchIn" value="Approve" (click)="ApproveAttendancePunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" class="btn btn-info Width120" id="btnReject" name="btnRejectDailyEntryPunchIn" value="Reject" (click)="AttendanceRejectPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Underline">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <u>Quick Approval</u>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <label class="LabelCenter">Remarks : </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <textarea id="txtQuickRemarksAdmin" name="QuickApprove" class="form-control Areawidth"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <div class="col-md-2 col-md-offset-5">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12 col-lg-12 col-xs-12">
+                                    <input type="submit" name="QuickApproval" class="btn btn-info Width120" id="btnQuickapprove" value="Approve" (click)="ApproveAttendanceOkPunchIn()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-body>
+    </form>
+</modal>

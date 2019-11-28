@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14D9A346-24C6-49F2-B998-19446415D856}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VIS_Repository</RootNamespace>
+    <AssemblyName>VIS_Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dashboard\DashboardRepository.cs" />
+    <Compile Include="DocCenter\DocumentTemplateRepository.cs" />
+    <Compile Include="GeneralHelper\HelperRepository.cs" />
+    <Compile Include="HumanResource\Attendace\EmployeeFeedbackRepository.cs" />
+    <Compile Include="HumanResource\Attendace\MySkillRepository.cs" />
+    <Compile Include="HumanResource\Attendace\MyTeamRepository.cs" />
+    <Compile Include="HumanResource\Attendace\WorkSheetRepository.cs" />
+    <Compile Include="HumanResource\EmployeeManagement\EmpInfoTabularRepository.cs" />
+    <Compile Include="HumanResource\EmployeeManagement\EmployeeListRepository.cs" />
+    <Compile Include="HumanResource\Grievance\SalaryGrievancePERepository.cs" />
+    <Compile Include="HumanResource\Grievance\SalaryGrievanceRepository.cs" />
+    <Compile Include="HumanResource\ProfileAttendace\MyProfilesRepository.cs" />
+    <Compile Include="HumanResource\ProfileAttendace\ProfileAttendanceRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\BankMasterRepositiory.cs" />
+    <Compile Include="Masters\CompanyRelated\CompanyMasterRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\ContactMasterRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\EducationTypeRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\FinancialYearRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\GroupNameRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\HomePageImageRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\LeaveTypeRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\SalaryBreakupTypeRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\UserRoleRepository.cs" />
+    <Compile Include="Masters\Configuration\CommonConfigurationRepository.cs" />
+    <Compile Include="Masters\Configuration\ConfigureTicketRepository.cs" />
+    <Compile Include="Masters\Configuration\ConfigureWorksheetRepository.cs" />
+    <Compile Include="Masters\Configuration\EventCountDownRepository.cs" />
+    <Compile Include="Masters\Configuration\SecurityKeyRepository.cs" />
+    <Compile Include="Masters\CurrencyRelated\CurrencyHistoryRepository.cs" />
+    <Compile Include="Masters\CurrencyRelated\CurrencyRepository.cs" />
+    <Compile Include="Masters\EmployeeLevels\LevelConfigurationRepository.cs" />
+    <Compile Include="Masters\EmployeeLevels\LevelCriteriaRepository.cs" />
+    <Compile Include="Masters\EmployeeLevels\LevelCriteriaSetupRepository.cs" />
+    <Compile Include="Masters\EmployeeLevels\LevelsRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\LookupRepository.cs" />
+    <Compile Include="Masters\CompanyRelated\LookupTypeRepository.cs" />
+    <Compile Include="Masters\Configuration\MacIdConfigurationRepository.cs" />
+    <Compile Include="Masters\EmployeeLevels\Levels_AchievementRepository.cs" />
+    <Compile Include="Masters\EmployeeLevels\ManualPointEntryRepository.cs" />
+    <Compile Include="Masters\VacancyRelated\PositionRepository.cs" />
+    <Compile Include="Masters\VacancyRelated\RatingTypeRepository.cs" />
+    <Compile Include="Masters\VacancyRelated\SkillGroupRepository.cs" />
+    <Compile Include="Masters\VacancyRelated\SkillRepository.cs" />
+    <Compile Include="Masters\VacancyRelated\TechnologyMasterRepository.cs" />
+    <Compile Include="Notification\MyTicketRepository.cs" />
+    <Compile Include="Notification\NewsRepository.cs" />
+    <Compile Include="Notification\PolicyRepository.cs" />
+    <Compile Include="Notification\TicketListClosedRepository.cs" />
+    <Compile Include="Notification\TicketListOpenRepository.cs" />
+    <Compile Include="Opinion\ConfigureServeyRepository.cs" />
+    <Compile Include="Registration\VISUserRepository.cs" />
+    <Compile Include="Reports\Attendance\AddEmployeeRecordRepository.cs" />
+    <Compile Include="Reports\Attendance\AttendanceAccessCardComparisionReportRepository.cs" />
+    <Compile Include="Reports\Attendance\AttendanceReportNewRepository.cs" />
+    <Compile Include="Reports\Attendance\DailyEntrysheetRepository.cs" />
+    <Compile Include="Reports\Attendance\EmployeeDashboardHeartBeatReportRepository.cs" />
+    <Compile Include="Reports\Attendance\EmployeeScreenCaptureReportRepository.cs" />
+    <Compile Include="Reports\Attendance\LateEarlyReportRepository.cs" />
+    <Compile Include="Reports\Attendance\OfficialWorkReportRepository.cs" />
+    <Compile Include="Reports\Attendance\OutReportRepository.cs" />
+    <Compile Include="Reports\Attendance\ProductivityTrackerReportRepository.cs" />
+    <Compile Include="Reports\Attendance\Reports_AttendanceRepository.cs" />
+    <Compile Include="Reports\BusinessManagement\Reports_BusinessManagementRepository.cs" />
+    <Compile Include="Reports\ContactManagement\Reports_ContactManagementRepository.cs" />
+    <Compile Include="Reports\EmployeeLevels\Reports_EmployeeLevelsRepository.cs" />
+    <Compile Include="Reports\Finance\Reports_FinanceRepository.cs" />
+    <Compile Include="Reports\Leave\Reports_LeaveRepository.cs" />
+    <Compile Include="Reports\Opinion\Reports_OpinionRepository.cs" />
+    <Compile Include="Reports\Other\Reports_OtherRepository.cs" />
+    <Compile Include="Reports\Payroll\Reports_PayrollRepository.cs" />
+    <Compile Include="Reports\ProjectManagement\Reports_ProjectManagementRepository.cs" />
+    <Compile Include="RFQ\RFQHelperRepository.cs" />
+    <Compile Include="RFQ\RFQRepository.cs" />
+    <Compile Include="RFQ\RFQResponseRepository.cs" />
+    <Compile Include="UserManagement\AttendanceEntryRepository.cs" />
+    <Compile Include="VISAutoMapper.cs" />
+    <Compile Include="VISDbCommand.cs" />
+    <Compile Include="VISIBaseRepository.cs" />
+    <Compile Include="VISDbConnection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VIS_Domain\VIS_Domain.csproj">
+      <Project>{fb683799-6160-4cad-a2fb-b1c5a61655e2}</Project>
+      <Name>VIS_Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BusinessDevelopment\" />
+    <Folder Include="Calender\" />
+    <Folder Include="Finance\" />
+    <Folder Include="HumanResource\Konnect\" />
+    <Folder Include="Inbox\" />
+    <Folder Include="MOM\" />
+    <Folder Include="Projects\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

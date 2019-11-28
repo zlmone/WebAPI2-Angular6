@@ -1,0 +1,1257 @@
+﻿<div>
+    <div>
+        <div style="vertical-align:top;float:left;"><h3><b>{{strPageHeader}}</b></h3></div>
+        <div style="vertical-align:top;float:right;">
+
+            <table>
+                <tr>
+                    <td>
+                        <input id="rbtapproved" type="radio" name="a" (change)="GetApprovedDocumentData()" checked  /> <label>Approved</label>
+                    </td>
+                    <td>
+                        <input id="rbtpending" type="radio" name="a" (change)="GetApprovedDocumentData()" /> <label>Pending</label> 
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <table class='table table-striped table-bordered table-responsive' >
+            <thead>
+                <tr>
+
+                    <th class="pointer" (click)="DocumentTemplateSort('TemplateName')">
+                        <label *ngIf="!ShowHideSearch">
+                            Template Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'TemplateName', 'fa-sort-asc': (column == 'TemplateName' && isDesc), 'fa-sort-desc': (column == 'TemplateName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Template Name" id="searchTemplateName" *ngIf="ShowHideSearch" (keydown)="GetApprovedDocumentData()">
+                    </th>
+                    <th *ngIf="EmployeeRole=='Admin'" class="pointer" (click)="DocumentTemplateSort('OwnerName')" style="width:500px">
+                        <label *ngIf="!ShowHideSearch">
+                            Owner Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'OwnerName', 'fa-sort-asc': (column == 'OwnerName' && isDesc), 'fa-sort-desc': (column == 'OwnerName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Owner Name" id="searchOwnerName" *ngIf="ShowHideSearch" (keydown)="GetApprovedDocumentData()">
+                    </th>
+                    <th class="pointer" (click)="DocumentTemplateSort('ModuleName')">
+                        <label *ngIf="!ShowHideSearch">
+                            Module Name
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'ModuleName', 'fa-sort-asc': (column == 'ModuleName' && isDesc), 'fa-sort-desc': (column == 'ModuleName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Module Name" id="searchModuleName" *ngIf="ShowHideSearch" (keydown)="GetApprovedDocumentData()">
+                    </th>
+                    <th class="pointer" (click)="DocumentTemplateSort('IsRecurrence')">
+                        <label>
+                            Recurrence Type
+                        </label>
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'IsRecurrence', 'fa-sort-asc': (column == 'IsRecurrence' && isDesc), 'fa-sort-desc': (column == 'IsRecurrence' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="DocumentTemplateSort('IsSelf')">
+                        <label>
+                            Usage
+                        </label>
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'IsSelf', 'fa-sort-asc': (column == 'IsSelf' && isDesc), 'fa-sort-desc': (column == 'IsSelf' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="DocumentTemplateSort('CreatedOn')">
+                        <label>
+                            Created On
+                        </label>
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'CreatedOn', 'fa-sort-asc': (column == 'CreatedOn' && isDesc), 'fa-sort-desc': (column == 'CreatedOn' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="DocumentTemplateSort('PublishDate')">
+                        <label *ngIf="!ShowHideSearch">
+                            Publish Date
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'PublishDate', 'fa-sort-asc': (column == 'PublishDate' && isDesc), 'fa-sort-desc': (column == 'PublishDate' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                    </th>
+                    <th class="pointer" (click)="DocumentTemplateSort('ApprovedStatus')">
+                        <label>
+                            Status
+                        </label>
+                    </th    >
+                    <th class="text-center" nowrap="nowrap">
+                        <button class="btn btn-vis" (click)="AddNewTemplate()"><span class="glyphicon glyphicon-plus-sign" title="Add New"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="GetApprovedDocumentData()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                    <th class="pointer" *ngIf="EmployeeRole=='Admin'">
+                        <label>
+                            Copy
+                        </label>
+                    </th>
+
+                </tr>
+            </thead>
+
+            <tbody *ngIf='listIDocumentTemplateViewModel && listIDocumentTemplateViewModel.length'>
+                <tr *ngFor="let doctemp of pagedItems  | orderBy: {property: column, direction: direction}">
+
+                    <td style="display:none">{{doctemp.DocTemplateId}}</td>
+                    <td style="width:1500px">{{doctemp.TemplateName}}</td>
+                    <td *ngIf="EmployeeRole=='Admin'"  style="width:1000px">{{doctemp.OwnerName}}</td>
+                    <td style="width:800px">{{doctemp.ModuleName}}</td>
+                    <td style="width:1000px">
+                        <div *ngIf="doctemp.IsRecurrence == 1">
+                            Recurrence
+                        </div>
+                        <div *ngIf="doctemp.IsRecurrence == 0">
+                            No Recurrence
+                        </div>
+                    </td>
+                    <td style="width:1000px">
+                        <div *ngIf="doctemp.IsSelf == 1">
+                            Self
+                        </div>
+                        <div *ngIf="doctemp.IsBehalf == 1">
+                            Behalf
+                        </div>
+                    </td>
+                    <td style="width:800px">{{doctemp.CreatedOn | date : 'dd/MM/yyyy'}}</td>
+                    <td style="width:800px">{{doctemp.PublishDate}}</td>
+                    <td style="width:800px">{{doctemp.ApprovedStatus}}</td>
+                    
+                    <td align="center">
+                        <div *ngIf="doctemp.IsActive == 1" style="text-align:center;width:120px" class="text-center">
+
+                            <button title="Edit" class="btn btn-vis" (click)="EditTempalte(doctemp.DocTemplateId, doctemp.IsActive)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="DeleteTemplate(doctemp.DocTemplateId, doctemp.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                            <input title="Approve" class="btnstatus" src="/Upload/Icon images/success.png"   type="image" *ngIf="EmployeeRole=='Admin'" (click)="ActivateDeactivateStatus(doctemp.DocTemplateId)" [ngStyle]="EnableDisableApproveButton()">
+                            <input title="Reject" class="btnstatus" src="/Upload/Icon images/icon_restricted.png"  type="image" *ngIf="EmployeeRole=='Admin'" (click)="ActivateDeactivateStatus(doctemp.DocTemplateId)" [ngStyle]="EnableDisableApproveButton()">
+
+                        </div>
+
+                            
+                        
+
+                        <div *ngIf="doctemp.IsActive == 0" style="text-align:center;width:100px">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeleteTemplate(doctemp.Id, doctemp.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+
+                    </td>
+                    <td style="text-align:center" *ngIf="EmployeeRole=='Admin'">
+                        <button title="Copy Document Template" class="btn btn-vis" (click)="CopyTemplate(doctemp.Id, doctemp.IsActive)"><span class="glyphicon glyphicon-file"></span></button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <div *ngIf='listIDocumentTemplateViewModel && listIDocumentTemplateViewModel.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf='listIDocumentTemplateViewModel && listIDocumentTemplateViewModel.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+
+</div>
+
+<modal #modal>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+        <ng2-tab selected="Step1" selected-index-class="selected" selected-contents-class="fadeIn animated">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <ul class="nav nav-tabs">
+                            <li>
+                                <a id="Step1" index="Step1">Step 1</a>
+                            </li>
+                            <li>
+                                <a id="Step2" index="Step2" [ngStyle]="EnableDisableSteps()">Step 2</a>
+                            </li>
+                            <li>
+                                <a id="Step3" index="Step3" [ngStyle]="EnableDisableSteps()">Step 3 </a>
+                            </li>
+                            <li>
+                                <a id="Step4" index="Step4" [ngStyle]="EnableDisableSteps()">Step 4</a>
+                            </li>
+                            <li>
+                                <a id="Step5" index="Step5" [ngStyle]="EnableDisableSteps()">Step 5</a>
+                            </li>
+                            <li>
+                                <a id="Step6" index="Step6" [ngStyle]="EnableDisableSteps()">Step 6</a>
+                            </li>
+                            <li>
+                                <a id="Step7" index="Step7" [ngStyle]="EnableDisableSteps()">Step 7</a>
+                            </li>
+                            <li>
+                                <a id="Step8" index="Step8" [ngStyle]="EnableDisableSteps()">Step 8</a>
+                            </li>
+                        </ul>
+
+                        <div contents="Step1" class="tabborder contentscroller" id="Step1Content">  
+
+                            <form #step1form="ngForm" (ngSubmit)="onSubmitStep1(step1form.value)">
+
+
+                                <div class="Popup-row">
+                                    <h4>Document Template</h4>
+                                </div>
+
+                                <div class="row Popup-row">
+                                    <div class="col-md-12">
+                                        <div class="form-horizontal" role="form">
+                                            <div class="col-md-6">
+                                                <div class="form-group Popup-group" style="display:none">
+                                                    <div class="col-md-6 col-lg-6 col-xs-12">Id </div>
+                                                    <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                                        <input type="text" class="form-control" [(ngModel)]="objIDocumentTemplateModel.DocTemplateId" name="DocTemplateId" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group"></div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Template Name* : </div>
+                                                    <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                                        <input type="text" class="form-control" [(ngModel)]="objIDocumentTemplateModel.TemplateName" name="TemplateName" required />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Description</div>
+                                                    <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                                        <textarea class="form-control" [(ngModel)]="objIDocumentTemplateModel.TemplateDescription" name="TemplateDescription"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Module Name* :</div>
+                                                    <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                                        <select class="form-control" (change)="BindStartingVariableNameDropdown($event.target.value)" [(ngModel)]="objIDocumentTemplateModel.ModuleId" name="ModuleId" required>
+                                                            <option value="" disabled>Select</option>
+                                                            <option *ngFor="let item of listIDocTemplateModule" value="{{item.ModuleValue}}">{{item.ModuleName}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Recurrence:</div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" id="rbtnoreccurence" [(ngModel)]="objIDocumentTemplateModel.IsRecurrence" name="IsRecurrence" [value]=false /><label>No Recurrence</label>
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" id="rbtrecuurence" [(ngModel)]="objIDocumentTemplateModel.IsRecurrence" name="IsRecurrence" [value]=true /><label>Recurrence</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12"></div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" id="rbtself" [ngModel]="objIDocumentTemplateModel.IsSelf" name="IsSelf" [value]=true [disabled]="objIDocumentTemplateModel.ModuleId!='DocTemplateModuleVariables' && objIDocumentTemplateModel.ModuleId!='Other' && objIDocumentTemplateModel.ModuleId!='' " (change)="CheckEnableDisableOption()" /><label>Self</label>
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" id="rbtbehalf" [ngModel]="objIDocumentTemplateModel.IsSelf" name="IsSelf" [value]=false (change)="CheckEnableDisableOption()" /><label>Behlaf</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Starting Variable</div>
+                                                    <div class="col-md-5 col-lg-5 col-lg-5 col-xs-12">
+                                                        <select class="form-control" [(ngModel)]="objIDocumentTemplateModel.SharingVariableType" name="SharingVariableType" id="SharingVariableType">
+                                                            <option *ngFor="let item of listIListItem" value="{{item.value}}">{{item.text}}</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3 col-lg-3 col-xs-12">
+                                                        <select class="form-control" [(ngModel)]="objIDocumentTemplateModel.StartingVariableRole" name="StartingVariableRole" id="StartingVariableRole">
+                                                            <option *ngFor="let item of listIListItemRole" value="{{item.value}}">{{item.text}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Document Available</div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        Pdf
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        Word
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Download</div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="checkbox" id="rbtdownloadpdf" [(ngModel)]="objIDocumentTemplateModel.IsDownloadPdf" name="IsDownloadPdf" value=true />
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="checkbox" id="rbtdownloadword" [(ngModel)]="objIDocumentTemplateModel.IsDownloadWord" name="IsDownloadWord" value=true />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Save In DMS</div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="checkbox" id="rbtsavedmspdf" [(ngModel)]="objIDocumentTemplateModel.IsDMSPdf" name="IsDMSPdf" value=true />
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="checkbox" id="rbtsavedmsword" [(ngModel)]="objIDocumentTemplateModel.IsDMSWord" name="IsDMSWord" value=true />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Email</div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="checkbox" id="rbtemailpdf" [(ngModel)]="objIDocumentTemplateModel.IsEmailPdf" name="IsEmailPdf" value=true />
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="checkbox" id="rbtemailword" [(ngModel)]="objIDocumentTemplateModel.IsEmailWord" name="IsEmailWord" value=true />
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row Popup-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group Popup-group">
+                                            <div class="col-md-5 col-lg-5 col-xs-12">Document Date Format</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group Popup-group"></div>
+                                            <div class="col-md-12">
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" id="rbtdateformat1" [(ngModel)]="objIDocumentTemplateModel.DateFormat" name="DateFormat" value="Date(dd/mm/yyyy)" checked /><label>Document Date(dd/mm/yyyy)</label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                                        <label>{{TodayDate | date:'dd/MM/yyyy'}}</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" id="rbtdateformat2" [(ngModel)]="objIDocumentTemplateModel.DateFormat" name="DateFormat" value="Date(mm/dd/yyyy)" /><label>Document Date(mm/dd/yyyy)</label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                                        <label>{{TodayDate | date:'MM/dd/yyyy'}}</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" id="rbtdateformat3" [(ngModel)]="objIDocumentTemplateModel.DateFormat" name="DateFormat" value="Date(dd MMM,yyyy)" /><label>Document Date(dd MMM,yyyy)</label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                                        <label>{{TodayDate | date:'dd MMM,yyyy'}}</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" id="rbtdateformat4" [(ngModel)]="objIDocumentTemplateModel.DateFormat" name="DateFormat" value="Date(In Text)" /><label>Document Date(In Text)</label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                                        <label>{{TodayDate}}</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group Popup-group"></div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">
+                                                        <label>Page Size A4</label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group Popup-group"></div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-2 col-lg-2 col-xs-12">
+                                                        <label>Orientation</label>
+                                                    </div>
+                                                    <div class="col-md-2 col-lg-2 col-lg-2 col-xs-12">
+                                                        <input type="radio" id="rbtPortrait " [(ngModel)]="objIDocumentTemplateModel.IsPortrait" name="IsPortrait" [value]=true /><label>Portrait</label>
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4 col-lg-4 col-xs-12">
+                                                        <input type="radio" [(ngModel)]="objIDocumentTemplateModel.IsPortrait" name="IsPortrait" [value]=false /><label>Landscape</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group Popup-group"></div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-2 col-lg-2 col-xs-12">
+                                                        <input type="submit" value="{{modalBtnTitle}}" class="btn btn-success btn-lg" [disabled]="!step1form.valid" />
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                                        <a class="btn btn-danger btn-lg" (click)="modal.dismiss()">Cancel</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+
+                        </div>
+                            
+                        <div contents="Step2" class="tabborder contentscroller" id="Step2Content">
+
+                            <form #step2form="ngForm" (ngSubmit)="onSubmitStep2(step2form.value)">
+
+                                <div class="Popup-row">
+                                    <h4>Define Custom User Input Fields / Text</h4>
+                                </div>
+
+                                <div class="row Popup-row">
+
+                                    <div class="col-md-4">
+
+                                        <div class="Popup-row">
+
+                                            <div class="col-md-12">
+                                                <div class="col-md-2">
+                                                    <input type="radio" name="FieldType" [(ngModel)]="objIDocMasterFieldDataContract.FieldType" value="Text" (change)="BindDropDownTableField()" />
+                                                </div>
+
+                                                <div class="col-md-10">
+                                                    <div class="StaticTextField">
+                                                        <label> Static Text</label>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <input type="radio" name="FieldType" [(ngModel)]="objIDocMasterFieldDataContract.FieldType" value="Image" (change)="BindDropDownTableField()" />
+                                            </div>
+
+                                            <div class="col-md-10">
+                                                <div class="ImageFieldText">
+                                                    <label>Image</label>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-4">
+
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <input type="radio" name="FieldType" [(ngModel)]="objIDocMasterFieldDataContract.FieldType" value="TokenText" (change)="BindDropDownTableField()" />
+                                            </div>
+
+                                            <div class="col-md-10">
+
+                                                <div class="TokenTextField">
+                                                    <label>Token Text</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <!--<div class="col-md-3">
+
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <input type="radio" name="FieldType" [(ngModel)]="objIDocMasterFieldDataContract.FieldType" value="customField" (change)="BindDropDownTableField()" />
+                                            </div>
+
+                                            <div class="col-md-10">
+
+                                                <div class="CustomFieldText">
+                                                    <label>Custom Field</label>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>-->
+
+                                </div>
+
+                                <div class="form-group"></div>
+                                <div class="form-group" *ngIf="objIDocMasterFieldDataContract.FieldType=='Text'">
+
+                                    <div class="col-md-12">
+
+                                        <div class="form-horizontal" role="form">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Title</div>
+
+                                                    <div style="display:none">
+
+                                                        <input type="text" class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.Id" name="Id" />
+
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                        <input type="text" class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.FieldName" name="FieldName" required />
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Description</div>
+
+                                                    <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                        <textarea class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.FieldDescription" name="FieldDescription"></textarea>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group Popup-group">
+                                                    <ckeditor [config]="{uiColor: '#D3D3D3'}" [readonly]="false" debounce="500" [(ngModel)]="objIDocMasterFieldDataContract.PageContent" name="PageContent"></ckeditor>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group Popup-group">
+                                                    <a href="#contentpanel" data-toggle="collapse" class="btn btn-default btn-lg" style="font-family:'Times New Roman';font-size:large">User Input</a>
+                                                    <div id="contentpanel" class="collapse in">
+                                                        <table class="table table-striped table-bordered table-responsive">
+                                                            <tr *ngFor="let item of lstIDocMasterFieldDataContract">
+                                                                <td [ngClass]="{'StaticTextField': item.FieldType=='Text','ImageFieldText':item.FieldType=='Image','TokenTextField':item.FieldType=='TokenText'}">
+                                                                    {{item.FieldName}}
+                                                                </td>
+                                                                <td style="width:50px">
+                                                                    <a title="Edit" (click)="EditField(item.Id)"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                    <a title="Delete" (click)="DeleteField(item.Id)"><i class="glyphicon glyphicon-trash"></i></a>
+                                                                    <a *ngIf="item.FieldType!='Text' && item.FieldType!='Image'" title="Copy Control Field" (click)="CopyField(item.Id)"><i class="glyphicon glyphicon-copy"></i></a>
+                                                                </td>
+                                                            </tr>
+
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="form-group"></div>
+                                <div class="form-group" *ngIf="objIDocMasterFieldDataContract.FieldType=='Image'">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+
+                                            <div class="form-horizontal" role="form">
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Title</div>
+
+                                                        <div style="display:none">
+                                                            <input type="text" class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.Id" name="Id" />
+                                                        </div>
+
+                                                        <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                            <input type="text" class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.FieldName" name="FieldName" required />
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Description</div>
+
+                                                        <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                            <textarea class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.FieldDescription" name="FieldDescription"></textarea>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Image</div>
+
+                                                        <div class="col-md-6 col-lg-6 col-xs-12">
+
+                                                            <input type="file" (change)="GetImageFile($event)">
+
+                                                        </div>
+
+                                                        <div class="col-md-2 col-lg-2 col-xs-12">
+                                                            <a class="glyphicon glyphicon-upload" (click)="UploadImage()" title="Upload Image"></a>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Align</div>
+
+                                                        <div class="col-md-3 col-lg-3 col-xs-12">
+
+                                                            <input type="radio" [(ngModel)]="objIDocMasterFieldDataContract.ImageAlign" name="ImageAlign" value="left" />Left
+
+                                                        </div>
+                                                        <div class="col-md-3 col-lg-3 col-xs-12">
+
+                                                            <input type="radio" [(ngModel)]="objIDocMasterFieldDataContract.ImageAlign" name="ImageAlign" value="center" />Center
+
+                                                        </div>
+                                                        <div class="col-md-2 col-lg-2 col-xs-12">
+
+                                                            <input type="radio" [(ngModel)]="objIDocMasterFieldDataContract.ImageAlign" name="ImageAlign" value="right" />Right
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12"> </div>
+
+                                                        <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                            <label>Note: File size can't be more than 451 x 694.</label>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12"> </div>
+
+                                                        <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                            <img width="100" height="100" class="img img-rounded" src="{{strImgpath}}" />
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group Popup-group">
+                                                        <a href="#contentpanel" data-toggle="collapse" class="btn btn-default btn-lg" style="font-family:'Times New Roman';font-size:large">User Input</a>
+                                                        <div id="contentpanel" class="collapse in">
+                                                            <table class="table table-striped table-bordered table-responsive">
+                                                                <tr *ngFor="let item of lstIDocMasterFieldDataContract">
+                                                                    <td [ngClass]="{'StaticTextField': item.FieldType=='Text','ImageFieldText':item.FieldType=='Image','TokenTextField':item.FieldType=='TokenText'}">
+                                                                        {{item.FieldName}}
+                                                                    </td>
+                                                                    <td style="width:50px">
+                                                                        <a title="Edit" (click)="EditField(item.Id)"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                        <a title="Delete" (click)="DeleteField(item.Id)"><i class="glyphicon glyphicon-trash"></i></a>
+                                                                        <a *ngIf="item.FieldType!='Text' && item.FieldType!='Image'" title="Copy Control Field" (click)="CopyField(item.Id)"><i class="glyphicon glyphicon-copy"></i></a>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group"></div>
+                                <div class="form-group" *ngIf="objIDocMasterFieldDataContract.FieldType=='TokenText'">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+
+                                            <div class="form-horizontal" role="form">
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Title</div>
+
+                                                        <div class="col-md-6 col-lg-6 col-xs-12">
+                                                            <div style="display:none">
+                                                                <input type="text" class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.Id" name="Id" />
+                                                            </div>
+                                                            <input type="text" class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.FieldName" name="FieldName" required />
+                                                        </div>
+
+                                                        <div class="col-md-2 col-lg-2 col-xs-12">
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Description</div>
+
+                                                        <div class="col-md-6 col-lg-6 col-xs-12">
+
+                                                            <textarea class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.FieldDescription" name="FieldDescription"></textarea>
+
+                                                        </div>
+                                                        <div class="col-md-2 col-lg-2 col-xs-12">
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Table's Field</div>
+
+                                                        <div class="col-md-6 col-lg-6 col-xs-12">
+
+                                                            <select class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.DataSourceColumn" name="DataSourceColumn" (change)="ChangeTableFieldDropDown($event.target.value)">
+                                                                <option disabled value="">Select</option>
+                                                                <option *ngFor="let item of lstIDropdownTableField" value="{{item.FieldName}}">{{item.VarName}}</option>
+                                                            </select>
+
+                                                        </div>
+
+                                                        <div class="col-md-2 col-lg-2 col-xs-12">
+                                                            <a title="Add" class="glyphicon glyphicon-plus-sign btn-lg" (click)="AddTableFieldToTextEditor()"></a>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Custom Control Field</div>
+
+                                                        <div class="col-md-6 col-lg-6 col-xs-12">
+
+                                                            <select class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.DataSourceColumnForCustom" name="DataSourceColumnForCustom">
+                                                                <option value="" disabled>Select</option>
+                                                                <option *ngFor="let item of lstIDropdownCustomField" value="{{item.TokenValue}}">{{item.TokenName}}</option>
+                                                            </select>
+
+                                                        </div>
+
+                                                        <div class="col-md-2 col-lg-2 col-xs-12">
+                                                            <a title="Add" class="glyphicon glyphicon-plus-sign btn-lg" (click)="AddCustomFieldToTextEditor(objIDocMasterFieldDataContract.DataSourceColumnForCustom)"></a>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+
+                                                        <div class="col-md-12 col-lg-12 col-xs-12">
+
+                                                            <ckeditor [config]="{uiColor: '#D3D3D3'}"
+                                                                      [readonly]="false" debounce="500"
+                                                                      [(ngModel)]="objIDocMasterFieldDataContract.PageContent" name="PageContent">
+                                                            </ckeditor>
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group Popup-group">
+                                                        <a href="#contentpanel" data-toggle="collapse" class="btn btn-default btn-lg" style="font-family:'Times New Roman';font-size:large">User Input</a>
+                                                        <div id="contentpanel" class="collapse in">
+                                                            <table class="table table-striped table-bordered table-responsive">
+                                                                <tr *ngFor="let item of lstIDocMasterFieldDataContract">
+                                                                    <td [ngClass]="{'StaticTextField': item.FieldType=='Text','ImageFieldText':item.FieldType=='Image','TokenTextField':item.FieldType=='TokenText'}">
+                                                                        {{item.FieldName}}
+                                                                    </td>
+                                                                    <td style="width:50px">
+                                                                        <a title="Edit" (click)="EditField(item.Id)"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                        <a title="Delete" (click)="DeleteField(item.Id)"><i class="glyphicon glyphicon-trash"></i></a>
+                                                                        <a *ngIf="item.FieldType!='Text' && item.FieldType!='Image'" title="Copy Control Field" (click)="CopyField(item.Id)"><i class="glyphicon glyphicon-copy"></i></a>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group"></div>
+                                <div class="form-group" *ngIf="objIDocMasterFieldDataContract.FieldType=='customField'" (change)="BindDropDownTableField()">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+
+                                            <div class="form-horizontal" role="form">
+
+                                            <div class="col-md-6">
+
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">Label</div>
+
+                                                    <div class="col-md-8 col-lg-8 col-xs-12">
+                                                        <div style="display:none">
+                                                            <input type="text" class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.Id" name="Id" />
+                                                        </div>
+                                                        <input type="text" class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.FieldName" name="FieldName" required />
+                                                    </div>
+                                                </div>
+
+
+                                                    <div class="form-group Popup-group">
+
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Description</div>
+
+                                                        <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                            <textarea class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.Description" name="Description" ></textarea>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group Popup-group">
+                                                        <div class="col-md-4 col-lg-4 col-xs-12">Type</div>
+
+                                                        <div class="col-md-8 col-lg-8 col-xs-12">
+                                                            <select class="form-control" [(ngModel)]="objIDocMasterFieldDataContract.FieldType" name="FieldType">
+                                                                <option>Select</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            <div class="col-md-6">
+                                                    <div class="form-group Popup-group">
+                                                        <a href="#contentpanel" data-toggle="collapse" class="btn btn-default btn-lg" style="font-family:'Times New Roman';font-size:large">User Input</a>
+                                                        <div id="contentpanel" class="collapse in">
+                                                            <table class="table table-striped table-bordered table-responsive">
+                                                                <tr *ngFor="let item of lstIDocMasterFieldDataContract">
+                                                                    <td [ngClass]="{'StaticTextField': item.FieldType=='Text','ImageFieldText':item.FieldType=='Image','TokenTextField':item.FieldType=='TokenText'}">
+                                                                        {{item.FieldName}}
+                                                                    </td>
+                                                                    <td style="width:50px">
+                                                                        <a title="Edit" (click)="EditField(item.Id)"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                        <a title="Delete" (click)="DeleteField(item.Id)"><i class="glyphicon glyphicon-trash"></i></a>
+                                                                        <a *ngIf="item.FieldType!='Text' && item.FieldType!='Image'" title="Copy Control Field" (click)="CopyField(item.Id)"><i class="glyphicon glyphicon-copy"></i></a>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group"></div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+
+                                        <div class="form-horizontal" role="form">
+
+                                            <div class="col-md-6">
+
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">
+
+                                                    </div>
+
+                                                    <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                        <button class="btn btn-success" type="submit" [disabled]="!step2form.valid">Save</button>
+                                                        <a class="btn btn-info" (click)="PreviousStep2()">Previous</a>
+                                                        <a class="btn btn-info" (click)="NextStep2()">Next</a>
+                                                        <a class="btn btn-info" (click)="CancelStep2()">Cancel</a>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group Popup-group">
+
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                        <div contents="Step3" class="tabborder contentscroller" id="Step3Content">
+
+                                  <div class="Popup-row">
+                                    <div class="col-md-12">
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="StaticTextField">
+                                                    <label>Static Text</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="ImageFieldText">
+                                                    <label>Image</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2" >
+                                                <div class="TokenTextField">
+                                                    <label>Token Text</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="LineBreakField">
+                                                    <label>Line Break</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="PageBreakField">
+                                                    <label>Page Break</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                  <br />
+                                  <br />
+                                   <div class="Popup-row">
+                                       <div class="col-md-12">
+
+                                           <div class="col-md-4">
+                                               <div class="Popup-row">
+                                                   <div class="col-md-12">
+                                                       <div class="col-md-12">
+                                                           <div class="form-group">
+                                                               <div class="contentscrollermasterfield">
+                                                                   <div class="panel panel-primary" style="height:auto;min-height:310px">
+                                                                       <div class="panel-heading">My Document Container</div>
+                                                                       <div class="panel-body panelmargin">
+                                                                           <table *ngIf="lstContainerField" class="table table-striped table-bordered table-responsive" border="1">
+                                                                               <tr *ngFor="let item of lstContainerField" style="padding-bottom:5px">
+                                                                                   <td [ngClass]="{'StaticTextField': item.FieldType=='Text','ImageFieldText':item.FieldType=='Image','TokenTextField':item.FieldType=='TokenText','LineBreakField':item.FieldType=='<BR>','PageBreakField':item.FieldType=='<PageBreak>'}">
+                                                                                       <label>{{item.FieldName}}</label>
+                                                                                       <a *ngIf="item.FieldType=='<BR>'||item.FieldType=='<PageBreak>'" (click)="RemoveLineBreakPageBreak(item.CreatedOn)"><i class="glyphicon glyphicon-remove" style="color:white;font-size:16px;padding-left:100px"></i></a>
+                                                                                   </td>
+                                                                               </tr>
+
+                                                                           </table>
+                                                                       </div>
+                                                                   </div>
+                                                                  
+                                                               </div>
+                                                               
+                                                           </div>
+                                                       </div>
+                                                      </div>
+                                                   </div>
+                                                   
+                                               </div>
+
+                                           <div class="col-md-4">
+                                               <br /><br /><br /><br /><br /><br /><br />
+                                                   <div class="Popup-row" style="text-align:center">
+                                                       <div class="col-md-12">
+                                                           <div class="col-md-12">
+                                                               <div class="form-group">
+                                                                   <a class="btn btn-primary" (click)="AddPageBreak()">Add Page Break</a>
+                                                               </div>
+                                                               <div class="form-group">
+                                                                   <a class="btn btn-primary" (click)="AddLineBreak()">Add Line Break</a>
+                                                               </div>
+                                                               <div class="form-group">
+                                                                   <a class="btn btn-primary btn-lg" (click)="RemoveAllField()">>></a>
+                                                                   <a class="btn btn-primary btn-lg" (click)="AddAllField()"><<</a>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                             
+                                        </div>
+
+                                           <div class="col-md-4">
+                                               <div class="Popup-row">
+                                                   <div class="col-md-12">
+                                                       <div class="col-md-12">
+                                                           <div class="form-group">
+                                                               <div class="contentscrollermasterfield">
+
+                                                                   <div class="panel panel-primary" style="height:auto;min-height:310px">
+                                                                       <div class="panel-heading">Master Fields</div>
+                                                                       <div class="panel-body panelmargin">
+                                                                           <table class="table table-striped table-bordered table-responsive" border="1">
+                                                                               <tr *ngFor="let item of lstMasterField">
+                                                                                   <td [ngClass]="{'StaticTextField': item.FieldType=='Text','ImageFieldText':item.FieldType=='Image','TokenTextField':item.FieldType=='TokenText','LineBreakField':item.FieldType=='<BR>','PageBreakField':item.FieldType=='<PageBreak>'}">
+                                                                                       <label>{{item.FieldName}}</label>
+                                                                                       <a *ngIf="item.FieldType=='<BR>'||item.FieldType=='<PageBreak>'" (click)="RemoveLineBreakPageBreakMaster(item.CreatedOn)"><i class="glyphicon glyphicon-remove" style="color:white;font-size:16px;padding-left:100px"></i></a>
+                                                                                   </td>
+                                                                               </tr>
+
+                                                                           </table>
+                                                                       </div>
+                                                                   </div>
+
+
+
+                                                                  
+                                                               </div>
+                                                           </div>
+
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+
+                                      </div>
+                                   </div>
+
+                                <div class="form-group"></div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+
+                                        <div class="form-horizontal" role="form">
+
+                                            <div class="col-md-6">
+
+                                                <div class="form-group Popup-group">
+                                                    <div class="col-md-4 col-lg-4 col-xs-12">
+
+                                                    </div>
+
+                                                    <div class="col-md-8 col-lg-8 col-xs-12">
+
+                                                        <button class="btn btn-success" (click)="onSubmitStep3()">Save</button>
+                                                        <a class="btn btn-info" (click)="PreviousStep3()">Previous</a>
+                                                        <a class="btn btn-info" (click)="NextStep3()">Next</a>
+                                                        <a class="btn btn-info" (click)="CancelStep3()">Cancel</a>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group Popup-group">
+
+                                                <div class="col-md-12 col-lg-12 col-xs-12">
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                        </div>
+
+                    </div>
+               </div>
+                
+                
+            </ng2-tab>
+
+        </modal-body>
+
+        <modal-footer>
+           
+        </modal-footer>
+</modal>
+
+<modal #modaldelete>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">
+            {{modalTitle}}
+        </h4>
+    </modal-header>
+
+    <modal-body>
+
+        <div class="row Popup-row">
+            <div class="col-md-12">
+                <div class="form-horizontal" role="form">
+                    <form #deltemodalfrom="ngForm" (ngSubmit)="onSubmitStep1(deltemodalfrom.value)">
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group" style="display:none">
+                                <div class="col-md-6 col-lg-6 col-xs-12">Id </div>
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <input type="text" class="form-control" [(ngModel)]="objIDocumentTemplateModel.DocTemplateId" name="DocTemplateId" />
+                                </div>
+                            </div>
+                            <div class="form-group"></div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-4 col-lg-4 col-xs-12">Template Name : </div>
+                                <div class="col-md-8 col-lg-8 col-lg-8 col-xs-12">
+                                    <span><b>{{objIDocumentTemplateModel.TemplateName}}</b></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2 col-lg-2 col-xs-12">
+                                    <input type="submit" value="{{modalBtnTitle}}" class="btn btn-success btn-lg"/>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <a class="btn btn-danger btn-lg" (click)="modaldelete.dismiss()">Cancel</a>
+                                </div>
+                            </div>
+                                
+                        
+                        </div>
+                    </form>
+                   
+                    </div>
+                </div>
+            </div>
+    </modal-body>
+
+    <modal-footer>
+        
+    </modal-footer>
+
+</modal>
+

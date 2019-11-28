@@ -1,0 +1,172 @@
+﻿<div style="vertical-align:top;float:left;"><h3><b>Add/View Ticket </b></h3><br /></div>
+<form #HelpAddTicketFrm="ngForm" (ngSubmit)="onSubmit(HelpAddTicketFrm.value)">
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+
+                <div class="form-group Popup-group">
+                    <div class="col-md-3 col-lg-3 col-xs-12"> <label class="LabelCenter">Created By</label></div>
+                    <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+                        <input type="text" class="form-control" placeholder="Created By"   name="CreatedBy">
+                        <!--<textarea class="form-control" placeholder="Dashboard Service URL Local" [(ngModel)]="commonconfiguration.URLLocal" #URLLocal="ngModel" name="URLLocal" required></textarea>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 pl-30">
+
+                        <div class="col-md-5 col-lg-5 col-xs-12 "> <label class="LabelCenter">Priority</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12 pl-40">
+
+                            <select  class="form-control input-small">
+                                <option value="Low">Low </option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="col-md-3 col-lg-3 col-xs-12"> <label class="LabelCenter">Status</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+
+                            <select class="form-control input-small">
+                                <option value="Open">Open </option>
+                                <option value="Closed">Closed</option>
+                                <option value="Resolved">Resolved</option>
+                                <option value="Suspended">Suspended</option>
+                                <option value="Terminated">Terminated</option>
+                                <option value="UnderReview">Under Review</option>
+                            </select>
+               
+                            <!--<input type="text" class="form-control" placeholder="Status"   name="Status">-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-12">
+            <fieldset>
+
+                <legend>Original Message</legend>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-md-3 col-lg-3 col-xs-12"> <label class="LabelCenter">Address To Dept</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+
+                            <select class="form-control">
+                                <option *ngFor="let dp of Oraganization" value="{{dp.Id}}">{{dp.SuggestionAlie}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <div class="col-md-3 col-lg-3 col-xs-12"> <label class="LabelCenter">Subject</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+
+                            <input type="text" class="form-control margin_top10" placeholder="Subject" >
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <div class="col-md-3 col-lg-3 col-xs-12"> <label class="LabelCenter">Message</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+
+                            <textarea class="form-control max-widthFileset margin_top10" placeholder="Message" name="message"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-md-3 col-lg-3 col-xs-12"> <label class="LabelCenter">Attachment 1</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+
+                            <input type="file" id="btnUpload1" value="Upload" (change)="fileChange1($event)" class="margin_top10"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-md-3 col-lg-3 col-xs-12"> <label class="LabelCenter">Attachment 2</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+
+                            <input type="file" id="btnUpload2" value="Upload" (change)="fileChange2($event)" class="margin_top10" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-md-3 col-lg-3 col-xs-12"> <label class="LabelCenter">Attachment 3</label> </div>
+                        <div class="col-md-7 col-lg-7 col-lg-7 col-xs-12">
+                            <input type="file" id="btnUpload3" value="Upload" (change)="fileChange3($event)" class="margin_top10" />
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <div class="form-group Popup-group">
+                <div class="col-md-3 col-lg-3 col-lg-3 col-xs-12 margin_top10">
+
+                    <input type="submit" value="Save" id="btnsubmit" class="btn btn-info Width120" [disabled]="!HelpAddTicketFrm.valid" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row Popup-row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+
+            </div>
+        </div>
+    </div>
+
+    <div style="display:none">
+        <span>Created On</span>
+        <input type="text" class="form-control" placeholder="Created On">
+    </div>
+    <div style="display:none">
+        <span>Created By</span>
+        <input type="text" class="form-control" placeholder="Created By">
+    </div>
+    <div style="display:none">
+        <span>Updated On</span>
+        <input type="text" class="form-control" placeholder="Updated On">
+    </div>
+    <div style="display:none">
+        <span>Updated By</span>
+        <input type="text" class="form-control" placeholder="Updated By">
+    </div>
+    <div style="display:none">
+        <span>Is Active</span>
+        <input type="checkbox" class="form-control">
+    </div>
+    <div style="display:none">
+        <span>EntityMessage</span>
+        <input type="text" class="form-control">
+    </div>
+
+</form>
+
+<div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    {{msg}}
+</div>

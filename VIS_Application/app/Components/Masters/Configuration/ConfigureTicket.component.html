@@ -1,0 +1,101 @@
+﻿<form #configticket="ngForm" (ngSubmit)="onSubmit(configticket.value)">
+        <div style="vertical-align:top;float:left;"><h3><b>Configure Ticket</b></h3></div>
+        <div class="row Popup-row">
+            <div class="col-md-12">
+                <br />
+                <div class="form-horizontal">
+                    <div class="col-md-5">
+                        <div class="form-group Popup-group">
+                            <tree #treeComponent [tree]="tree" (nodeSelected)="handleSelected($event)"></tree>
+                            <!--<select class="form-control" (change)="LoadChildGroup($event)">
+                                <option selected value="0" disabled>Select</option>
+                                <option *ngFor="let parent of parentgrouplists" value="{{parent.Id}}">{{parent.Department_Name}}</option>
+                            </select>
+
+                            <br />
+                            <select class="form-control" (change)="TicketDetail($event)">
+                                <option selected value="" disabled>Select</option>
+                                <option *ngFor="let child of childgrouplist" value="{{child.Id}}">{{child.Department_Name}}</option>
+                            </select>-->
+                            <div class="col-md-3 col-lg-3 col-lg-3 col-xs-12">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-5 col-lg-5 col-xs-12"> Ticket Group Active (Y/N) : </div>
+                            <div class="col-md-7 col-lg-7 col-xs-12"><input type="checkbox" [(ngModel)]="configureticket.IsActiveSuggestion" #IsActiveSuggestion="ngModel" name="IsActiveSuggestion" /></div>
+                        </div>
+                        <div class="form-group Popup-group">
+                            <div class="col-md-5 col-lg-5 col-xs-12"> Group Alies Name : </div>
+                            <div class="col-md-7 col-lg-7 col-xs-12">
+                                <input type="text" class="form-control" [(ngModel)]="configureticket.SuggestionAlie" #SuggestionAlie="ngModel" name="SuggestionAlie" />
+                            </div>
+                        </div>
+                        <div class="form-group Popup-group">
+                            <div class="col-md-5 col-lg-5 col-xs-12"> Ticket Email Sent To : </div>
+                            <div class="col-md-7 col-lg-7 col-xs-12">
+                                <select class="form-control">
+                                    <option disabled>Select</option>
+                                    <option selected *ngFor="let employee of employeeheadlist" value="{{employee.Employee_Id}}">{{employee.Employee_Name}} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group Popup-group">
+                            <div class="col-md-5 col-lg-5 col-xs-12"> Ticket Display To : </div>
+                            <div class="col-md-7 col-lg-7 col-xs-12">
+                                <select class="form-control" multiple id="ddlticket1">
+                                    <option *ngFor="let employee of employeeheadlist" value="{{employee.Employee_Id}}">{{employee.Employee_Name}}</option>
+                                </select>
+                                <br />
+                                <div align="center" class="swapingbutton form-group">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="button" class="btn btn-primary width40" (click)="moveRightAll()" value=">>" /> &nbsp;
+                                            </td>
+                                            <td>
+                                                <input type="button" class="btn btn-primary width40" (click)="moveRight()" value=">" />&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <input type="button" class="btn btn-primary width40" (click)="moveLeft()" value="<" />&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <input type="button" class="btn btn-primary width40" (click)="moveLeftAll()" value="<<" />&nbsp;&nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <select class="form-control" multiple id="ddlticket2">
+                                    <option *ngFor="let employee of ticketseeperson;" value="{{employee.Employee_Id}}">{{employee.Employee_Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"></div>
+                        <div class="col-md-7 col-lg-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group Popup-group">
+                        <div class="col-md-5 col-lg-5 col-xs-12"></div>
+                        <div class="col-md-6 col-lg-7 col-xs-12">
+                            <div align="center">
+                                <input type="submit" value="Save" class="btn btn-info Width120" [disabled]="configticket.invalid" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>

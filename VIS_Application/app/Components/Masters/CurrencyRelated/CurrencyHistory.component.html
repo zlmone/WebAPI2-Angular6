@@ -1,0 +1,204 @@
+﻿<div>
+    <div>
+        <div style="vertical-align:top;float:left;"><h3><b>Currency History List</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="CurrencySort('FromDate')">
+                        <label *ngIf="!ShowHideSearch">
+                            From Date
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'FromDate', 'fa-sort-asc': (column == 'FromDate' && isDesc), 'fa-sort-desc': (column == 'FromDate' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+
+                        <input type="date" class="form-control" placeholder="Search by From Date" id="txtfromdate" *ngIf="ShowHideSearch"  (change)="LoadCurrencyHistory()">
+                    </th>
+                    <th class="pointer" (click)="CurrencySort('ToDate')">
+                        <label *ngIf="!ShowHideSearch">
+                            To Date
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'ToDate', 'fa-sort-asc': (column == 'ToDate' && isDesc), 'fa-sort-desc': (column == 'ToDate' && !isDesc) }" aria-hidden="true" *ngIf="!ShowHideSearch"> </i>
+                        </label>
+                        <input type="date" class="form-control" placeholder="Search by To Date" id="txttodate" *ngIf="ShowHideSearch" (change)="LoadCurrencyHistory()">
+                    </th>
+                    <th class="pointer" (click)="CurrencySort('Default_Exch_Rate')">
+                        <label *ngIf="!ShowHideSearch">
+                            Default Exchange Rate
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Default_Exch_Rate', 'fa-sort-asc': (column == 'Default_Exch_Rate' && isDesc), 'fa-sort-desc': (column == 'Default_Exch_Rate' && !isDesc) }" aria-hidden="true" *ngIf="!ShowHideSearch"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by DefaultExchangeRate" id="txtDefaultExchangeRate" *ngIf="ShowHideSearch" (keydown)="LoadCurrencyHistory()">
+                    </th>
+                    <th class="pointer" (click)="CurrencySort('Current_Exch_Rate')">
+                        <label *ngIf="!ShowHideSearch">
+                            Current Exchange Rate
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'Current_Exch_Rate', 'fa-sort-asc': (column == 'Current_Exch_Rate' && isDesc), 'fa-sort-desc': (column == 'Current_Exch_Rate' && !isDesc) }" aria-hidden="true" *ngIf="!ShowHideSearch"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by CurrentExchangeRate" id="txtCurrentExchangeRate" *ngIf="ShowHideSearch" (keydown)="LoadCurrencyHistory()">
+                    </th>
+                    <th nowrap="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="addCurrencyhistory()"><span class="glyphicon glyphicon-plus-sign" title="Add New"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="LoadCurrencyHistory()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='listICurrencyHistory && listICurrencyHistory.length'>
+                <tr *ngFor="let currencyhistory of pagedItems | currencyFilter : CurrencyFilter | orderBy: {property: column, direction: direction}">
+                    <td>{{currencyhistory.FromDate | date:'dd/MM/yyyy' }}</td>  
+                    <td>{{currencyhistory.ToDate | date:'dd/MM/yyyy' }}</td>  
+                    <td>{{currencyhistory.Default_Exch_Rate}}</td>  
+                    <td>{{currencyhistory.Current_Exch_Rate}}</td>  
+                    <td style="text-align:center">
+                        <div *ngIf="currencyhistory.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="editCurrencyhistory(currencyhistory.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="deleteCurrencyhistory(currencyhistory.Id, currencyhistory.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="currencyhistory.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="deleteCurrencyhistory(currencyhistory.Id, currencyhistory.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='listICurrencyHistory && listICurrencyHistory.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='listICurrencyHistory && listICurrencyHistory.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+
+</div>
+
+<modal #modal>
+    <form novalidate #CurrencyHistoryFrm="ngForm" (ngSubmit)="onSubmit(CurrencyHistoryFrm.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                <b>{{modalTitle}}</b>
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group" style="display:none">
+                                <div class="col-md-6 col-lg-6 col-xs-12">Id </div>
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <input type="text" class="form-control" id="Id" [(ngModel)]="objICurrencyHistory.Id" name="Id" />
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-6 col-lg-6 col-xs-12">Currency Name* : </div>
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <select class="form-control" id="ddlemployee" (change)="ChangeDefaultExchangeRateByCurrency($event.target.value)" [(ngModel)]="objICurrencyHistory.Currency_Id" name="Currency_Id" [disabled]="dbops==3">
+                                    <option value="0" disabled>Select</option>
+                                    <option *ngFor="let currency of lstCurrency" value="{{currency.Id}}">{{currency.Full_Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group"></div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-6 col-lg-6 col-xs-12">Default Exchange Rate :</div>
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <input type="text" class="form-control" id="Default_Exch_Rate" [(ngModel)]="objICurrencyHistory.Default_Exch_Rate" name="Default_Exch_Rate" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group"></div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-6 col-lg-6 col-xs-12">Current Exchange Rate :</div>
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <input type="number" class="form-control" id="Current_Exch_Rate" [(ngModel)]="objICurrencyHistory.Current_Exch_Rate" name="Current_Exch_Rate"  [disabled]="dbops==3"/>
+                                </div>
+                            </div>
+                            <div class="form-group"></div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-6 col-lg-6 col-xs-12">Select Month: </div>
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <select class="form-control" id="Month_Entered" [(ngModel)]="objICurrencyHistory.Month_Entered" name="Month_Entered" [disabled]="dbops==3">
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group"></div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-6 col-lg-6 col-xs-12">Select Year : </div>
+                                <div class="col-md-6 col-lg-6 col-lg-6 col-xs-12">
+                                    <select class="form-control" id="Year_Entered" [(ngModel)]="objICurrencyHistory.Year_Entered" name="Year_Entered" [disabled]="dbops==3">
+                                    <option *ngFor="let year of Year" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="CurrencyHistoryFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

@@ -1,0 +1,953 @@
+﻿<style type="text/css">
+    #MainContainer {
+        margin: auto;
+        border: 0px solid #c0c0c0;
+        min-height: 210px;
+        max-height: 210px;
+        min-width: 565px;
+        max-width: 565px;
+        overflow: auto;
+        margin-top: 0px;
+        white-space: normal;
+        margin-left: 55px;
+    }
+
+    .add-event .tab-cov-con label {
+        width: 50px;
+        margin-right: 5px;
+        float: right;
+        line-height: 20px;
+        text-align: left;
+    }
+
+    .PrgsHori {
+        list-style-type: none;
+        white-space: nowrap;
+        width: 80px;
+        display: inline-block;
+        float: left;
+    }
+
+    .Prg_panel {
+        white-space: nowrap;
+        overflow-x: auto;
+        margin-top: 18px;
+    }
+
+    .Prgpoint {
+        padding: 0;
+        margin: 0;
+        line-height: 78px;
+        text-align: center;
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+    }
+
+    .Prgday {
+        float: left;
+        width: 100%;
+        text-align: center;
+    }
+
+    .grey_arrow {
+        width: 36px;
+        height: 25px;
+        display: block;
+        background-position: center center;
+        display: inline-block;
+        float: left;
+        margin: 26px 0px;
+        white-space: nowrap;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div id="profile">
+            <div id="adminProfile" class="col-md-6 col-sm-12 col-xs-12 pr-md-10">
+                <div class="portlet box green paddingless">
+                    <div class="portlet-title line accord">
+                        <div class="caption"><i class="fa fa-user-o" aria-hidden="true"></i>My Profile</div>
+                        <div class="tools">
+                            <a class="collapse" (click)="ToogleMyProfile()"></a>
+
+                            <a href="#" class="fullscreen tab1" data-original-title="" title="" (click)="MyProfileFullScreen()"></a>
+                            <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetProfile()"></a>
+                        </div>
+                    </div>
+                    
+                    <div class="portlet-body" id="myprofiledata">
+                        <div class="tabbable tabbable-custom">
+                            <div class="col-xs-3 col-sm-3 col-md-3 pl-0 pr-10">
+                                <div class="text-center">
+                                    <div class="profile-container">
+                                        <img ID="imgProfile" src="{{dashboard.UserProfileData.PhotographFileName}}" Style="display:block;Height:100px;Width:100px" AlternateText="Profile Picture" />
+                                    </div>
+
+                                </div>
+                                <div class="level_num">
+                                    <label ID="lblRank" title="Level Number"></label>
+                                </div>
+                            </div>
+                            <div class="col-xs-9 col-sm-9 col-md-9 pl-0 pr-0">
+                                <div class="Pro_detail_con">
+                                    <ul>
+
+                                        <li>
+                                            <a class="openRFQnd" id="openRFQLinknd" style="display: none"></a>
+                                            <span class="blue_text">Designation :</span>
+                                            <span class="black_one_text">
+                                                <label id="lblDesig" title="Designation">{{dashboard.UserProfileData.Designation}}</label>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <div class="auto-wd pull-left">
+                                                <span class="blue_text">Grade :  </span>
+                                                <span class="black_one_text">
+                                                    <label id="lblGrade" title="Grade">{{dashboard.UserProfileData.EmplopyeeGrade}}</label>
+                                                </span>
+                                            </div>
+                                            <div class="auto-wd pl-10 pr-5 pull-right ">
+                                                <span class="blue_text">Department : </span>
+                                                <span class="black_one_text">
+                                                    <label id="lblDept" title="Department">{{dashboard.UserProfileData.DepartmentName}}</label>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="auto-wd pull-left">
+                                                <span class="blue_text">Gender :    </span>
+                                                <span class="black_one_text">
+                                                    <label id="lblGender" title="Gender">{{dashboard.UserProfileData.Gender}}</label>
+                                                </span>
+                                            </div>
+                                            <div class="auto-wd pl-10 pr-5 pull-right ">
+                                                <span class="blue_text">DOB : </span>
+                                                <span class="black_one_text">
+                                                    <label id="lblDOB" title="Date of Birth">{{dashboard.UserProfileData.BirthDate}}</label>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="Pro_detail_con" id="divdashboardlevels">
+                                    <div class="pro_details03" id="divdashboard">
+                                        <span class="star_icon">
+                                            <img ID="imgLevel" Height="30" Width="30" />
+                                        </span>
+                                        <span class="white_text pull-left pt-5">
+                                            <p>
+                                                Points Earned :
+                                                <label ID="lbllevelPoints" title="Level Points"></label>
+                                            </p>
+                                            <p>
+                                                Level :
+                                                <label ID="lbllevelName" title="Level Name"></label>
+                                            </p>
+                                        </span>
+                                    </div>
+                                    <div class="pro_details03 margin_top10">
+                                        <div class="progress">
+                                            <div class="progress_bar_new">
+                                                <div class="startpoint_new">
+                                                    <label ID="lblStart" title="Start"></label>
+                                                </div>
+                                                <div class="endpoint_new">
+                                                    <label ID="lblEnd" title="End"></label>
+                                                </div>
+                                                <div id="progressbar">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 pl-0 pr-0">
+                                <ul class="list-inline">
+                                    <li>
+                                        <a class="Progressive-popup" id="A5" (click)="ProgressiveData()">Progressive</a>
+                                    </li>
+                                    <li>
+                                        <a class="achievements-popup" id="achievements" (click)="AchievementsData()">Achievements</a>
+                                    </li>
+                                    <li>
+                                        <a class="Private-Leaderboard" href="#" style="display: none;"
+                                           id="privateleaderboard"></a>
+                                        <a class="leaderboard-popup" href="#" accesskeystyle="display: none;" id="leaderboard"></a> <a onclick="showPopup()" style="cursor: pointer;" id="leaderboardpointpopoup">Leaderboard</a>
+                                    </li>
+                                    <li>
+                                        <a class="mypoints-popup" id="mypoints" (click)="PointsData()">Points</a>
+                                    </li>
+                                    <li>
+                                        <a class="pointslegend-popup" id="legend" (click)="LegendData()">Legend</a>
+                                    </li>
+                                    <li><a class="levels-popup" id="levels" (click)="LevelsData()">Levels</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="worksheetwidget" class="col-md-6 col-sm-12 col-xs-12 pl-md-10">
+                <div class="portlet box green paddingless">
+                    <div class="portlet-title accord">
+                        <div class="caption"><i class="fa fa-file-excel-o" aria-hidden="true"></i>My Worksheet</div>
+                        <div class="tools">
+                            <a class="collapse" title="" (click)="ToogleWorkSheet()"></a>
+                            <a href="#" class="fullscreen tab1" data-original-title="" title="" (click)="WorkSheetFullScreen()"></a>
+                            <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetWorkSheet()"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body" id="myworksheetdata">
+                        <div class="scroller" style="height: 252px;" data-always-visible="1" data-rail-visible="0">
+                            <div id="worksheet" style="height: 270px;" data-always-visible="1" data-rail-visible="0">
+                                <div id="my-calendar">
+                                    <div class="row">
+                                        <div class="col-md-12 Scrollbarcss">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12 pr-md-10" id="MyAttendance">
+            <div class="portlet box green paddingless" >
+                <div class="portlet-title line accord">
+                    <div class="caption"><i class="fa fa-clock-o" aria-hidden="true">    </i>My Attendance </div>
+                    <div class="tools">
+                        <a class="collapse" (click)="ToogleAttendance()"></a>
+
+                        <a href="#" class="fullscreen tab1" data-original-title="" title="" (click)="AttendanceFullScreen()"></a>
+                        <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetAttendance()"></a>
+                    </div>
+                    <div class="pull-right pt-10">
+                        <div class="pull-left" id="dvPrev" style="cursor: pointer; font-size: 22px; padding-right: 10px; margin-top: -6px">
+
+                            <i class="fa fa-angle-left" aria-hidden="true" title="Previous"></i>
+                        </div>
+                        <label ID="lblStartWeek" CssClass="pull-left" ForeColor="White"></label>
+                        <label ID="Label1" CssClass="pull-left" Style="margin-top: -5px; padding: 4px;">-</label>
+                        <label ID="lblEndWeek" CssClass="pull-left" ForeColor="White"></label>
+                        <div class="pull-left" id="dvNext" style="cursor: pointer; font-size: 22px; padding-left: 10px; margin-top: -6px">
+
+                            <i class="fa fa-angle-right" aria-hidden="true" title="Next"></i>
+                        </div>
+                        <div style="float: right; margin: 0 3px; height: 22px;">
+                            <img src="images/dashboard/calendar.png" id="imgCalAttend" alt=""
+                                 title="Calendar" style="vertical-align: middle;" />
+                            <div id="dvcal">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="portlet-body" id="myattendancedata">
+                    <div class="tabbable tabbable-custom">
+                        <div class="scroller" style="height: 232px;" data-always-visible="1" data-rail-visible1="1">
+                            <div class="portlet box marbott0">
+                                <div class="portlet-body padding0">
+                                    <div class="table-scrollable">
+                                        <div class="full-wd Scrollbarcss">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead >
+                                                    <tr>
+                                                        <th>
+                                                            Date
+                                                        </th>
+                                                        <th>
+                                                            Status
+                                                        </th>
+                                                        <th>
+                                                            Punch In
+                                                        </th>
+                                                        <th>
+                                                            Punch Out
+                                                        </th>
+                                                        <th>
+                                                            Worksheet
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tr *ngFor="let attendance of attendancedata">
+                                                    <td>{{attendance.Date}}</td>
+                                                    <td>Present</td>
+                                                    <td>{{attendance.InTIme | slice : 11:19}}</td>
+                                                    <td>{{attendance.OutTIme | slice : 11:19}}</td>
+                                                    <td>{{attendance.TotalWorksheetHours}}:00</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-xs-12 pl-md-10" id="MyLeave">
+            <div class="portlet box green paddingless">
+                <div class="portlet-title accord">
+                    <div class="caption"><i class="fa fa-plane" aria-hidden="true"></i>My Leave</div>
+                    <div class="tools">
+                        <a class="collapse" (click)="ToogleLeave()"></a>
+
+                        <a href="#" class="fullscreen tab1" data-original-title="" title="" (click)="MyLeaveFullScreen()"></a>
+                        <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetLeave()"></a>
+
+                    </div>
+                    <div class="pull-right pt-10">
+                        <a id="dvLeavePrev" style="cursor: pointer; font-size: 22px; padding-right: 10px; margin-top: -6px" class="pull-left">
+                            <i class="fa fa-angle-left" aria-hidden="true" title="Previous"></i>
+                        </a>
+                        <label ID="lblLeaveYear" ForeColor="White" CssClass="pull-left"></label>
+                        <a id="dvLeaveNext" style="cursor: pointer; font-size: 22px; padding-left: 10px; margin-top: -6px" class="pull-left">
+                            <i class="fa fa-angle-right" aria-hidden="true" title="Next"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body" id="myleavedata">
+                    <div class="scroller" style="height: 260px;" data-always-visible="1" data-rail-visible="0">
+                        <div id="leave" class="detail_bar">
+                            <div id="divLeaveChart" style="height: 85%; width: 100%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12 pr-md-10" id="MyAllocation">
+            <div class="portlet box green paddingless">
+                <div class="portlet-title line accord">
+                    <div class="caption"><i class="fa fa-share-alt" aria-hidden="true"></i>My Allocation</div>
+                    <div class="tools">
+                        <a class="collapse" (click)="ToogleAllocation()"></a>
+                        <a href="#" class="fullscreen tab1" data-original-title="" title="" (click)="MyAllocationFullScreen()"></a>
+                        <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetAllocation()"></a>
+                    </div>
+                </div>
+                <div class="portlet-body" id="myallocationdata">
+                    <div class="tabbable tabbable-custom">
+                        <div class="scroller" style="height: 232px;" data-always-visible="1" data-rail-visible1="1">
+                            <div class="portlet box marbott0">
+                                <div class="portlet-body padding0">
+
+                                    <div class="table-scrollable">
+                                        <div class="full-wd Scrollbarcss">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Project Name
+                                                        </th>
+                                                        <th>
+                                                            From
+                                                        </th>
+                                                        <th>
+                                                            To
+                                                        </th>
+                                                        <th>
+                                                            %
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tr *ngFor="let allocationdetail of dashboard.UserAllocationData">
+                                                    <td>{{allocationdetail.ProjectName}}</td>
+                                                    <td>{{allocationdetail.FromDate}}</td>
+                                                    <td>{{allocationdetail.ToDate}}</td>
+                                                    <td>{{allocationdetail.TotalHr}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12 pl-md-10" id="MyTeam">
+            <div class="portlet box green paddingless">
+                <div class="portlet-title line accord">
+                    <div class="caption"><i class="fa fa-users" aria-hidden="true"></i>My Team</div>
+                    <div class="tools">
+                        <a class="collapse" (click)="ToogleTeam()"></a>
+
+                        <a href="#" class="fullscreen tab1" data-original-title="" title="" (click)="MyTeamFullScreen()"></a>
+                        <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetTeam()"></a>
+                    </div>
+                </div>
+                <div class="portlet-body" id="myteamdata">
+                    <div class="tabbable tabbable-custom">
+                        <div class="scroller" style="height: 232px;" data-always-visible="1" data-rail-visible1="1">
+                            <div class="portlet box marbott0">
+                                <div class="portlet-body padding0">
+
+                                    <div class="table-scrollable">
+                                        <div class="full-wd Scrollbarcss">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Employee Name
+                                                        </th>
+                                                        <th>
+                                                            Project Name
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                <tr *ngFor="let TeamDetails of dashboard.UserTeamData">
+                                                    <td>{{TeamDetails.EmployeeName}}</td>
+                                                    <td>{{TeamDetails.ProjectName}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12 pr-md-10" id="MyAlert">
+            <div class="portlet box green paddingless">
+                <div class="portlet-title line accord">
+                    <div class="caption"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>My Alert</div>
+                    <div class="tools">
+                        <a class="collapse" (click)="ToogleAlert()"></a>
+                        <a href="#" class="fullscreen tab1" data-original-title="" title="" (click)="MyAlertFullScreen()"></a>
+                        <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetAlert()"></a>
+                    </div>
+                </div>
+                <div class="portlet-body" id="myalertdata">
+                    <div class="tabbable tabbable-custom">
+                        <div class="scroller" style="height: 232px;" data-always-visible="1" data-rail-visible="0">
+                            <div class="portlet box marbott0">
+                                <div class="portlet-body padding0">
+                                    <div class="table-scrollable">
+                                        <div class="full-wd Scrollbarcss">
+                                            <table class="table-bordered table-hover table-striped ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="alertcss">Name</th>
+                                                        <th>Type</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                    <tr *ngFor="let alertdetail of dashboard.UserAlertData">
+                                                        <td class="alertcss">{{alertdetail.Name}}</td>
+                                                        <td>{{alertdetail.Type}}</td>
+                                                        <td>{{alertdetail.Status}}</td>
+                                                    </tr>
+                                                </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12 pl-md-10" id="MySkill">
+
+            <div class="portlet box green paddingless">
+                <div class="portlet-title line accord">
+                    <div class="caption"><i class="fa fa-pencil" aria-hidden="true"></i>My Skill</div>
+                    <div class="tools">
+                        <a class="collapse" (click)="ToogleSkill()" ></a>
+
+                        <a href="#" class="fullscreen tab1" data-original-title="" title="" (click)="MySkillFullScreen()"></a>
+                        <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetSkill()"></a>
+                    </div>
+                </div>
+                <div class="portlet-body" id="myskilldata">
+
+                    <div class="tabbable tabbable-custom">
+                        <div class="scroller" style="height: 296px;" data-always-visible="1" data-rail-visible1="1">
+                            <div class="portlet box marbott0">
+                                <div class="portlet-body padding0">
+
+                                    <div class="table-scrollable">
+                                        <div class="full-wd Scrollbarcss">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Level
+                                                        </th>
+                                                        <th>
+                                                            Skill
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                               
+                                                <tr *ngFor="let skill of dashboard.UserSkillData">
+                                                    <td>{{skill.Level_Text}}</td>
+                                                    <td>{{skill.SkillName}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--POPUP DATA PROFILE WIDGET-->
+
+<modal #modal>
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title" style="color:white">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+        <modal-body>
+            <div id="mainContainer">
+                <div class="row Popup-row tab-cov-con" style="border:0px;background-color:white;background-image:none">
+                    <div align="center">
+                        <label id="lblCriteriaName" name="lblCriteriaName" style="font:bold;font-size:small"></label>
+                        <!--<div class="form-horizontal" role="form">
+                            <div class="col-md-6">
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                    <!--<div *ngFor="let Progress of dashboard.">
+                        <div id="progressivedata">
+                            <div class="PrgsHori">
+                                <label id="lblPrgPoint" name="lblPrgPoint" class="Prgpoint"></label>
+                                <label id="lblPrgday" name="lblPrgday" class="Prgday"></label>
+                            </div>
+                            <div id="Arrow" name="Arrow" class="grey_arrow"></div>
+                            <input type="hidden" id="hdnAchieved" name="hdnAchieved" value="" />
+                        </div>
+                    </div>-->
+                </div>
+                <div align="right" style="margin-top:20px">
+                 
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div class="row">
+                <div class="col-md-11">
+                    <!--<a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>-->
+                    <!--<button type="submit" [disabled]="ContactMasterFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>-->
+                </div>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+<modal #modalAchievements>
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <!--<div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Name* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Name" formControlName="Name">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Designation* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Designation" formControlName="Designation">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Email* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Email" formControlName="Email">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">phone* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="phone" formControlName="phone">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">SkypeId* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="SkypeId" formControlName="SkypeId">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">MsnId* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="MsnId" formControlName="MsnId">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">GtalkId* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="GtalkId" formControlName="GtalkId">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">AolId* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="AolId" formControlName="AolId">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Other* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="OtherId" formControlName="Other">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">ProspectId* :</div>
+
+                                <div class="col-md-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="ProspectId" formControlName="ProspectId">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:none">
+                            <span>Created On</span>
+                            <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+                        </div>
+                        <div style="display:none">
+                            <span>Created By</span>
+                            <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated On</span>
+                            <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated By</span>
+                            <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>Is Active</span>
+                            <input type="checkbox" class="form-control" formControlName="UpdatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>EntityMessage</span>
+                            <input type="text" class="form-control" formControlName="EntityMessage">
+                        </div>
+
+                    </div>
+                </div>
+            </div>-->
+
+        </modal-body>
+        <modal-footer>
+            <div class="row">
+                <div class="col-md-11">
+                    <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                    <!--<button type="submit" [disabled]="ContactMasterFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>-->
+                </div>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+<modal #modalPoints>
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+           
+            <table class="table table-bordered table-hover table-responsive table-scrollable table-striped">
+                <thead>
+                    <tr>
+                        <th><b>Event Name</b></th>
+                        <th><b>Type</b></th>
+                        <th><b>Calculated On</b></th>
+                        <th><b>Points Gained</b></th>
+                        <th><b>Date</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Points of dashboard.ProfileGetPointsDeta"> 
+                        <td>{{Points.EventName}}</td>
+                        <td>{{Points.Type}}</td>
+                        <td>{{Points.CalculatedOn}}</td>
+                        <td>{{Points.PointsGained}}</td>
+                        <td>{{Points.Date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div><br />
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+                </div>
+                <br />
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div class="row">
+                <div class="col-md-11">
+                    <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                    <!--<button type="submit" [disabled]="ContactMasterFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>-->
+                </div>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+<modal #modalLegend>
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <table class="table table-bordered table-hover table-responsive table-scrollable table-striped">
+                <tr>
+                    <th>Criteria</th>
+                    <th>CalculatedOn</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Points</th>
+                </tr>
+                <tbody>
+                    <tr *ngFor="let Legends of dashboard.ProfileGetPointsLegendData">
+                        <td>{{Legends.Criteria}}</td>
+                        <td>{{Legends.CalculatedOn}}</td>
+                        <td>{{Legends.From}}</td>
+                        <td>{{Legends.To}}</td>
+                        <td>{{Legends.Points}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div><br />
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+                </div>
+                <br />
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div class="row">
+                
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+<modal #modalLevels>
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title" style="color:white">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+            <!--<div *ngIf='Levels && Levels.length==0' class="alert alert-info" role="alert">No record found!</div>-->
+            <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+                <tr>
+                    <th>
+                        LevelNumber
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Icon
+                    </th>
+                    <th>
+                        StartPoint
+                    </th>
+                    <th>
+                        EndPoint
+                    </th>
+                </tr>
+
+                <tr *ngFor="let Levels of dashboard.ProfileGetLevelsListData">
+                    <td>{{Levels.levelnumber}}</td>
+                    <td>{{Levels.Name}}</td>
+                    <td>{{Levels.Icon}}</td>
+                    <td>{{Levels.startpoint}}</td>
+                    <td>{{Levels.endpoint}}</td>
+                </tr>
+            </table>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div><br />
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+                </div>
+                <br />
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div class="row">
+                <div class="col-md-11">
+                    <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                    <!--<button type="submit" [disabled]="ContactMasterFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>-->
+                </div>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

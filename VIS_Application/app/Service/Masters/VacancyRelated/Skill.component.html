@@ -1,0 +1,176 @@
+﻿<div>
+    <div class='table-responsive'>
+        <search-list [title]='searchTitle' (change)="SkillFilterCriteriaChange($event)"></search-list>
+        <div style="vertical-align:top;float:left;"><h3><b>Skill</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <div *ngIf='skills && skills.length==0' class="alert alert-info" role="alert">No record found!</div>
+        <table class='table table-striped table-bordered table-responsive' *ngIf='skills && skills.length'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="SkillSort('SkillName')">
+                        Skill Name
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'SkillName', 'fa-sort-asc': (column == 'SkillName' && isDesc), 'fa-sort-desc': (column == 'SkillName' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="SkillSort('SkillGroupName')">
+                        Skill Group Name
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'SkillGroupName', 'fa-sort-asc': (column == 'SkillGroupName' && isDesc), 'fa-sort-desc': (column == 'SkillGroupName' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="SkillSort('Description')">
+                        Description
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'Description', 'fa-sort-asc': (column == 'Description' && isDesc), 'fa-sort-desc': (column == 'Description' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+                    <th><button class="btn btn-vis" style="width:100%" (click)="AddSkill()"><span class="glyphicon glyphicon-plus-sign"></span><b>Add New</b></button></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let skill of pagedItems | skillFilter : SkillFilter | orderBy: {property: column, direction: direction}">
+                    <td style="width:250px">{{skill.SkillName}}</td>
+                    <td style="width:250px">{{skill.SkillGroupName}}</td>
+                    <td style="width:300px">{{skill.Description}}</td>
+                    <td style="display:none">{{skill.CreatedOn}}</td>
+                    <td style="display:none">{{skill.CreatedBy}}</td>
+                    <td style="display:none">{{skill.UpdatedBy}}</td>
+                    <td style="display:none">{{skill.UpdatedOn}}</td>
+                    <td style="display:none">{{skill.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="skill.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="EditSkill(skill.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="DeleteSkill(skill.Id, skill.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="skill.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeleteSkill(skill.Id, skill.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+        <div class="col-md-12 text-center">
+            <div class="col-md-8 text-left">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="JumpOnPage(1)">First</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="JumpOnPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-md-2">
+
+                <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                    <option value="=-1" disabled>Recordds per Page</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="0">All</option>
+                </select>
+
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                    <option value="=-1" disabled>Go to Page</option>
+                    <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                </select>
+
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(SkillFrm)" [formGroup]="SkillFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+            <div style="display:none">
+                <span>SkillID</span>
+                <input type="text" class="form-control" placeholder="Id" formControlName="Id">
+            </div>
+            <div>
+                <span>Skill Name*</span>
+                <input type="text" class="form-control" placeholder="Skill Name" formControlName="SkillName">
+            </div>
+
+            <div>
+                <span>Skill Group*</span>
+
+                    <select class="form-control" formControlName="SkillGroupID" id="SkillGroupID">
+                        <option> --- Select Skill Group --- </option>
+                        <option *ngFor="let skgp of skillgroups"  [selected]="skgp.value==0" 
+                                value={{skgp.Id}}>
+                                      {{skgp.SkillGroupName}}
+                        </option>
+                    </select>  
+            </div>
+
+            <div>
+                <span>Description*</span>
+                <input type="text" class="form-control" placeholder="Description" formControlName="Description" >
+            </div>
+
+
+            <div style="display:none">
+                <span>Created On</span>
+                <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+            </div>
+            <div style="display:none">
+                <span>Created By</span>
+                <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+            </div>
+            <div style="display:none">
+                <span>Updated On</span>
+                <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+            </div>
+            <div style="display:none">
+                <span>Updated By</span>
+                <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+            </div>
+            <div style="display:none">
+                <span>Is Active</span>
+                <input type="checkbox" class="form-control" formControlName="IsActive">
+            </div>
+            <div style="display:none">
+                <span>EntityMessage</span>
+                <input type="text" class="form-control" formControlName="EntityMessage">
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="SkillFrm.invalid" class="btn btn-primary">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+

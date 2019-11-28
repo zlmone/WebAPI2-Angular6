@@ -1,0 +1,556 @@
+﻿<div style="vertical-align:top;float:left;"><h3> <button class="btn btn-info" (click)="ExportToExcel()"><i class="fa fa-file-excel-o" title="Export To Excel"></i></button> <b> All Type of Out Report</b></h3><br /></div>
+<div class="container" id="maindiv">
+
+    <form #outreportfrm="ngForm" (ngSubmit)="onSubmit(outreportfrm.value)">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter">Search By : </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtemployee" name="a" checked (change)="ToogleHideShowOption()" />Employee
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtdepartment" name="a" (change)="ToogleHideShowOption()" />Department
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtcompany" name="a" (change)="ToogleHideShowOption()" />Company
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" id="rbtlinemanager" name="a" (change)="ToogleHideShowOption()" />Line Manger
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <select class="form-control" id="ddlemployee" [(ngModel)]="outreport.EmployeeId" name="EmployeeId"><option value="0">SelectAll</option><option *ngFor="let employee of AttendanceEmployee" value="{{employee.Id}}">{{employee.Employee_Name}}</option></select>
+                                <select  (change)="GetEmployeeIdByDepartment($event.target.value)" class="form-control" id="ddldepartment" style="display:none" [(ngModel)]="outreport.EmployeeId" name="EmployeeId"><option value="0">SelectAll</option><option *ngFor="let department of AttendanceDeparts" value="{{department.Id}}">{{department.Department_Name}}</option></select>
+                                <select  (change)="GetEmployeeIdByCompany($event.target.value)" class="form-control" id="ddlcompany" style="display:none" [(ngModel)]="outreport.EmployeeId" name="EmployeeId"><option value="0">SelectAll</option><option *ngFor="let company of AttendanceCompany" value="{{company.Id}}">{{company.CompanyName}}</option></select>
+                                <select  (change)="GetEmployeeIdByLM($event.target.value)" class="form-control" id="ddllinemanager" style="display:none" [(ngModel)]="outreport.EmployeeId" name="EmployeeId"><option value="0">SelectAll</option><option *ngFor="let lm of AttendanceLineManager" value="{{lm.Id}}">{{lm.LineManager}}</option></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12" id="chkallemployeediv">
+                                <input type="checkbox" id="chkallemployee" (change)="GetAllEmployee()" />All
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                From :
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="date" class="form-control" id="fromdate" [(ngModel)]="outreport.FromDate" name="FromDate" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="checkbox" id="alldate" (change)="ToogleAllDate()" />All Dates
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                To :
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <!--<ng-datepicker [(ngModel)]="outreport.ToDate" id="ToDate" name="ToDate" ></ng-datepicker>-->
+                                <input type="date" class="form-control" id="todate" value="{{datetoday}}" [(ngModel)]="outreport.ToDate" name="ToDate" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group Popup-group">
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                Types of Out :
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-6 col-lg-6 col-xs-12">
+                                <input type="radio" name="b" id="rbtall" checked (change)="ToogleAllTypesofOut()" />All
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-12">
+                                <input type="radio" name="b" id="rbtother" (change)="ToogleAllTypesofOut()" />Other
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="checkbox" id="chkall" disabled checked />All
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-10 col-lg-10 col-xs-12">
+                                <input type="checkbox" id="chklunch" disabled />Lunch
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="checkbox" id="chkother" disabled />Other Break
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="checkbox" id="chkmeeting" disabled />Meeting
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="checkbox" id="chkofficeout" disabled />Office Out
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group Popup-group">
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                View :
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="c" id="rbtdetailed" checked (change)="ViewStyleToogle()" />Detailed
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="c" id="rbtconsolidated" (change)="ViewStyleToogle()" />Consolidated
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="viewstyle" style="display:none">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="d" id="rbtnone" checked />None
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="d" id="rbtname" />Name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="d" id="rbttype" />Type
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="d" id="rbtdate" />Date
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group Popup-group">
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                Sort By :
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="sort" id="rbtsortname" checked />Name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="sort" id="rbtsortdate" />Date
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="sort" id="rbtsorttype" />Type
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="radio" name="sort" id="rbtsortduration" />Duration
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group Popup-group">
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <input type="checkbox" id="toogleminute" (change)="ToogleMinute()" /> Show Only >= type where
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-10 col-lg-10 col-xs-12">
+                                <input type="number" class="form-control" disabled value="60" id="txtminute" />
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-xs-12">
+                                <label>Minutes</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-2">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-10 col-lg-10 col-xs-12">
+                                <input type="submit" class="btn btn-info Width120" value="Submit"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group Popup-group">
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-12">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <div *ngIf="InLoading==true" class="alert alert-info" role="alert"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div *ngIf="outreports && outreports.length==0" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        No record found!
+    </div>
+
+    <div id="alltypeoutreport" class="col-md-6 col-sm-12 col-xs-12 pr-md-10 repotwidgetwidth" *ngIf='outreports && outreports.length > 0'>
+        <div class="portlet box green paddingless">
+            <div class="portlet-title line accord">
+                <div class="caption"><i class="fa fa-user-o" aria-hidden="true"></i>All type of Out Report</div>
+                <div class="tools">
+                    <a class="collapse" (click)="ToogleMyProfile()"></a>
+                    <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetProfile()"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body repotwidgetwidth" id="alltypeoutreportdata">
+                <div class="tabbable tabbable-custom">
+                    <div style="height:auto;" data-always-visible="1" data-rail-visible1="1">
+                        <div class="portlet box marbott0">
+                            <div class="portlet-body padding0">
+                                <div class="table-scrollable">
+                                    <div class="full-wd Scrollbarcss" style="height:auto">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="reportwidgetheader">
+                                                <tr>
+                                                    <th class="headrecenter" id="headeremployeename">
+                                                        Employee Name
+                                                    </th>
+                                                    <th class="headrecenter" id="headerdate">
+                                                        Date
+                                                    </th>
+                                                    <th class="headrecenter" id="headerouttype">
+                                                        Out Type
+                                                    </th>
+                                                    <th class="headrecenter" id="headerstarttime">
+                                                        Start Time (HH:MM:SS)
+                                                    </th>
+                                                    <th class="headrecenter" id="headerendtime">
+                                                        End Time (HH:MM:SS)
+                                                    </th>
+                                                    <th class="headrecenter" id="headerduration">
+                                                        Duration (Min)
+                                                    </th>
+                                                    <th class="headrecenter" id="headerremarks">
+                                                        Remarks
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tr *ngFor="let outreport of pagedItems" class="rowsbackcol">
+                                                <td class="headrecenter" id="colemployeename">
+                                                    {{outreport.Employee_Name}}
+                                                </td>
+                                                <td class="headrecenter" id="coldate">
+                                                    {{outreport.CurrentDate}}
+                                                </td>
+                                                <td class="headrecenter" id="colouttype">
+                                                    {{outreport.Entry_Type}}
+                                                </td>
+                                                <td class="columcenter" id="colstarttime" *ngIf="outreport.Entry_Time !=''">
+                                                    {{outreport.Entry_Time}}
+                                                </td>
+                                                <td class="columcenter" id="colendtime" *ngIf="outreport.InTime !=''">
+                                                    {{outreport.InTime}}
+                                                </td>
+                                                <td class="headrecenter" id="colduration">
+                                                    {{outreport.Duration}}
+                                                </td>
+                                                <td class="columcenter" id="colremarks" *ngIf="outreport.Remarks !=''">
+                                                    {{outreport.Remarks}}
+                                                </td>
+                                            </tr>
+                                                <tr>
+                                                    <td id="col2employeename" class="columcenter"></td>
+                                                    <td id="col2date" class="columcenter"></td>
+                                                    <td id="col2outtype" class="columcenter"></td>
+                                                    <td id="col2starttime" class="columcenter"></td>
+                                                    <td class="columcenter" id="col2endtime">
+                                                        <b>Total</b>
+                                                    </td>
+                                                    <td class="columcenter" id="col2duration">
+                                                        <b>{{cnttotal}}</b>
+                                                    </td>
+                                                    <td id="col2remarks" class="columcenter"></td>
+                                                </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center" *ngIf='outreports && outreports.length > 10'>
+                    <div class="col-md-8 text-left">
+                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(1)">First</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="JumpOnPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Records per Page</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="0">All</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Go to Page</option>
+                            <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf='outreports && outreports.length' class="reportpagingalign">
+                    <div>{{pager.pagerinformtion}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,247 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="FinancialYearFilterCriteriaChange($event)"></search-list>-->
+        <div style="vertical-align:top;float:left;"><h3><b>Financial Year</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <!--<th style="display:none">Company Id</th>-->
+                    <th class="pointer" (click)="FinancialYearSort('FromMonth')">
+                        <label *ngIf="!ShowHideSearch">
+                            FromMonth
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'FromMonth', 'fa-sort-asc': (column == 'FromMonth' && isDesc), 'fa-sort-desc': (column == 'FromMonth' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by FromMonth" id="searchFromMonth" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="FinancialYearSort('ToMonth')">
+                        <label *ngIf="!ShowHideSearch">
+                            ToMonth
+                            <i class="fa" [ngClass]="{'fa-sort': column != 'ToMonth', 'fa-sort-asc': (column == 'ToMonth' && isDesc), 'fa-sort-desc': (column == 'ToMonth' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search ToMonth" id="searchToMonth" *ngIf="ShowHideSearch" (keydown)="ngOnInit()">
+                    </th>
+                    <th class="pointer" (click)="FinancialYearSort('CurrentYear')">
+                        CurrentYear
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'CurrentYear', 'fa-sort-asc': (column == 'CurrentYear' && isDesc), 'fa-sort-desc': (column == 'CurrentYear' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="FinancialYearSort('Nextyear')">
+                        Nextyear
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'Nextyear', 'fa-sort-asc': (column == 'Nextyear' && isDesc), 'fa-sort-desc': (column == 'Nextyear' && !isDesc) }" aria-hidden="true"> </i>
+                    </th>
+
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+                    <th style="display:none">Company Id</th>
+                    <th nowrap="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="addFinancialYear()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="ngOnInit()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='FinancialYears && FinancialYears.length'>
+                <tr *ngFor="let FinancialYear of pagedItems | financialyearFilter : FinancialYearFilter | orderBy: {property: column, direction: direction}">
+                    <td style="display:none">{{FinancialYear.Id}}</td>
+                    <td>{{FinancialYear.FromMonth}}</td>
+                    <td>{{FinancialYear.ToMonth}}</td>
+                    <td>{{FinancialYear.CurrentYear}}</td>
+                    <td>{{FinancialYear.Nextyear}}</td>
+                    <td style="display:none">{{FinancialYear.CreatedOn}}</td>
+                    <td style="display:none">{{FinancialYear.CreatedBy}}</td>
+                    <td style="display:none">{{FinancialYear.UpdatedBy}}</td>
+                    <td style="display:none">{{FinancialYear.UpdatedOn}}</td>
+                    <td style="display:none">{{FinancialYear.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="FinancialYear.IsActive == 1" style="text-align:center">
+                            <button title="Edit" class="btn btn-vis" (click)="editFinancialYear(FinancialYear.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="deleteFinancialYear(FinancialYear.Id, FinancialYear.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="FinancialYear.IsActive == 0" style="text-align:center">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="deleteFinancialYear(FinancialYear.Id, FinancialYear.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='FinancialYears && FinancialYears.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-left">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="JumpOnPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Recordds per Page</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">All</option>
+                    </select>
+
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                        <option value="=-1" disabled>Go to Page</option>
+                        <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf='FinancialYears && FinancialYears.length==0' class="alert alert-info" role="alert">No record found!</div>
+    </div>
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+</div>
+
+
+<modal #modal>
+    <form #FinacialYear="ngForm" (ngSubmit)="onSubmit(FinacialYear.value)">
+        <!--(ngSubmit)="onSubmit(FinancialYearFrm)" [formGroup]="FinancialYearFrm"-->
+        
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-12">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-12" style="display:none"> <input type="text" class="form-control" [(ngModel)]="FinancialYear.Id" #Id="ngModel" name="Id"></div>
+                                <div class="col-md-2 col-lg-2 col-xs-12">FromMonth* :</div>
+                                <!--<div class="col-wd-15 col-md-1">:</div>-->
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    <!--<input type="text" class="form-control" placeholder="FromMonth" formControlName="FromMonth">-->
+                                    <select class="form-control" placeholder="FromMonth" [(ngModel)]="FinancialYear.FromMonth" #FromMonth="ngModel" name="FromMonth" >
+                                        <option selected="selected" value="0">Select</option>
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="April">April</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">August</option>
+                                        <option value="September">September</option>
+                                        <option value="October">October</option>
+                                        <option value="November">November</option>
+                                        <option value="December">December</option>
+                                    </select>
+                                </div>
+                                <!--<div class="col-md-3 col-lg-3 col-xs-12">CurrentYear* :</div>-->
+                                <!--<div class="col-wd-15 col-md-1">:</div>-->
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    <input type="text" id="lblYear" class="form-control" placeholder="CurrentYear" [(ngModel)]="FinancialYear.CurrentYear" #CurrentYear="ngModel" name="CurrentYear" [disabled]="disabled" >
+                                    <!--<label id="lblYear" formControlName="CurrentYear"></label>-->
+                                </div>
+                            </div>
+                           
+                            <div class="form-group Popup-group">
+                                <div class="col-md-2 col-lg-2 col-xs-12">ToMonth* :</div>
+                                <!--<div class="col-wd-15 col-md-1 ">:</div>-->
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    <!--<input type="text" class="form-control" placeholder="ToMonth" formControlName="ToMonth">-->
+                                    <select class="form-control" placeholder="ToMonth" [(ngModel)]="FinancialYear.ToMonth" #ToMonth="ngModel" name="ToMonth" >
+                                        <option selected="selected" value="0">Select</option>
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="April">April</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">August</option>
+                                        <option value="September">September</option>
+                                        <option value="October">October</option>
+                                        <option value="November">November</option>
+                                        <option value="December">December</option>
+                                    </select>
+                                </div>
+                           
+                                <!--<div class="col-md-2 col-lg-2 col-xs-12">Nextyear* :</div>-->
+                                <!--<div class="col-wd-15 col-md-1">:</div>-->
+                                <div class="col-md-5 col-lg-5 col-xs-12">
+                                    <!--<input type="text" class="form-control" placeholder="Nextyear" formControlName="Nextyear">-->
+                                    <select class="form-control" placeholder="Nextyear" [(ngModel)]="FinancialYear.Nextyear" #Nextyear="ngModel" name="Nextyear" >
+                                        <option selected value="0">Select</option>
+                                        <option *ngFor="let Year of ArrayYear" value="{{Year}}">{{Year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                         
+                        </div>
+                       
+                        <div style="display:none">
+                            <span>Created On</span>
+                            <input type="text" class="form-control" placeholder="Created On" [(ngModel)]="FinancialYear.CreatedOn" #CreatedOn="ngModel" name="CreatedOn">
+                        </div>
+                        <div style="display:none">
+                            <span>Created By</span>
+                            <input type="text" class="form-control" placeholder="Created By" [(ngModel)]="FinancialYear.CreatedBy" #CreatedBy="ngModel" name="CreatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated On</span>
+                            <input type="text" class="form-control" placeholder="Updated On" [(ngModel)]="FinancialYear.UpdatedOn" #UpdatedOn="ngModel" name="UpdatedOn">
+                        </div>
+                        <div style="display:none">
+                            <span>Updated By</span>
+                            <input type="text" class="form-control" placeholder="Updated By" [(ngModel)]="FinancialYear.UpdatedBy" #CreatedOn="ngModel" name="UpdatedBy">
+                        </div>
+                        <div style="display:none">
+                            <span>Is Active</span>
+                            <input type="checkbox" class="form-control" [(ngModel)]="FinancialYear.IsActive" #IsActive="ngModel" name="IsActive">
+                        </div>
+                        <div style="display:none">
+                            <span>EntityMessage</span>
+                            <input type="text" class="form-control" >
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </modal-body>
+        <modal-footer>
+            <div class="row">
+                <div class="col-md-11">
+                    <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                    <button type="submit" [disabled]="!FinacialYear.valid" class="btn btn-success">{{modalBtnTitle}}</button>
+                </div>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

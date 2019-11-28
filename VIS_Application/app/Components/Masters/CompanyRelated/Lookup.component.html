@@ -1,0 +1,236 @@
+﻿<div>
+    <div>
+        <!--<search-list [title]='searchTitle' (change)="LookupFilterCriteriaChange($event)"></search-list>-->
+
+        <div style="vertical-align:top;float:left;"><h3><b>Lookup</b></h3></div>
+        <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+        <table class='table table-striped table-bordered table-responsive'>
+            <thead>
+                <tr>
+                    <th class="pointer" (click)="LookupSort('Name')">
+                        <label *ngIf="!ShowHideSearch">
+                        Name
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'Name', 'fa-sort-asc': (column == 'Name' && isDesc), 'fa-sort-desc': (column == 'Name' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Name" id="searchName" *ngIf="ShowHideSearch" (keydown)="LoadLookup()">
+                    </th>
+                    <th class="pointer" (click)="LookupSort('Type')">
+                        <label *ngIf="!ShowHideSearch">
+                        Type
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'Type', 'fa-sort-asc': (column == 'Type' && isDesc), 'fa-sort-desc': (column == 'Type' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Type" id="searchType" *ngIf="ShowHideSearch" (keydown)="LoadLookup()">
+                     
+                    </th>
+                    <th class="pointer" (click)="LookupSort('Value')">
+                        <label *ngIf="!ShowHideSearch">
+                        Value
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'Value', 'fa-sort-asc': (column == 'Type' && isDesc), 'fa-sort-desc': (column == 'Value' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Value" id="searchValue" *ngIf="ShowHideSearch" (keydown)="LoadLookup()">
+                    </th>
+                    <th class="pointer" (click)="LookupSort('FullName')">
+                        <label *ngIf="!ShowHideSearch">
+                        Full Name
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'FullName', 'fa-sort-asc': (column == 'FullName' && isDesc), 'fa-sort-desc': (column == 'FullName' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Full Name" id="searchFullName" *ngIf="ShowHideSearch" (keydown)="LoadLookup()">
+                    </th>
+                    <th class="pointer" (click)="LookupSort('ColorCode')">
+                        <label *ngIf="!ShowHideSearch">
+                        Color Code
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'ColorCode', 'fa-sort-asc': (column == 'ColorCode' && isDesc), 'fa-sort-desc': (column == 'ColorCode' && !isDesc) }" aria-hidden="true"> </i>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search by Color Code" id="searchColorCode" *ngIf="ShowHideSearch" (keydown)="LoadLookup()">
+                    </th>
+                    <th style="display:none">Created On</th>
+                    <th style="display:none">Created By</th>
+                    <th style="display:none">Updated On</th>
+                    <th style="display:none">Updated By</th>
+                    <th style="display:none">Is Active</th>
+                    <th nowrap="nowrap" class="text-center">
+                        <button class="btn btn-vis" (click)="AddLookup()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-vis" (click)="ShowHideSearchControls()"><span class="glyphicon glyphicon-search" title="Search"></span></button>
+                        <button class="btn btn-vis" (click)="LoadLookup()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf='lookups && lookups.length'>
+                <tr *ngFor="let lookup of pagedItems | lookupFilter : LookupFilter | orderBy: {property: column, direction: direction}">
+
+                    <td style="width:800px">{{lookup.Name}}</td>
+                    <td style="width:800px">{{lookup.Type}}</td>
+                    <td style="width:500px">{{lookup.Value}}</td>
+                    <td style="width:800px">{{lookup.FullName}}</td>
+                    <td style="width:500px">
+                        <input [style.background]="lookup.ColorCode" class="form-control ConfigInput" disabled value="{{lookup.ColorCode}}" />
+                    </td>
+                    <td style="display:none">{{lookup.CreatedOn}}</td>
+                    <td style="display:none">{{lookup.CreatedBy}}</td>
+                    <td style="display:none">{{lookup.UpdatedBy}}</td>
+                    <td style="display:none">{{lookup.UpdatedOn}}</td>
+                    <td style="display:none">{{lookup.IsActive}}</td>
+
+                    <td style="text-align:center">
+                        <div *ngIf="lookup.IsActive == 1" style="text-align:center;width:250px">
+                            <button title="Edit" class="btn btn-vis" (click)="EditLookup(lookup.Id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button title="Delete" class="btn btn-vis" (click)="DeleteLookup(lookup.Id, lookup.IsActive)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                        <div *ngIf="lookup.IsActive == 0" style="text-align:center;width:250px">
+                            <button title="Undo Delete" class="btn btn-vis" (click)="DeleteLookup(lookup.Id, lookup.IsActive)"><span class="glyphicon glyphicon-repeat"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf='lookups && lookups.length'>
+            <div class="col-md-12 text-left">Records : {{pager.pagerinformtion}}</div>
+
+        </div>
+        <div class="col-md-12 text-center">
+            <div class="col-md-8 text-left">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="JumpOnPage(1)">First</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="JumpOnPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-md-2">
+
+                <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                    <option value="=-1" disabled>Recordds per Page</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="0">All</option>
+                </select>
+
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                    <option value="=-1" disabled>Go to Page</option>
+                    <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                </select>
+
+            </div>
+          
+        </div>
+      
+        <div *ngIf='lookups && lookups.length==0' class="alert alert-info" role="alert">No record found!</div>
+
+    </div>
+</div>
+
+
+<div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    {{msg}}
+</div>
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(LookupFrm)" [formGroup]="LookupFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-12">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Name* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Name" formControlName="Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Type* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <select class="form-control" formControlName="Type">
+                                        <option value="0"  disabled >Select Type</option>
+                                        <option *ngFor="let lt of LookupTyeList" value="{{lt.TypeName}}">{{lt.TypeName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Color Code* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input [colorPicker]="ColorCode" (colorPickerChange)="ColorCode=$event" [style.background]="ColorCode" formControlName="ColorCode" class="form-control" name="ColorCode" id="ColorCode" value="{{ColorCode}}" readonly />
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Full Name* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="Full Name" formControlName="FullName">
+                                </div>
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Value* :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="number" class="form-control" placeholder="Value" formControlName="Value">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                                    <div style="display:none">
+                                        <span>Created On</span>
+                                        <input type="text" class="form-control" placeholder="Created On" formControlName="CreatedOn">
+                                    </div>
+                                    <div style="display:none">
+                                        <span>Created By</span>
+                                        <input type="text" class="form-control" placeholder="Created By" formControlName="CreatedBy">
+                                    </div>
+                                    <div style="display:none">
+                                        <span>Updated On</span>
+                                        <input type="text" class="form-control" placeholder="Updated On" formControlName="UpdatedOn">
+                                    </div>
+                                    <div style="display:none">
+                                        <span>Updated By</span>
+                                        <input type="text" class="form-control" placeholder="Updated By" formControlName="UpdatedBy">
+                                    </div>
+                                    <div style="display:none">
+                                        <span>Is Active</span>
+                                        <input type="checkbox" class="form-control" formControlName="IsActive">
+                                    </div>
+                                    <div style="display:none">
+                                        <span>EntityMessage</span>
+                                        <input type="text" class="form-control" formControlName="EntityMessage">
+                                    </div>
+                            
+                              
+                        </div>
+                    </div>
+                
+</modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="LookupFrm.invalid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>
+

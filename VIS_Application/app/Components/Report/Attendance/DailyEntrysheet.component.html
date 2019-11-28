@@ -1,0 +1,410 @@
+﻿<div style="vertical-align:top;float:left;"><h3><b>Daily Entry Sheet</b></h3><br /></div>
+<div class="container">
+    <form novalidate (ngSubmit)="onSubmit(DailyEntrysheetFrm)" [formGroup]="DailyEntrysheetFrm">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-1">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-1 col-lg-1 col-xs-12">
+                                <label class="LabelCenter">Employee </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                <select class="form-control" formControlName="Id" id="Id" [(ngModel)]="EmployeeId">
+                                    <option  value="0">SelectAll</option>
+                                    <option *ngFor="let employee of employees" value={{employee.Id}} [selected]="employee.Id===EmployeeId">
+                                        {{employee.Employee_Name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="LabelCenter">Select Date </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                <!--<ng-datepicker formControlName="Date" name="Date" ></ng-datepicker>-->
+                                <input type="date" class="form-control" formControlName="Date" id="Date" [(ngModel)]="Dateval" value="{{Dateval}}" (change)="SelectDate()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-1">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-2col-lg-2 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-10 col-lg-10 col-lg-10 col-xs-12">
+                                <input type="submit" class="btn btn-info Width120" value="Submit" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group Popup-group">
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="col-md-12">
+                        <div class="form-group Popup-group">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <div *ngIf="InLoading==true" class="alert alert-info" role="alert"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div *ngIf="dailyentryemployees && dailyentryemployees.length==0" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        No record found!
+    </div>
+
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+
+    <div id="adminProfile" class="col-md-6 col-sm-12 col-xs-12 pr-md-10 repotwidgetwidth">
+        <div class="portlet box green paddingless">
+            <div class="portlet-title line accord">
+                <div class="caption"><i class="fa fa-user-o" aria-hidden="true"></i>Daily Entry Sheet</div>
+                <div class="tools">
+                    <a class="collapse" (click)="ToogleMyProfile()"></a>
+                    <a href="#" class="remove" data-original-title="" title="" (click)="CloseWidgetProfile()"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body repotwidgetwidth" id="myprofiledata">
+                <div class="tabbable tabbable-custom">
+                    <div style="height:auto;" data-always-visible="1" data-rail-visible1="1">
+                        <div class="portlet box marbott0">
+                            <div class="portlet-body padding0">
+                                <div class="table-scrollable">
+                                    <div class="full-wd Scrollbarcss" style="height:auto">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="reportwidgetheader">
+                                                <tr>
+                                                    <th class="headrecenter">
+                                                        Employee Name
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Date
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Entry Type
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Entry Time
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Remarks
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let dailyentry of pagedItems" class="rowsbackcol">
+                                                    <td class="headrecenter">
+                                                        {{dailyentry.Employee_Name}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{dailyentry.Date}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{dailyentry.Entry_Type}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{dailyentry.Entry_Time}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        {{dailyentry.Remarks}}
+                                                    </td>
+                                                    <td class="headrecenter">
+                                                        <button (click)="EditReport(dailyentry.Transaction_Id)" title="Edit" class="btn btn-vis"><span class="glyphicon glyphicon-pencil"></span></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center" *ngIf='dailyentryemployees && dailyentryemployees.length > 10'>
+                    <div class="col-md-8 text-left">
+                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(1)">First</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="JumpOnPage(pager.currentPage - 1)">Previous</a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="JumpOnPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.currentPage + 1)">Next</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="JumpOnPage(pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="ChangeRecordsPerPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Records per Page</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="0">All</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" (change)="JumpOnPage($event.target.value)" style="width:100%">
+                            <option value="=-1" disabled>Go to Page</option>
+                            <option *ngFor="let intPageStartIndex of pager.pages" [value]="intPageStartIndex">{{intPageStartIndex}}</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf='dailyentryemployees && dailyentryemployees.length' class="reportpagingalign">
+                    <div>{{pager.pagerinformtion}}</div>
+                </div>
+                <br />
+
+                <div class="tabbable tabbable-custom">
+                    <div class="scroller" style="height: auto;" data-always-visible="1" data-rail-visible1="1">
+                        <div class="portlet box marbott0">
+                            <div class="portlet-body padding0">
+
+                                <div>
+                                    <div>
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="reportwidgetheader">
+                                                <tr>
+                                                    <th class="headrecenter">
+                                                        Total Hours
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Working Hours
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Break Out
+                                                    </th>
+                                                    <th class="headrecenter">
+                                                        Worksheet Hours
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tr *ngFor="let daily of dailyentrytime">
+                                                <td class="headrecenter">
+                                                    {{daily.TotalOfficeTime}}
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{daily.TotalWorkingTime}}
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{daily.TotalBreakTime}}
+                                                </td>
+                                                <td class="headrecenter">
+                                                    {{daily.TotalWorksheetHours}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<modal #modal>
+    <form #dailyentryreport="ngForm" (ngSubmit)="UpdateReport(dailyentryreport.value)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                {{modalTitle}}
+            </h4>
+        </modal-header>
+
+        <modal-body>
+
+            <div class="row Popup-row">
+                <div class="col-md-12">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-md-12">
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Employee Name:</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input style="display:none" class="form-control" type="text" [(ngModel)]="dailyentryemployee.Transaction_Id" #Transaction_Id="ngModel" name="Transaction_Id">
+                                    <input class="form-control" type="text" [(ngModel)]="dailyentryemployee.Employee_Name" #Employee_Name="ngModel" name="Employee_Name" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+
+                                <div class="col-md-3 col-lg-3 col-xs-12">Date :</div>
+
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input class="form-control" type="text" [(ngModel)]="dailyentryemployee.Date" #Date="ngModel" name="Date" disabled>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Entry Type :</div>
+
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input name="Entry_Type" class="form-control" type="text" disabled [(ngModel)]="dailyentryemployee.Entry_Type" #Entry_Type="ngModel">
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group"></div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Entry Time :</div>
+
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12" *ngIf="dailyentryemployee.Entry_Time.length < 11">
+                                    <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                        <div class="col-md-1 col-lg-1 col-xs-12 TimeHHpaddig"><b>HH :</b> </div>
+                                        <div class="col-md-2 col-lg-2 col-xs-12">
+                                            <input style="width:50px" class="form-control inputcentetext" type="text" [ngModel]="dailyentryemployee.Entry_Time | slice : 0:1" #Entry_TimeHH="ngModel" name="Entry_TimeHH" id="Entry_TimeHH" maxlength="2">
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xs-12 TimeHHpaddig"><b>MM :</b> </div>
+                                        <div class="col-md-2 col-lg-2 col-xs-12">
+                                            <input style="width:50px" class="form-control inputcentetext" type="text" [ngModel]="dailyentryemployee.Entry_Time | slice : 2:4" #Entry_TimeMM="ngModel" name="Entry_TimeMM" id="Entry_TimeMM" maxlength="2">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xs-12">
+                                            <select style="width:70px" class="form-control inputcentetext" [ngModel]="dailyentryemployee.Entry_Time | slice : 8:10" #Entry_TimeAM="ngModel" name="Entry_TimeAM" id="Entry_TimeAM"><option>AM</option><option>PM</option></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12" *ngIf="dailyentryemployee.Entry_Time.length > 10">
+                                    <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                        <div class="col-md-1 col-lg-1 col-xs-12 TimeHHpaddig"><b>HH :</b> </div>
+                                        <div class="col-md-2 col-lg-2 col-xs-12">
+                                            <input style="width:50px" class="form-control inputcentetext" type="text" [ngModel]="dailyentryemployee.Entry_Time | slice : 0:2" #Entry_TimeHH="ngModel" name="Entry_TimeHH" id="Entry_TimeHH" maxlength="2">
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xs-12 TimeHHpaddig"><b>MM :</b> </div>
+                                        <div class="col-md-2 col-lg-2 col-xs-12">
+                                            <input style="width:50px" class="form-control inputcentetext" type="text" [ngModel]="dailyentryemployee.Entry_Time | slice : 3:5" #Entry_TimeMM="ngModel" name="Entry_TimeMM" id="Entry_TimeMM" maxlength="2">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xs-12">
+                                            <select style="width:70px" class="form-control inputcentetext" [ngModel]="dailyentryemployee.Entry_Time | slice : 9:11" #Entry_TimeAM="ngModel" name="Entry_TimeAM" id="Entry_TimeAM"><option>AM</option><option>PM</option></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="form-group Popup-group"></div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Actual Time  :</div>
+                                <div class="form-group Popup-group">
+                                    <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+
+                                        <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12" *ngIf="dailyentryemployee.actualEntryTime.length > 4 ">
+                                            <div class="col-md-1 col-lg-1 col-xs-12 TimeHHpaddig"><b>HH :</b> </div>
+                                            <div class="col-md-2 col-lg-2 col-xs-12">
+                                                <input style="width:50px" class="form-control inputcentetext" type="text" [ngModel]="dailyentryemployee.actualEntryTime | slice : 0:2 " #actualEntryTimeHH="ngModel" name="actualEntryTimeHH" maxlength="2" id="actualEntryTimeHH">
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xs-12 TimeHHpaddig"><b>MM :</b> </div>
+                                            <div class="col-md-2 col-lg-2 col-xs-12">
+                                                <input style="width:50px" class="form-control inputcentetext" type="text" [ngModel]="dailyentryemployee.actualEntryTime | slice : 3:5 " #actualEntryTimeMM="ngModel" name="actualEntryTimeMM" maxlength="2" id="actualEntryTimeMM">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12" *ngIf="dailyentryemployee.actualEntryTime.length < 5 ">
+                                            <div class="col-md-1 col-lg-1 col-xs-12 TimeHHpaddig"><b>HH :</b> </div>
+                                            <div class="col-md-2 col-lg-2 col-xs-12">
+                                                <input style="width:50px" class="form-control inputcentetext" type="text" [ngModel]="dailyentryemployee.actualEntryTime | slice : 0:1 " #actualEntryTimeHH="ngModel" name="actualEntryTimeHH" maxlength="2" id="actualEntryTimeHH">
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xs-12 TimeHHpaddig"><b>MM :</b> </div>
+                                            <div class="col-md-2 col-lg-2 col-xs-12">
+                                                <input style="width:50px" class="form-control inputcentetext" type="text" [ngModel]="dailyentryemployee.actualEntryTime | slice : 2:4 " #actualEntryTimeMM="ngModel" name="actualEntryTimeMM" maxlength="2" id="actualEntryTimeMM">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Remarks  :</div>
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <textarea class="form-control" [(ngModel)]="dailyentryemployee.Remarks" #Remarks="ngModel" name="Remarks"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group Popup-group">
+                                <div class="col-md-3 col-lg-3 col-xs-12">Grace :</div>
+
+                                <div class="col-md-9 col-lg-9 col-lg-9 col-xs-12">
+                                    <input type="number" class="form-control" [(ngModel)]="dailyentryemployee.Grace" #Grace="ngModel" name="Grace">
+                                </div>
+
+                            </div>
+                            <div *ngIf="msgtimevalidation" role="alert" class="alert alert-info alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                {{msgtimevalidation}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal-body>
+
+        <modal-footer>
+            <div>
+                <a class="btn btn-danger" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="!dailyentryreport.valid" class="btn btn-success">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+
+    </form>
+
+</modal>

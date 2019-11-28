@@ -1,0 +1,684 @@
+﻿body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Override bootstrape - Strat*/
+.navbar-nav {
+    margin: 2px;
+}
+
+    .navbar-nav > li > a {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        line-height: 20px;
+    }
+
+.navbar {
+    background-color: transparent;
+    border: none;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    color: #fff;
+    background-color: transparent;
+}
+
+.glyphicon {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.panel-body {
+    padding: 0px;
+}
+
+    .panel-body table tr td {
+        padding-left: 15px;
+    }
+
+    .panel-body .table {
+        margin-bottom: 0px;
+    }
+
+.panel-default > .panel-heading {
+    color: #f5f5f5;
+    background-color: black;
+    border-color: #ddd;
+}
+
+/* Override bootstrape - end*/
+
+/* Side navbar Style - Start*/
+.navbar-global {
+    background-color: black;
+}
+
+
+
+    .navbar-global .navbar-user > li > a {
+        color: white;
+    }
+
+.navbar-primary {
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+    top: 51px;
+    width: 200px;
+    z-index: 8;
+    overflow: hidden;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+    .navbar-primary.collapsed {
+        width: 60px;
+    }
+
+        .navbar-primary.collapsed .glyphicon {
+            font-size: 22px;
+        }
+
+        .navbar-primary.collapsed .nav-label {
+            display: none;
+        }
+
+.btn-expand-collapse {
+    position: absolute;
+    display: block;
+    left: 0px;
+    bottom: 0;
+    width: 100%;
+    padding: 8px 0;
+    border-top: solid 1px #666;
+    color: grey;
+    font-size: 20px;
+    text-align: center;
+}
+
+    .btn-expand-collapse:hover,
+    .btn-expand-collapse:focus {
+        background-color: #222;
+        color: white;
+    }
+
+    .btn-expand-collapse:active {
+        background-color: #111;
+    }
+
+.navbar-primary-menu,
+.navbar-primary-menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .navbar-primary-menu li a {
+        display: block;
+        padding: 10px 18px;
+        text-align: left;
+        border-bottom: solid 1px #444;
+        color: #ccc;
+    }
+
+        .navbar-primary-menu li a:hover {
+            background-color: #000;
+            text-decoration: none;
+            color: white;
+        }
+
+        .navbar-primary-menu li a .glyphicon {
+            margin-right: 6px;
+        }
+
+        .navbar-primary-menu li a:hover .glyphicon {
+            color: orchid;
+        }
+
+.main-content {
+    margin-top: 60px;
+    margin-left: 300px;
+    margin-right: 0px;
+    padding: 0px;
+}
+
+.collapsed + .main-content {
+    margin-left: 60px;
+}
+
+.container {
+    margin: 2px;
+    padding: 2px;
+    width: 98% !important;
+    height: 98% !important;
+}
+
+.btn-vis {
+    background-color: #32c5d2;
+    color: white;
+}
+
+.btn {
+    display: inline-block;
+    padding: 2px 4px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.table-responsive {
+    overflow-y: scroll;
+}
+
+.labeldisplaynone {
+    display: none;
+}
+
+.labeldisplayblock {
+    display: inline-block;
+}
+
+.arrownone {
+    display: none;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 0px;
+    border-radius: 4px;
+}
+
+.fa-150percent {
+    font-size: 1.5em;
+}
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.modal-header {
+    padding: 8px;
+    border-radius: 6px;
+    background-color: #32c5d2;
+    color: #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-footer {
+    padding: 8px;
+    border-radius: 6px;
+    background-color: lightgray;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+.col-wd-15 {
+    width: 15px;
+}
+
+@media (min-width: 930px) {
+    .modal-dialog {
+        width: 900px;
+        margin: 30px auto;
+    }
+
+    .widthmodal {
+        width: 1270px !important;
+    }
+}
+
+@media (max-width:479px) {
+}
+
+/* For xs resolution*/
+@media (max-width:930px) {
+    .widthmodal {
+        width: 1270px !important;
+    }
+
+    .modal-dialog {
+        /*width: 600px;
+        margin: 30px auto;*/
+    }
+}
+
+@media (max-width:991px) {
+    .widthmodal {
+        width: 1270px !important;
+    }
+}
+
+/* For sm resolution*/
+@media (min-width:768px) and (max-width:991px) {
+    .modal-dialog {
+        width: 300px;
+        margin: 30px auto;
+    }
+}
+
+@media(max-width:320px) {
+
+    .modal-dialog {
+        width: 280px;
+        margin: 30px auto;
+    }
+}
+
+
+/* Side Navbar Style - End*/
+
+.KeyCol {
+    width: 125px;
+}
+
+.KeyInput {
+    width: 100%;
+    font-size: medium;
+}
+
+.ActiveCheckbox {
+    width: 15px;
+    height: 15px;
+}
+
+.lbldisplaykey {
+    color: green;
+    font-weight: bold;
+    font-family: 'Times New Roman';
+    font-size: large;
+}
+
+.form-group-popup {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.Popup-row {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.Popup-group {
+    margin-right: 15px !important;
+    margin-left: 15px !important;
+}
+
+.ConfigInput {
+    width: 100px;
+}
+
+.width40 {
+    width: 40px;
+}
+
+.width100 {
+    width: 100px;
+}
+
+.width869{
+    width:869px;
+}
+
+.width800{
+    width:500px;
+    height:135px;
+}
+
+.LabelCenter {
+    margin-top: 8px;
+    font-weight: normal !important;
+}
+
+.Width120 {
+    width: 120px;
+    height: 40px;
+}
+
+.pl-5 {
+    padding-left: 5px;
+}
+
+.MR-10 {
+    margin-right: 10px;
+}
+
+.tablewidth300px {
+    width: 300px;
+    height: 50px;
+}
+
+.swapingbutton {
+    width: 270px;
+}
+
+.imgsize {
+    width: 75px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.imgsizebig {
+    width: 800px;
+    height: 500px;
+}
+
+.imgshowpopup {
+    background-color: black;
+}
+
+.alertcss {
+    width: 30px;
+}
+
+.Scrollbarcss {
+    overflow: scroll;
+    height: 200px;
+}
+
+.widgetalign {
+    text-align: center;
+}
+
+.widgetfullscreen {
+    width: 100%;
+    height: 550px;
+    position: relative;
+}
+
+.repotwidgetwidth {
+    width: 100%;
+    height: auto;
+}
+
+.reportwidgetheader {
+    text-align: center;
+    background-color: lightgray;
+}
+
+.headrecenter {
+    text-align: center;
+}
+
+.columcenter {
+    text-align: center;
+}
+
+.footerclass {
+    background-color: lightgray;
+}
+
+.rowsbackcol {
+    background-color: white;
+}
+
+.reportpagingalign {
+    text-align: right;
+}
+
+.ScrollbarcssNew {
+    overflow: scroll;
+}
+
+.TimeHHpaddig {
+    padding-top: 5px;
+}
+
+.inputcentetext {
+    text-align: center;
+}
+
+.headerwidth {
+    width: 150px;
+}
+
+.widthmodal {
+    width: 1270px !important;
+}
+
+headerwidth{ width:150px; } 
+.btnexportexcel { width:30px; height:30px; } 
+.btnstatus { width:20px; height:20px; } 
+.modelheightforscreencapture { height:500px; }
+
+
+.Areawidth{
+    width:300px;
+}
+.TimeWidth{
+    width:50px;
+}
+.AMPMWidth{
+    width:70px;
+}
+.Underline{
+    border-top:outset
+}
+.one {
+    background-color:dodgerblue;
+}
+.two {
+    background-color:red;
+}
+.Three{
+    background-color:yellow;
+}
+.centertext{
+    text-align:center;
+}
+.canvasshap{
+    border:1px solid #d3d3d3;
+    width:100%;
+    height:150px;
+}
+
+.ngx-datepicker-container[_ngcontent-c1] .ngx-datepicker-calendar-container[_ngcontent-c1] {
+    position: absolute;
+    width: 300px;
+    background: #fff;
+    top: 40px;
+    left: 0;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.08);
+    border: 1px solid #dfe3e9;
+    border-radius: 4px;
+}
+
+.ReportVisibility{
+    display:none;
+}
+
+
+/* Set padding to keep content from hitting the edges */
+.color-picker
+{
+    width: 230px;
+    top: 17px;
+    left: 751px;
+    position:static !important;
+}
+
+
+.form-controlnew
+{
+    width: 60px !important;
+    font-size:medium;
+    text-align:center;
+}
+
+.form-controlbig
+{
+    width: 120px !important;
+    font-size:medium;
+    text-align:center;
+}
+
+.ngx-datepicker-container[_ngcontent-c1] 
+{
+    position: absolute !important;
+    z-index: 1 !important;
+}
+
+.ngx-datepicker-container[_ngcontent-c0] .ngx-datepicker-calendar-container[_ngcontent-c0] 
+{
+    z-index: 1 !important;
+}
+.MarginRL0 {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+.pr5 {
+    padding-right : 5px;
+}
+.pr0 {
+    padding-right : 0px;
+}
+.pl0 {
+    padding-left : 0px;
+}
+.pl5 {
+    padding-left : 5px;
+}
+
+.StaticTextField
+{
+    background-color:#d34927;
+    width:120px;
+    color:white;
+    font-weight:bolder;
+    text-align:left;
+    padding-left:10px;
+}
+
+.ImageFieldText
+{
+    background-color:#009800;
+    width:120px;
+    color:white;
+    font-weight:bolder;
+    border-width:2px;
+    text-align:left;
+    padding-left:10px;
+}
+
+.TokenTextField
+{
+    background-color:#9d00a5;
+    width:120px;
+    color:white;
+    font-weight:bolder;
+    border-width:2px;
+    text-align:left;
+    padding-left:10px;
+}
+
+
+.CustomFieldText
+{
+    background-color:#2777eb;
+    width:120px;
+    color:white;
+    font-weight:bolder;
+    border-width:2px;
+    text-align:left;
+    padding-left:10px;
+}
+
+
+.LineBreakField
+{
+    background-color:#b11a41;
+    width:120px;
+    color:white;
+    font-weight:bolder;
+    border-width:2px;
+    text-align:left;
+    padding-left:10px;
+}
+
+.PageBreakField
+{
+    background-color:#613dbc;
+    width:120px;
+    color:white;
+    font-weight:bolder;
+    border-width:2px;
+    text-align:left;
+    padding-left:10px;
+}
+.btntablefield
+{
+    margin-top: 8px !important;
+    margin-left: 8px !important;
+}
+.contentscroller
+{
+    height:450px;
+    overflow-x: scroll;
+}
+
+.contentscrollermasterfield
+{
+    height:350px;
+    overflow-x: scroll;
+}
+.panelmargin
+{
+padding-left:10px !important;
+padding-right:10px !important;
+padding-top:10px !important;
+padding-bottom:10px !important;
+}
