@@ -59,7 +59,7 @@
     "typings": "2.1.1",
     "canonical-path": "0.0.2",
     "tslint": "5.8.0",
-    "lodash": "4.17.4",
+    "lodash": "4.17.19",
     "jasmine-core": "2.8.0",
     "karma": "1.7.1",
     "karma-chrome-launcher": "2.2.0",
